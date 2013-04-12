@@ -1,20 +1,15 @@
 #include "Operations.h"
-#include <iostream>
 
 int factorial_int(double input){
   int whole = input;
-  try{
     if((input - whole) != 0)   //Test if parameter is an integer
        throw "Error. Parameter not an integer. Use factorial_dec instead.";
-    else if(input == 0)
+    else if(input == 0)   //Stop recursion to avoid negative values
       return 1;
     else
-       return input*factorial_int(input-1);
-  catch(const char* err){
-      std::cout << err << std::endl;
-  }
+      return input*factorial_int(input-1);
 }
 
 double factorial_dec(double input){
-   std::cout << "Not available yet, sorry." << std::endl;
+   throw "Not available yet, sorry.";
 }
