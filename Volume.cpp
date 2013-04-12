@@ -5,24 +5,6 @@ double volume::vol_cube(double edgelength){  //Function for passing a single len
     return edgelength*edgelength*edgelength; //Avoid pow() to efficate runtime
 }
 
-double volume::vol_cube(double cubeHeight, double cubeWidth, double cubeLength)
-{
-    double cubeSum;
-
-    try
-    {
-        if (cubeHeight == cubeWidth && cubeHeight == cubeLength) //Test if this is indeed a cube.
-        {
-            cubeSum = cubeHeight * cubeWidth * cubeLength;
-            return cubeSum;
-        }
-        else
-            throw 99;
-    } catch(int err) { }
-
-    return 1;
-}
-
 double volume::vol_rectC(double rectHeight, double rectWidth, double rectLength)
 {
     double rectSum;
