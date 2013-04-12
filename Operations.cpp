@@ -1,3 +1,5 @@
+#include <iostream>
+
 double divide()
 {
         double firstInput, secondInput;
