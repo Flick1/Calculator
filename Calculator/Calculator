@@ -1,0 +1,15 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+template <class math>
+
+math Power (math a, math b)
+{
+     return(pow(a,b));
+}
+
+template <class math>
+math Square (math a)
+{
+    return (sqrt(a));
+}
