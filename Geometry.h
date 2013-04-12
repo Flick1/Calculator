@@ -11,6 +11,7 @@
   
   namespace Volume{
     double Vol_Cube(double, double, double);
+    double Vol_RectC(double, double, double);
   }
   
 #endif
