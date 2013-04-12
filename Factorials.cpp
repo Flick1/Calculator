@@ -4,7 +4,7 @@
 
 int Geometry::factorial_int(double input){
   int whole = input;
-    if((input - whole) != 0)   //Test if parameter is an integer
+    if((input - whole) != 0.0)   //Test if parameter is an integer
        throw "Error. Parameter not an integer. Use factorial_dec instead.";
     else if(input == 0)   //Stop recursion to avoid negative values
       return 1;
