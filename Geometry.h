@@ -10,7 +10,7 @@
   }
   
   namespace volume{
-      double vol_cube(double, double, double);
+      double vol_cube(double);
       double vol_rectC(double, double, double);
       double vol_cylin(double, double);
   }
