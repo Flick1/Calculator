@@ -9,4 +9,8 @@
     Area_Trap(double,double,double); //Calculate trapizoidal area given height and widths of bases
   }
   
+  namespace Volume{
+    Vol_Cube(double, double, double);
+  }
+  
 #endif
