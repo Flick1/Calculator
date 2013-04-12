@@ -1,6 +1,6 @@
 #include "Geometry.h"
 
-double Volume::Vol_Cube(double cubeHeight, double cubeWidth, double cubeLength)
+double volume::vol_cube(double cubeHeight, double cubeWidth, double cubeLength)
 {
     double cubeSum;
 
@@ -18,7 +18,7 @@ double Volume::Vol_Cube(double cubeHeight, double cubeWidth, double cubeLength)
     return 1;
 }
 
-double Volume::Vol_RectC(double rectHeight, double rectWidth, double rectLength)
+double volume::vol_rectC(double rectHeight, double rectWidth, double rectLength)
 {
     double rectSum;
     
