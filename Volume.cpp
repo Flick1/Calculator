@@ -1,10 +1,6 @@
 #include "Geometry.h"
 #include <cmath>
 
-double volume::vol_cube(double edgelength){  //Function for passing a single length
-    return edgelength*edgelength*edgelength; //Avoid pow() to efficate runtime
-}
-
 double volume::vol_cube(double cubeHeight, double cubeWidth, double cubeLength)
 {
     double cubeSum;
@@ -32,7 +28,7 @@ double volume::vol_rectC(double rectHeight, double rectWidth, double rectLength)
         if (height != width || height != length) //Test if this is indeed a cuboid.
         {
             rectSum = height * width * length;
-            return cubeSum;
+            return rectSum;
         }
         else
             throw 98;
