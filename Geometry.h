@@ -10,7 +10,7 @@
   }
   
   namespace Volume{
-    Vol_Cube(double, double, double);
+    double Vol_Cube(double, double, double);
   }
   
 #endif
