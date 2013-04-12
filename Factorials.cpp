@@ -1,4 +1,6 @@
 #include "Operations.h"
+#include <cmath>
+#include <limits.h>
 
 int factorial_int(double input){
   int whole = input;
@@ -11,5 +13,11 @@ int factorial_int(double input){
 }
 
 double factorial_dec(double input){
-   throw "Not available yet, sorry.";
+  int limit = 0;
+  double summation = 0;
+  while(limit != INT_MAX){  //Gamma function, sum e^-limit * limit*(input-1) from 0 to maximum integer value
+     summation += pow(M_E, limit*(-1))*pow(limit, input-1);
+     limit++;
+  }
+  return summation;
 }
