@@ -12,7 +12,5 @@ double operations::divide()
 
         firstInput /= secondInput;
 
-        std::cout << firstInput << std::endl;
-
         return firstInput;
 }
