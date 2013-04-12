@@ -1,0 +1,9 @@
+namespace operations
+{
+
+double divide();
+   
+}
+
+
+
