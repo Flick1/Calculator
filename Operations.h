@@ -4,8 +4,9 @@
 
 namespace operations
 {
-
+   double multiply();  //Prompt user to enter in an undefined number of factors and return their product
    double divide();
+   double 
    
 }
 
