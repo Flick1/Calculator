@@ -2,7 +2,7 @@
 #include <cmath>
 #include <limits.h>
 
-int factorial_int(double input){
+int Geometry::factorial_int(double input){
   int whole = input;
     if((input - whole) != 0)   //Test if parameter is an integer
        throw "Error. Parameter not an integer. Use factorial_dec instead.";
@@ -12,7 +12,7 @@ int factorial_int(double input){
       return input*factorial_int(input-1);
 }
 
-double factorial_dec(double input){
+double Geometry::factorial_dec(double input){
   int limit = 0;
   double summation = 0;
   while(limit != INT_MAX){  //Gamma function, sum e^-limit * limit*(input-1) from 0 to maximum integer value
