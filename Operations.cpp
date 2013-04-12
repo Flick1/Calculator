@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Operations.h"
 
-double divide()
+double operations::divide()
 {
         double firstInput, secondInput;
 
