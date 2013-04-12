@@ -1,6 +1,4 @@
-
-
-double division()
+double divide()
 {
         double firstInput, secondInput;
 
