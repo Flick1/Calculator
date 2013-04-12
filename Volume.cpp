@@ -7,9 +7,9 @@ double volume::vol_cube(double cubeHeight, double cubeWidth, double cubeLength)
 
     try
     {
-        if (height == width && height == length) //Test if this is indeed a cube.
+        if (cubeHeight == cubeWidth && cubeHeight == cubeLength) //Test if this is indeed a cube.
         {
-            cubeSum = height * width * length;
+            cubeSum = cubeHeight * cubeWidth * cubeLength;
             return cubeSum;
         }
         else
@@ -25,9 +25,9 @@ double volume::vol_rectC(double rectHeight, double rectWidth, double rectLength)
     
     try
     {
-        if (height != width || height != length) //Test if this is indeed a cuboid.
+        if (rectHeight != rectWidth || rectHeight != rectLength) //Test if this is indeed a cuboid.
         {
-            rectSum = height * width * length;
+            rectSum = rectHeight * rectWidth * rectLength;
             return rectSum;
         }
         else
