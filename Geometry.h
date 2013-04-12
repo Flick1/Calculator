@@ -1,7 +1,7 @@
 #ifndef GEOMETRY_H
 #define GEOMETRY_H
 
-  namespace area{
+  namespace Geometry{
       Area_R(double,double);  //Calculate rectangular area given height and width
       Area_C(double);   //Calculate circular area given radius
       Area_Tri(double,double);  //Calculate triangular area given height and base width
