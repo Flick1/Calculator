@@ -6,7 +6,7 @@ namespace operations
 {
    double add();
    double subtract(double,double); //return sum
-   double multiply();
+   double multiply(double,double);//return product
    double divide(double, double); // Returns sum.
    int factorial_int(double);
    double factorial_dec(double); //Uses gamma function for decimal factorials; complex number implementation not updated
