@@ -1,6 +1,6 @@
 #include <iostream> //Flick will be implementing curses library, so this might cause trouble. Anyway, you are not using input/output here.
 #include <cmath>
-using namespace std; //The std namespace is not being used in this file. For example, you would need it for cout, cin, and string.
+using namespace std; //For good coding practings, you should stick with "using std::" or "std::" instead of this
 template <class math> //You do not need to create objects for these operations, and why does this function need a template?
 
 math Power (math a, math b) //We will not be passing objects as parameters; just use double
