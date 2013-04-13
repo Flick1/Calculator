@@ -3,6 +3,7 @@
 
 double operations::divide(double firstInput, secondInput)
 {
-        firstInput /= secondInput;
-        return firstInput;
+        if(secondInput != 0)
+                return firstInput/secondInput;
+        else    throw 0x0BAD00
 }
