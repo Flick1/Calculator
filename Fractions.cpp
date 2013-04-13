@@ -44,6 +44,9 @@ std::string operations::Frac::String(){
 	}
 	return toreturn;
 }
+double operations::Frac::Dbl(){
+	return (numerator/denominator);
+}
 operations::Frac& operations::Frac::operator=(double decimal){
 	std::stringstream ss;
 	std::string convert;
