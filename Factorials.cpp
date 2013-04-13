@@ -15,7 +15,7 @@ int Geometry::factorial_int(double input){
 double Geometry::factorial_dec(double input){
   int limit = 0;
   double summation = 0;
-  while(limit != INT_MAX){  //Gamma function, sum e^-limit * limit*(input-1) from 0 to maximum integer value
+  while(limit != INT_MAX){  //Gamma function, sum e^-limit * limit^(input-1) from 0 to maximum integer value
      summation += exp(limit*(-1))*pow(limit, input-1);
      limit++;
   }
