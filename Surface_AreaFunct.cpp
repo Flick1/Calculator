@@ -1,5 +1,8 @@
 #include "Operation.h"
 
-SArea_S(double); //Calculate surface area of a sphere given radius
-    SArea_R(double, double, double); //Calculate surface area of a rectangular prism given length, width, and height
-    SArea_C(double); //Calculate the surface area of a cube given length, width, or height
+double Surface_Area::SArea_S(double radius){
+    const double pi = 3.14159;  //Explicitly declare pi to allow future editing for further accuracy
+    return 4*pi*radius*radius*radius/3;  //Ignore pow() since exponent is constant
+}
+double Surface_Area::SArea_R(double length, double width, double height){return (2*length*width + 4*height*width);}
+double Surface_Area::SArea_C(double edgelength){return 6*edgelength*edgelength;}
