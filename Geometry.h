@@ -15,6 +15,7 @@
       double vol_cylin(double, double);
   }
   
+  #define PI__ 3.14159;  //Place pi in global namespace due to use in multiple modules
   namespace Surface_Area{
     double SArea_S(double);  //Calculate surface area of a sphere given radius
     double SArea_R(double, double, double); //Calculate surface area of a rectangular prism given length, width, and height
