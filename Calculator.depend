@@ -1,0 +1,45 @@
+# depslib dependency file v1.0
+1365854321 source:d:\programming\calculator\add.cpp
+	"Operations.h"
+
+1365854634 d:\programming\calculator\operations.h
+
+1365854346 source:d:\programming\calculator\divide.cpp
+	<iostream>
+	"Operations.h"
+
+1365854627 source:d:\programming\calculator\euler_power.cpp
+	"Operations.h"
+
+1365854651 source:d:\programming\calculator\factorials.cpp
+	"Operations.h"
+	<cmath>
+
+1365864978 source:d:\programming\calculator\handler.cpp
+	"Handler.h"
+
+1365865842 d:\programming\calculator\handler.h
+	<sstream>
+	"Input.h"
+	"Output.h"
+	"Operations.h"
+
+1365850395 d:\programming\calculator\input.h
+	<iostream>
+
+1365865881 d:\programming\calculator\output.h
+	<iostream>
+
+1365864999 source:d:\programming\calculator\input.cpp
+	"Input.h"
+
+1365853143 source:d:\programming\calculator\logarithms.cpp
+	"Operations.h"
+	<cmath>
+
+1365852754 source:d:\programming\calculator\main.cpp
+	"Handler.h"
+
+1365853143 source:d:\programming\calculator\multiply.cpp
+	"Operations.h"
+

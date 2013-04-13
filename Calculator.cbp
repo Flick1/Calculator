@@ -31,6 +31,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Handler.h" />
+		<Unit filename="Input.h" />
+		<Unit filename="Output.h" />
+		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

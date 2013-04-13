@@ -4,7 +4,7 @@
 
 namespace operations
 {
-   double add();
+   double add(double, double);
    double subtract(double,double); //return sum
    double multiply(double,double);//return product
    double divide(double, double); // Returns sum.
@@ -12,6 +12,7 @@ namespace operations
    double factorial_dec(double); //Uses gamma function for decimal factorials; complex number implementation not updated
    double Logarithm_Natural(double);
    double Logarithm_Base10(double);
+   //double E_pow(double);
 }
 
 
