@@ -27,9 +27,8 @@ double volume::vol_rectC(double rectHeight, double rectWidth, double rectLength)
 double volume::vol_cylin(double radius, double height)
 {
     double cylinSum;
-    const double pi = 3.14;
     
-    cylinSum = pi * pow(radius, 2) * height;
+    cylinSum = PI__ * pow(radius, 2) * height;
     return cylinSum;   
 }
     
