@@ -13,7 +13,6 @@ namespace operations
    double Logarithm_Base10(double);
    //double E_pow(double);
    
-   //Conversion from Frac to double unavailable due to C++11 standard
 	class Frac{
 		public:
 		/*	Other functions to include:
@@ -26,6 +25,7 @@ namespace operations
 			void Simplify();
 			int Numerator();	//Surrogate get functions
 			int Denominator();
+			double Dbl();
 			std::string String();
 			Frac& operator=(double);
 			Frac& operator=(const Frac&);
