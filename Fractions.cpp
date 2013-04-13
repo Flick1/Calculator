@@ -58,12 +58,11 @@ operations::Frac& operations::Frac::operator=(double decimal){
 	Simplify();
 }
 operations::Frac& operations::Frac::operator=(const operations::Frac& original_fraction){
-	if(this == &original_fraction)	return *this;
-	else{
+	if(this != &original_fraction){
 		numerator = original_fraction.numerator;
 		denominator = original_fraction.denominator;
-		return *this;
 	}
+	return *this;
 }
 operations::Frac::Frac(){}
 operations::Frac::Frac(int top, int bottom){
@@ -71,6 +70,7 @@ operations::Frac::Frac(int top, int bottom){
 		numerator = top;
 		denominator = bottom;
 	}else throw "Error. Division by zero attempt in operations::Frac::Frac(int, int).";
+	Simplify();
 }
 operations::Frac::Frac(double decimal){*this = decimal;}
 operations::Frac& operations::Frac::operator+=(const Frac& original_fraction){
