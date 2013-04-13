@@ -70,7 +70,7 @@ operations::Frac::Frac(int top, int bottom){
 	if(bottom != 0){
 		numerator = top;
 		denominator = bottom;
-	}else throw 0x0BAD;
+	}else throw "Error. Division by zero attempt in operations::Frac::Frac(int, int).";
 }
 operations::Frac::Frac(double decimal){*this = decimal;}
 operations::Frac& operations::Frac::operator+=(const Frac& original_fraction){
