@@ -1,7 +1,9 @@
 #ifndef GEOMETRY_H
 #define GEOMETRY_H
 
-    const double PI__ 3.14159;  //Place pi in global namespace due to use in multiple modules
+namespace{
+    const double PI__ = 3.14159;  //Place pi in global namespace due to use in multiple modules
+}
 
   namespace Geometry{
       double Area_R(double,double);  //Calculate rectangular area given height and width
