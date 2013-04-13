@@ -55,7 +55,7 @@ operations::Frac& operations::Frac::operator=(double decimal){
 		ss >> convert;
 	int pos = convert.find('.');
 	if(pos != -1){
-		for(int index = pos; index < convert.length()-2; index++)
+		for(int index = pos; index < convert.length()-1; index++)
 			convert[pos] = convert[pos+1];
 		convert[convert.length()-1] = '\0';
 	}
