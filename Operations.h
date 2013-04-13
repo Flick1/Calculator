@@ -4,7 +4,19 @@
   //GAL - Get Array Length
 template < typename T, size_t N >
 inline constexpr size_t GAL( T(&)[N] ){ return N; }
-namespace operations{
+
+namespace operations
+{
+   double add(double, double);
+   double subtract(double,double); //return sum
+   double multiply(double,double);//return product
+   double divide(double, double); // Returns sum.
+   int factorial_int(double);
+   double factorial_dec(double); //Uses gamma function for decimal factorials; complex number implementation not updated
+   double Logarithm_Natural(double);
+   double Logarithm_Base10(double);
+   //double E_pow(double);
+   
    //Conversion from Frac to double unavailable due to C++11 standard
 	class Frac{
 		public:
@@ -43,19 +55,6 @@ namespace operations{
 	Frac operator*(const Frac&,const Frac&);
 	Frac operator/(const Frac&,double);
 	Frac operator/(const Frac&,const Frac&);
-}
-
-namespace operations
-{
-   double add(double, double);
-   double subtract(double,double); //return sum
-   double multiply(double,double);//return product
-   double divide(double, double); // Returns sum.
-   int factorial_int(double);
-   double factorial_dec(double); //Uses gamma function for decimal factorials; complex number implementation not updated
-   double Logarithm_Natural(double);
-   double Logarithm_Base10(double);
-   //double E_pow(double);
 }
 
 
