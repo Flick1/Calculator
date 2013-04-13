@@ -17,6 +17,7 @@ void operations::Frac::Simplify(){
 		ncatalyst -= dcatalyst;
 		whole++;
 	}
+//Enter in instructions that execute for negative fractions
 		//List of prime numbers for simplifying the fraction
 	int divisor[] = {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,57,59};
 	const unsigned divisor_size = GAL(divisor);
