@@ -1,8 +1,8 @@
 #include "Operation.h"
 
-double Surface_Area::SArea_S(double radius){
-    const double pi = 3.14159;  //Explicitly declare pi to allow future editing for further accuracy
-    return 4*pi*radius*radius*radius/3;  //Ignore pow() since exponent is constant
-}
+#define PI__ 3.14159;  //Explicitly define pi to allow future editing for further accuracy
+
+double Surface_Area::SArea_S(double radius){return 4*PI__*radius*radius*radius/3;}
 double Surface_Area::SArea_R(double length, double width, double height){return (2*length*width + 4*height*width);}
 double Surface_Area::SArea_C(double edgelength){return 6*edgelength*edgelength;}
+double Surface_Area::SArea_Cyl(double radius,double height){return (2*PI__*radius*radius + 2*PI__*radius*height);}
