@@ -15,10 +15,10 @@
 	"Operations.h"
 	<cmath>
 
-1365864978 source:d:\programming\calculator\handler.cpp
+1365868358 source:d:\programming\calculator\handler.cpp
 	"Handler.h"
 
-1365865842 d:\programming\calculator\handler.h
+1365867954 d:\programming\calculator\handler.h
 	<sstream>
 	"Input.h"
 	"Output.h"
@@ -27,8 +27,9 @@
 1365850395 d:\programming\calculator\input.h
 	<iostream>
 
-1365865881 d:\programming\calculator\output.h
+1365867012 d:\programming\calculator\output.h
 	<iostream>
+	<sstream>
 
 1365864999 source:d:\programming\calculator\input.cpp
 	"Input.h"
@@ -42,4 +43,19 @@
 
 1365853143 source:d:\programming\calculator\multiply.cpp
 	"Operations.h"
+
+1365866878 source:d:\programming\calculator\output.cpp
+	"Output.h"
+
+1365853143 source:d:\programming\calculator\subtract.cpp
+	"Operations.h"
+
+1365867621 source:d:\programming\calculator\surface_areafunct.cpp
+	"Geometry.h"
+
+1365867637 d:\programming\calculator\geometry.h
+
+1365853143 source:d:\programming\calculator\volume.cpp
+	"Geometry.h"
+	<cmath>
 

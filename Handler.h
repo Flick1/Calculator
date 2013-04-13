@@ -8,8 +8,8 @@
 namespace handler
 {
     bool menu(void);
-    double input[4];
-    std::ostream& ss;
+    extern double input[4];
+    extern std::stringstream ss;
 
 }
 

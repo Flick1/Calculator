@@ -2,6 +2,9 @@
 
 bool handler::menu(void)
 {
+    double input[4] = {0,0,0,0};
+    std::stringstream ss;
+
     while(true)
     {
         output::print("test");
