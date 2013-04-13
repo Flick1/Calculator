@@ -1,10 +1,6 @@
 #ifndef OPERATIONS_H_INCLUDED
 #define OPERATIONS_H_INCLUDED
 
-  //GAL - Get Array Length
-template < typename T, size_t N >
-inline constexpr size_t GAL( T(&)[N] ){ return N; }
-
 namespace operations
 {
    double add(double, double);
