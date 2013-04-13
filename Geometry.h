@@ -20,18 +20,6 @@
   
   namespace Surface_Area{
     double SArea_S(double);  //Calculate surface area of a sphere given radius
-  /*
-          --------------------
-        /                   / |
-      /                   /   |
-    /                   /     |
-    -------------------       /
-    |                 |     / <- width
-    |        height-> |   /
-    |                 | /
-    -------------------
-        ^ length
-  */
     double SArea_R(double, double, double); //Calculate surface area of a rectangular prism given length, width, and height
     double SArea_C(double);   //Calculate the surface area of a cube given length, width, or height
     double SArea_Cyl(double,double);  //Calculate surface area of a cylinder given radius and height
