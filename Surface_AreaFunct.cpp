@@ -1,7 +1,5 @@
 #include "Operation.h"
 
-#define PI__ 3.14159;  //Explicitly define pi to allow future editing for further accuracy
-
 double Surface_Area::SArea_S(double radius){return 4*PI__*radius*radius*radius/3;}
 double Surface_Area::SArea_R(double length, double width, double height){return (2*length*width + 4*height*width);}
 double Surface_Area::SArea_C(double edgelength){return 6*edgelength*edgelength;}
