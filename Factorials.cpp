@@ -11,4 +11,4 @@ int operations::factorial_int(double input){
       return input*operations::factorial_int(input-1);
 }
 
-double operations::factorial_dec(double input){return tgamma(input+1);}
+double operations::factorial_dec(double input){return std::tgamma(input+1);}
