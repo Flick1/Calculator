@@ -1,14 +1,15 @@
-#include <iostream>
+#include <iostream> //Flick will be implementing curses library, so this might cause trouble. Anyway, you are not using input/output here.
 #include <cmath>
-using namespace std;
-template <class math>
+using namespace std; //The std namespace is not being used in this file. For example, you would need it for cout, cin, and string.
+template <class math> //You do not need to create objects for these operations, and why does this function need a template?
 
-math Power (math a, math b)
+math Power (math a, math b) //We will not be passing objects as parameters; just use double
 {
-     return(pow(a,b));
-}
-
-template <class math>
+     return(pow(a,b));  //If we were passing classes, then you would need to access members,
+}                       //not pass objects to a nonexistent pow(math,math) function.
+                        //Correct syntax if a and b are objects: pow(a.number, b.number) 
+                        //where number is a member double/long double/float/int variable.
+template <class math> 
 math Square (math a)
 {
     return (sqrt(a));
