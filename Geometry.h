@@ -2,11 +2,11 @@
 #define GEOMETRY_H
 
   namespace Geometry{
-      Area_R(double,double);  //Calculate rectangular area given height and width
-      Area_C(double);   //Calculate circular area given radius
-      Area_Tri(double,double);  //Calculate triangular area given height and base width
-      Area_ETri(double); //Calculate equilateral triangular area given height or base width
-      Area_Trap(double,double,double); //Calculate trapizoidal area given height and widths of bases
+      double Area_R(double,double);  //Calculate rectangular area given height and width
+      double Area_C(double);   //Calculate circular area given radius
+      double Area_Tri(double,double);  //Calculate triangular area given height and base width
+      double Area_ETri(double); //Calculate equilateral triangular area given height or base width
+      double Area_Trap(double,double,double); //Calculate trapizoidal area given height and widths of bases
   }
   
   namespace volume{
@@ -16,9 +16,9 @@
   }
   
   namespace Surface_Area{
-    SArea_S(double);  //Calculate surface area of a sphere given radius
-    SArea_R(double, double, double); //Calculate surface area of a rectangular prism given length, width, and height
-    SArea_C(double);   //Calculate the surface area of a cube given length, width, or height
+    double SArea_S(double);  //Calculate surface area of a sphere given radius
+    double SArea_R(double, double, double); //Calculate surface area of a rectangular prism given length, width, and height
+    double SArea_C(double);   //Calculate the surface area of a cube given length, width, or height
   }
   
 #endif
