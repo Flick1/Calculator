@@ -3,6 +3,10 @@
 #include <sstream>
 #include <cmath>
 
+  //GAL - Get Array Length
+template < typename T, size_t N >
+inline constexpr size_t GAL( T(&)[N] ){ return N; }
+
 void operations::Frac::Simplify(){
   if(numerator == denominator){
 		numerator = denominator = 1;
