@@ -39,7 +39,7 @@ double Volume::Vol_Pyra(double height)
     output::print("Enter width: ");
     std::cin >> width;
 
-    return Area::Area_R(length, width) * height * 1/3;
+    return Area::Area_R(length, width) * height * 1/3; //Calling function to calculate area of square for base.
 }
 
 double Volume::Vol_Cone(double height)
@@ -49,7 +49,7 @@ double Volume::Vol_Cone(double height)
     output::print("Calculating area of base. Enter radius: ");
     std::cin >> baseRadius;
 
-    return Area::Area_C(baseRadius) * height * 1/3;
+    return Area::Area_C(baseRadius) * height * 1/3; //Calling function to calculate area of circle for base.
 }
 
 double Volume::Vol_Sphe(double radius)
