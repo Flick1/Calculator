@@ -55,8 +55,9 @@ operations::Frac& operations::Frac::operator=(double decimal){
 		ss >> convert;
 	int pos = convert.find('.');
 	if(pos != -1){
-		convert[pos] = convert[pos+1];
-		convert[pos+1] = '\0';
+		for(int index = pos; index < convert.length()-2; index++)
+			convert[pos] = convert[pos+1];
+		convert[convert.length()-1] = '\0';
 	}
 		//strange glitch of subtracting 1 from the result when converting decimals
 	numerator = decimal * pow(10,convert.length()-1);
