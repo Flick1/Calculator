@@ -42,7 +42,7 @@ namespace operations
 			Frac();
 			Frac(int,int);
 			Frac(double);
-		private:
+		protected:
 			int numerator, denominator;
 	};
 	Frac operator+(const Frac&,double);
