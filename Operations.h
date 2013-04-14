@@ -19,9 +19,9 @@ namespace operations
 	double Cosine(double);
 	double Tangent(double);
 	double Tangent2(double,double);
-	
-	/*class Frac{
-		public: */
+
+	class Frac{
+		public:
 		/*	Other functions to include:
 				-Bitwise operators
 				-Other compound assignment operators
@@ -29,7 +29,7 @@ namespace operations
 				-Binary operators for double [operator] Frac
 				-Conversion from Frac to char*
 		*/
-		/*	void Simplify();
+
 			int Numerator();	//Surrogate get functions
 			int Denominator();
 			double Dec();
@@ -47,8 +47,10 @@ namespace operations
 			Frac();
 			Frac(int,int);
 			Frac(double);
+			Frac(const Frac&);
 		protected:
 			int numerator, denominator;
+            void Simplify();
 	};
 	Frac operator+(const Frac&,double);
 	Frac operator+(const Frac&,const Frac&);
@@ -57,7 +59,7 @@ namespace operations
 	Frac operator*(const Frac&,double);
 	Frac operator*(const Frac&,const Frac&);
 	Frac operator/(const Frac&,double);
-	Frac operator/(const Frac&,const Frac&); */
+	Frac operator/(const Frac&,const Frac&);
 }
 
 

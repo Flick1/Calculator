@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1365873230 source:c:\users\depes\documents\github\calculator\add.cpp
+	"Operations.h"
+
+1365961857 c:\users\depes\documents\github\calculator\operations.h
+	<string>
+
+1365873230 source:c:\users\depes\documents\github\calculator\divide.cpp
+	<iostream>
+	"Operations.h"
+
+1365873230 source:c:\users\depes\documents\github\calculator\euler_power.cpp
+	"Operations.h"
+	<cmath>
+

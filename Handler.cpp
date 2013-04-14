@@ -1,4 +1,7 @@
 #include "Handler.h"
+#include "Input.h"
+#include "Output.h"
+#include "Operations.h"
 
 bool handler::menu(void)
 {

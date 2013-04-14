@@ -11,7 +11,11 @@ void operations::Frac::Simplify(){
 	if(numerator == denominator){
 		numerator = denominator = 1;
 		return;
-	}	//Modify copies to avoid complications with the originals
+	}else if(numerator == 0){
+		denominator = 1;
+		return;
+	}
+		//Modify copies to avoid complications with the originals
 	int whole = 0, ncatalyst = numerator, dcatalyst = denominator;
 	if(ncatalyst > 0){
 		while(ncatalyst > dcatalyst){
@@ -86,7 +90,7 @@ operations::Frac& operations::Frac::operator=(const operations::Frac& original_f
 	}
 	return *this;
 }
-operations::Frac::Frac(){}
+operations::Frac::Frac(){numerator = 0; denominator = 1;}
 operations::Frac::Frac(int top, int bottom){
 	if(bottom != 0){
 		numerator = top;
@@ -95,6 +99,7 @@ operations::Frac::Frac(int top, int bottom){
 	Simplify();
 }
 operations::Frac::Frac(double decimal){*this = decimal;}
+operations::Frac::Frac(const Frac& original_fraction){(*this) = original_fraction;}
 operations::Frac& operations::Frac::operator+=(const Frac& original_fraction){
 	if(this == &original_fraction)
 		numerator <<= 1;
