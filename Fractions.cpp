@@ -227,6 +227,146 @@ double operations::operator+(double decimal, const operations::Frac& Fraction){r
 double operations::operator-(double decimal, const operations::Frac& Fraction){return decimal - Fraction.operations::Frac::Dec();}
 double operations::operator*(double decimal, const operations::Frac& Fraction){return decimal * Fraction.operations::Frac::Dec();}
 double operations::operator/(double decimal, const operations::Frac& Fraction){return decimal / Fraction.operations::Frac::Dec();}
+bool operations::operator!(const operations::Frac& Fraction){
+	if(Fraction.Numerator() == 0)	return true;
+	else	return false;
+}
+bool operations::operator==(const operations::Frac& leftside, const operations::Frac& rightside){
+	if(leftside.operations::Frac::Dec() == rightside.operations::Frac::Dec())	return true;
+	else return false;
+}
+bool operations::operator==(const operations::Frac& leftside, double decimal){
+	operations::Frac rightside(decimal);
+	if(leftside.operations::Frac::Dec() == rightside.operations::Frac::Dec())	return true;
+	else return false;
+}
+bool operations::operator==(double decimal, const operations::Frac& rightside){
+	operations::Frac leftside(decimal);
+	if(leftside.operations::Frac::Dec() == rightside.operations::Frac::Dec())	return true;
+	else return false;
+}
+bool operations::operator!=(const operations::Frac& leftside, const operations::Frac& rightside){
+	if(leftside.operations::Frac::Dec() != rightside.operations::Frac::Dec())	return true;
+	else return false;
+}
+bool operations::operator!=(const operations::Frac& leftside, double decimal){
+	operations::Frac rightside(decimal);
+	if(leftside.operations::Frac::Dec() != rightside.operations::Frac::Dec())	return true;
+	else return false;
+}
+bool operations::operator!=(double decimal, const operations::Frac& rightside){
+	operations::Frac leftside(decimal);
+	if(leftside.operations::Frac::Dec() != rightside.operations::Frac::Dec())	return true;
+	else return false;
+}
+bool operations::operator>(const operations::Frac& leftside, const operations::Frac& rightside){
+	if(leftside.operations::Frac::Dec() > rightside.operations::Frac::Dec())	return true;
+	else return false;
+}
+bool operations::operator>(const operations::Frac& leftside, double decimal){
+	operations::Frac rightside(decimal);
+	if(leftside.operations::Frac::Dec() > rightside.operations::Frac::Dec())	return true;
+	else return false;
+}
+bool operations::operator>(double decimal, const operations::Frac& rightside){
+	operations::Frac leftside(decimal);
+	if(leftside.operations::Frac::Dec() > rightside.operations::Frac::Dec())	return true;
+	else return false;
+}
+bool operations::operator<(const operations::Frac& leftside, const operations::Frac& rightside){
+	if(leftside.operations::Frac::Dec() < rightside.operations::Frac::Dec())	return true;
+	else return false;
+}
+bool operations::operator<(const operations::Frac& leftside, double decimal){
+	operations::Frac rightside(decimal);
+	if(leftside.operations::Frac::Dec() < rightside.operations::Frac::Dec())	return true;
+	else return false;
+}
+bool operations::operator<(double decimal, const operations::Frac& rightside){
+	operations::Frac leftside(decimal);
+	if(leftside.operations::Frac::Dec() < rightside.operations::Frac::Dec())	return true;
+	else return false;
+}
+bool operations::operator<=(const operations::Frac& leftside, const operations::Frac& rightside){
+	if(leftside.operations::Frac::Dec() <= rightside.operations::Frac::Dec())	return true;
+	else return false;
+}
+bool operations::operator<=(const operations::Frac& leftside, double decimal){
+	operations::Frac rightside(decimal);
+	if(leftside.operations::Frac::Dec() <= rightside.operations::Frac::Dec())	return true;
+	else return false;
+}
+bool operations::operator<=(double decimal, const operations::Frac& rightside){
+	operations::Frac leftside(decimal);
+	if(leftside.operations::Frac::Dec() <= rightside.operations::Frac::Dec())	return true;
+	else return false;
+}
+bool operations::operator>=(const operations::Frac& leftside, const operations::Frac& rightside){
+	if(leftside.operations::Frac::Dec() >= rightside.operations::Frac::Dec())	return true;
+	else return false;
+}
+bool operations::operator>=(const operations::Frac& leftside, double decimal){
+	operations::Frac rightside(decimal);
+	if(leftside.operations::Frac::Dec() >= rightside.operations::Frac::Dec())	return true;
+	else return false;
+}
+bool operations::operator>=(double decimal, const operations::Frac& rightside){
+	operations::Frac leftside(decimal);
+	if(leftside.operations::Frac::Dec() >= rightside.operations::Frac::Dec())	return true;
+	else return false;
+}
+operations::Frac& operations::Frac::operator-(){
+	-numerator;
+	Simplify();
+	return *this;
+}
+operations::Frac& operations::Frac::operator++(){
+	numerator++;
+	Simplify();
+	return *this;
+}
+operations::Frac& operations::Frac::operator++(int dummy=0){
+	++numerator;
+	Simplify();
+	return *this;
+}
+operations::Frac& operations::Frac::operator--(){
+	numerator--;
+	Simplify();
+	return *this;
+}
+operations::Frac& operations::Frac::operator--(int dummy=0){
+	--numerator;
+	Simplify();
+	return *this;
+}
+operations::Frac& operations::Frac::operator%=(const operations::Frac& rightside){
+	(*this) = Dec()%rightside.operations::Frac::Dec();
+	Simplify();
+	return *this;
+}
+operations::Frac& operations::Frac::operator%=(double decimal){
+	operations::Frac catalyst(decimal);
+	(*this) = Dec()%catalyst.operations::Frac::Dec();
+	Simplify();
+	return *this;
+}
+operations::Frac operations::operator%(const operations::Frac& leftside, const operations::Frac& rightside){
+	operations::Frac catalyst = leftside;
+	catalyst %= rightside;
+	return catalyst;
+}
+operations::Frac operations::operator%(double leftside, const operations::Frac& rightside){
+	operations::Frac catalyst(leftside);
+	catalyst %= rightside;
+	return catalyst;
+}
+operations::Frac operations::operator%(const operations::Frac& leftside, double rightside){
+	operations::Frac catalyst(rightside);
+	operations::Frac leftcopy(leftside);
+	leftcopy %= catalyst;
+	return leftcopy;
+}
 */
 std::ostream& operator<<(std::ostream& output,operations::Frac& Fraction){
 	return (output << Fraction.operations::Frac::String());	//Discards any qualifier

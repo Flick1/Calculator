@@ -23,10 +23,7 @@ namespace operations
 	class Frac{
 		public:
 		/*	Other functions to include:
-				-Bitwise operators
-				-Other compound assignment operators
 				-Boolean operators
-				-Binary operators for double [operator] Frac
 				-Conversion from Frac to char*
 		*/
 
