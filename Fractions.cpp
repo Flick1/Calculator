@@ -206,6 +206,28 @@ operations::Frac operations::operator/(const operations::Frac& leftside, const o
 	catalyst *= leftside;
 	return catalyst;
 }
+/*
+double& operations::operator+=(double decimal, const operations::Frac& Fraction){
+	decimal += Fraction.operations::Frac::Dec();
+	return decimal;
+}
+double& operations::operator-=(double decimal, const operations::Frac& Fraction){
+	decimal -= Fraction.operations::Frac::Dec();
+	return decimal;
+}
+double& operations::operator*=(double decimal, const operations::Frac& Fraction){
+	decimal *= Fraction.operations::Frac::Dec();
+	return decimal;
+}
+double& operations::operator/=(double decimal, const operations::Frac& Fraction){
+	decimal /= Fraction.operations::Frac::Dec();
+	return decimal;
+}
+double operations::operator+(double decimal, const operations::Frac& Fraction){return decimal + Fraction.operations::Frac::Dec();}
+double operations::operator-(double decimal, const operations::Frac& Fraction){return decimal - Fraction.operations::Frac::Dec();}
+double operations::operator*(double decimal, const operations::Frac& Fraction){return decimal * Fraction.operations::Frac::Dec();}
+double operations::operator/(double decimal, const operations::Frac& Fraction){return decimal / Fraction.operations::Frac::Dec();}
+*/
 std::ostream& operator<<(std::ostream& output,operations::Frac& Fraction){
 	return (output << Fraction.operations::Frac::String());	//Discards any qualifier
 	//Error with binding when trying to stream operation, e.g. std::cout << (Frac1 + Frac2) << std::endl;
