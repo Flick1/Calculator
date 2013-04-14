@@ -1,18 +1,30 @@
 #ifndef _GEOMETRY_H_
 #define _GEOMETRY_H_
 
-#include <cmath>
+namespace{
+	const double PI__ = 3.141593;	//Pi rounded and placed in global namespace for use in multiple modules
+}
 namespace Area
 {
-    double Area_R(double width, double length);
+    double Rect(double, double);
+    double Circ(double);
+    double Tri(double, double);
+    double EquiTri(double);
+    double Trap(double, double, double);
+}
 
-    double Area_C(double radius);
+namespace Volume{
+	double Cube(double);
+	double RPrism(double,double,double);
+	double Cyl(double,double);
+	double Pyr(double,double,double);
+}
 
-    double Area_Tri(double base, double height);
-
-    double Area_ETri(double side);
-
-    double Area_Trap(double upperLength, double bottomLength, double height);
+namespace Surface_Area{
+	double Sphere(double);
+	double RPrism(double, double, double);
+	double Cube(double);
+	double Cyl(double,double);
 }
 
 #endif // _GEOMETRY_H_
