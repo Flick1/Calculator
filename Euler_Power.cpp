@@ -1,4 +1,4 @@
 #include "Operations.h"
-//#include <cmath>
+#include <cmath>
 
-//double operations::E_pow(double exponent){return exp(exponent);}
+double operations::E_pow(double exponent){return exp(exponent);}
