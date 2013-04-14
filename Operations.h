@@ -1,6 +1,8 @@
 #ifndef OPERATIONS_H_INCLUDED
 #define OPERATIONS_H_INCLUDED
 
+#include <string>
+
 namespace operations
 {
    double add(double, double);
@@ -12,7 +14,7 @@ namespace operations
    double Logarithm_Natural(double);
    double Logarithm_Base10(double);
    //double E_pow(double);
-   
+
 	class Frac{
 		public:
 		/*	Other functions to include:

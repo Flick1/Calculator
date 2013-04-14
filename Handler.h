@@ -9,7 +9,7 @@ namespace handler
 {
     bool menu(void);
     double input[4];
-    std::ostream& ss;
+    std::ostream& ss;  //Why are you declaring a reference variable?
 
 }
 

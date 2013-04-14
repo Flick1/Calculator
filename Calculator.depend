@@ -43,3 +43,10 @@
 1365853143 source:d:\programming\calculator\multiply.cpp
 	"Operations.h"
 
+1365873230 source:c:\users\depes\documents\github\calculator\divide.cpp
+	<iostream>
+	"Operations.h"
+
+1365920647 c:\users\depes\documents\github\calculator\operations.h
+	<string>
+
