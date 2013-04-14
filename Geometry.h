@@ -11,6 +11,7 @@ namespace Area
     double Tri(double, double);
     double EquiTri(double);
     double Trap(double, double, double);
+	double Parallelogram(double, double);
 }
 
 namespace Volume{
