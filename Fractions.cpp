@@ -205,3 +205,4 @@ std::ostream& operator<<(std::ostream& output,operations::Frac& Fraction){
 	return (output << Fraction.operations::Frac::String());	//Discards any qualifier
 	//Error with binding when trying to stream operation, e.g. std::cout << (Frac1 + Frac2) << std::endl;
 }
+

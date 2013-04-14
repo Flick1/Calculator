@@ -5,7 +5,7 @@
 
 namespace operations
 {
-   double add(double, double);
+   double add(double, double); //return sum
    double subtract(double,double); //return sum
    double multiply(double,double);//return product
    double divide(double, double); // Returns sum.
@@ -15,8 +15,8 @@ namespace operations
    double Logarithm_Base10(double);
    double E_pow(double);
 
-	class Frac{
-		public:
+	/*class Frac{
+		public: */
 		/*	Other functions to include:
 				-Bitwise operators
 				-Other compound assignment operators
@@ -24,7 +24,7 @@ namespace operations
 				-Binary operators for double [operator] Frac
 				-Conversion from Frac to char*
 		*/
-			void Simplify();
+		/*	void Simplify();
 			int Numerator();	//Surrogate get functions
 			int Denominator();
 			double Dec();
@@ -52,7 +52,7 @@ namespace operations
 	Frac operator*(const Frac&,double);
 	Frac operator*(const Frac&,const Frac&);
 	Frac operator/(const Frac&,double);
-	Frac operator/(const Frac&,const Frac&);
+	Frac operator/(const Frac&,const Frac&); */
 }
 
 

@@ -1,5 +1,4 @@
 #include "Geometry.h"
-#include <cmath>
 
 double Area::Area_R(double width, double length)
 {
@@ -8,7 +7,7 @@ double Area::Area_R(double width, double length)
 
 double Area::Area_C(double radius)
 {
-    return PI__ * pow(radius, 2);
+   // return PI__ * pow(radius, 2);
 }
 
 double Area::Area_Tri(double base, double height)
