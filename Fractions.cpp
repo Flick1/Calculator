@@ -228,7 +228,7 @@ double operations::operator-(double decimal, const operations::Frac& Fraction){r
 double operations::operator*(double decimal, const operations::Frac& Fraction){return decimal * Fraction.operations::Frac::Dec();}
 double operations::operator/(double decimal, const operations::Frac& Fraction){return decimal / Fraction.operations::Frac::Dec();}
 bool operations::operator!(const operations::Frac& Fraction){
-	if(Fraction.Numerator() == 0)	return true;
+	if(Fraction.operations::Frac::Numerator() == 0)	return true;
 	else	return false;
 }
 bool operations::operator==(const operations::Frac& leftside, const operations::Frac& rightside){
