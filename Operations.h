@@ -15,6 +15,11 @@ namespace operations
    double Logarithm_Base10(double);
    double E_pow(double);
 
+	double Sine(double);
+	double Cosine(double);
+	double Tangent(double);
+	double Tangent2(double,double);
+	
 	/*class Frac{
 		public: */
 		/*	Other functions to include:
