@@ -207,19 +207,19 @@ operations::Frac operations::operator/(const operations::Frac& leftside, const o
 	return catalyst;
 }
 /*
-double& operations::operator+=(double decimal, const operations::Frac& Fraction){
+double& operations::operator+=(double& decimal, const operations::Frac& Fraction){
 	decimal += Fraction.operations::Frac::Dec();
 	return decimal;
 }
-double& operations::operator-=(double decimal, const operations::Frac& Fraction){
+double& operations::operator-=(double& decimal, const operations::Frac& Fraction){
 	decimal -= Fraction.operations::Frac::Dec();
 	return decimal;
 }
-double& operations::operator*=(double decimal, const operations::Frac& Fraction){
+double& operations::operator*=(double& decimal, const operations::Frac& Fraction){
 	decimal *= Fraction.operations::Frac::Dec();
 	return decimal;
 }
-double& operations::operator/=(double decimal, const operations::Frac& Fraction){
+double& operations::operator/=(double& decimal, const operations::Frac& Fraction){
 	decimal /= Fraction.operations::Frac::Dec();
 	return decimal;
 }
@@ -321,22 +321,22 @@ operations::Frac& operations::Frac::operator-(){
 	return *this;
 }
 operations::Frac& operations::Frac::operator++(){
-	numerator++;
+	(*this) += 1;
 	Simplify();
 	return *this;
 }
 operations::Frac& operations::Frac::operator++(int dummy=0){
-	++numerator;
+	(*this) += 1;
 	Simplify();
 	return *this;
 }
 operations::Frac& operations::Frac::operator--(){
-	numerator--;
+	(*this) -= 1;
 	Simplify();
 	return *this;
 }
 operations::Frac& operations::Frac::operator--(int dummy=0){
-	--numerator;
+	(*this) -= 1;
 	Simplify();
 	return *this;
 }
@@ -350,6 +350,10 @@ operations::Frac& operations::Frac::operator%=(double decimal){
 	(*this) = Dec()%catalyst.operations::Frac::Dec();
 	Simplify();
 	return *this;
+}
+double& operations::operator%=(double& leftside, const operations::Frac& rightside){
+	leftside %= rightside.operations::Frac::Dec();
+	return leftside;
 }
 operations::Frac operations::operator%(const operations::Frac& leftside, const operations::Frac& rightside){
 	operations::Frac catalyst = leftside;
