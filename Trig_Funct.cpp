@@ -1,6 +1,6 @@
 #include "Operations.h"
 #include "Geometry.h"
-#include<cmath>
+#include <cmath>
 
 double operations::Sine(double Number) {return (sin (Number*PI__/180));}
 double operations::Cosine(double Number) {return (cos (Number*PI__/180));}
