@@ -47,6 +47,12 @@
 	<iostream>
 	"Operations.h"
 
-1365920647 c:\users\depes\documents\github\calculator\operations.h
+1365921090 c:\users\depes\documents\github\calculator\operations.h
 	<string>
+
+1365873230 source:c:\users\depes\documents\github\calculator\multiply.cpp
+	"Operations.h"
+
+1365873230 source:c:\users\depes\documents\github\calculator\subtract.cpp
+	"Operations.h"
 
