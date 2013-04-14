@@ -13,3 +13,47 @@
 	"Operations.h"
 	<cmath>
 
+1365976510 source:c:\users\depes crystalline\documents\github\calculator\add.cpp
+	"Operations.h"
+
+1365981351 c:\users\depes crystalline\documents\github\calculator\operations.h
+	<string>
+
+1365976510 source:c:\users\depes crystalline\documents\github\calculator\divide.cpp
+	<iostream>
+	"Operations.h"
+
+1365976510 source:c:\users\depes crystalline\documents\github\calculator\euler_power.cpp
+	"Operations.h"
+	<cmath>
+
+1365981180 source:c:\users\depes crystalline\documents\github\calculator\fractions.cpp
+	"Operations.h"
+	<sstream>
+	<cmath>
+
+1365981167 source:c:\users\depes crystalline\documents\github\calculator\handler.cpp
+	"Handler.h"
+	"Input.h"
+	"Output.h"
+	"Operations.h"
+
+1365976510 c:\users\depes crystalline\documents\github\calculator\handler.h
+	<sstream>
+
+1365976510 c:\users\depes crystalline\documents\github\calculator\input.h
+	<iostream>
+
+1365976510 c:\users\depes crystalline\documents\github\calculator\output.h
+	<iostream>
+	<sstream>
+
+1365976510 source:c:\users\depes crystalline\documents\github\calculator\main.cpp
+	"Handler.h"
+
+1365976510 source:c:\users\depes crystalline\documents\github\calculator\multiply.cpp
+	"Operations.h"
+
+1365976510 source:c:\users\depes crystalline\documents\github\calculator\subtract.cpp
+	"Operations.h"
+

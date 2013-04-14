@@ -41,6 +41,7 @@ namespace operations
 			Frac& operator*=(const Frac&);
 			Frac& operator/=(double);
 			Frac& operator/=(const Frac&);
+			Frac& operator() (int=0, int=0);
 			Frac();
 			Frac(int,int);
 			Frac(double);
@@ -57,7 +58,7 @@ namespace operations
 	Frac operator*(const Frac&,const Frac&);
 	Frac operator/(const Frac&,double);
 	Frac operator/(const Frac&,const Frac&);
-}
+};
 
 
 #endif
