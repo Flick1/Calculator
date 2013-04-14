@@ -33,9 +33,13 @@
 		</Compiler>
 		<Unit filename="Add.cpp" />
 		<Unit filename="Divide.cpp" />
+		<Unit filename="Euler_Power.cpp" />
+		<Unit filename="Fractions.cpp" />
+		<Unit filename="Handler.cpp" />
 		<Unit filename="Handler.h" />
 		<Unit filename="Input.h" />
 		<Unit filename="Multiply.cpp" />
+		<Unit filename="Operations.h" />
 		<Unit filename="Output.h" />
 		<Unit filename="Subtract.cpp" />
 		<Unit filename="main.cpp" />

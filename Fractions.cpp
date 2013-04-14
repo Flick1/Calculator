@@ -8,20 +8,26 @@ template < typename T, size_t N >
 inline constexpr size_t GAL( T(&)[N] ){ return N; }
 
 void operations::Frac::Simplify(){
-  if(numerator == denominator){
+	if(numerator == denominator){
 		numerator = denominator = 1;
 		return;
 	}	//Modify copies to avoid complications with the originals
 	int whole = 0, ncatalyst = numerator, dcatalyst = denominator;
-	while(ncatalyst > dcatalyst){
-		ncatalyst -= dcatalyst;
-		whole++;
+	if(ncatalyst > 0){
+		while(ncatalyst > dcatalyst){
+			ncatalyst -= dcatalyst;
+			whole++;
+		}
+	}else{
+		while(ncatalyst < dcatalyst*-1){
+			ncatalyst += dcatalyst;
+			whole--;
+		}
 	}
-//Enter in instructions that execute for negative fractions
 		//List of prime numbers for simplifying the fraction
 	int divisor[] = {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,57,59};
 	const unsigned divisor_size = GAL(divisor);
-	for(int i = 0; i < divisor_size; i++){
+	for(unsigned i = 0; i < divisor_size; i++){
 		while(((ncatalyst%divisor[i]) == 0) && ((dcatalyst%divisor[i]) == 0)){
 			ncatalyst /= divisor[i];
 			dcatalyst /= divisor[i];
@@ -30,8 +36,8 @@ void operations::Frac::Simplify(){
 	denominator = dcatalyst;
 	numerator = (ncatalyst + whole*denominator);
 }
-int operations::Frac::Numerator(){return (*this).numerator;}
-int operations::Frac::Denominator(){return (*this).denominator;}
+int operations::Frac::Numerator(){return numerator;}
+int operations::Frac::Denominator(){return denominator;}
 std::string operations::Frac::String(){
 	std::stringstream ss;
 	std::string toreturn = "";
@@ -45,26 +51,33 @@ std::string operations::Frac::String(){
 	}
 	return toreturn;
 }
-double operations::Frac::Dbl(){
-	return (numerator/denominator);
-}
+double operations::Frac::Dec(){return (numerator/denominator);}
 operations::Frac& operations::Frac::operator=(double decimal){
 	std::stringstream ss;
 	std::string convert;
 		ss << decimal;
 		ss >> convert;
-	int pos = convert.find('.');
+	int pos = convert.find('.'), sign = convert.find('-'), signtoadd=1;
 	if(pos != -1){
-		for(int index = pos; index < convert.length()-2; index++)
-			convert[pos] = convert[pos+1];
+		for(unsigned index = pos; index < convert.length()-2; index++)
+			convert[index] = convert[index+1];
+		convert[convert.length()-1] = '\0';
+	}
+	if(sign != -1){
+		signtoadd = -1;
+		for(unsigned index = 0; index < convert.length()-2; index++)
+			convert[index] = convert[index+1];
 		convert[convert.length()-1] = '\0';
 	}
 		//strange glitch of subtracting 1 from the result when converting decimals
+		//Another strange glitch of subtracting 1 when last digit is a 5 but result is correct at first
 	numerator = decimal * pow(10,convert.length()-1);
 	denominator = pow(10,convert.length()-1);
-		if(numerator != decimal * pow(10,convert.length()-1))	numerator++;
-		if(denominator != pow(10,convert.length()-1))	denominator++;
+		if(numerator != decimal * pow(10,convert.length()-1))	numerator += signtoadd;
+		if(static_cast<int>(decimal* pow(10,convert.length()-1)) % 5 == 0) numerator -= signtoadd;
+		if(denominator != pow(10,convert.length()-1))	denominator ++;
 	Simplify();
+	return *this;
 }
 operations::Frac& operations::Frac::operator=(const operations::Frac& original_fraction){
 	if(this != &original_fraction){
@@ -84,18 +97,18 @@ operations::Frac::Frac(int top, int bottom){
 operations::Frac::Frac(double decimal){*this = decimal;}
 operations::Frac& operations::Frac::operator+=(const Frac& original_fraction){
 	if(this == &original_fraction)
-		numerator << 1;
+		numerator <<= 1;
 	else{
 		numerator = numerator*original_fraction.denominator + denominator*original_fraction.numerator;
 		denominator *= original_fraction.denominator;
 	}
-	(*this).Simplify();
+	Simplify();
 	return *this;
 }
 operations::Frac& operations::Frac::operator+=(double decimal){
 	Frac catalyst = decimal;
 	*this += catalyst;
-	(*this).Simplify();
+	Simplify();
 	return *this;
 }
 operations::Frac& operations::Frac::operator-=(const operations::Frac& original_fraction){
@@ -106,13 +119,13 @@ operations::Frac& operations::Frac::operator-=(const operations::Frac& original_
 		numerator = numerator*original_fraction.denominator - denominator*original_fraction.numerator;
 		denominator *= original_fraction.denominator;
 	}
-	(*this).Simplify();
+	Simplify();
 	return *this;
 }
 operations::Frac& operations::Frac::operator-=(double decimal){
 	operations::Frac catalyst = decimal;
 	*this -= catalyst;
-	(*this).Simplify();
+	Simplify();
 	return *this;
 }
 operations::Frac& operations::Frac::operator*=(const operations::Frac& original_fraction){
@@ -123,13 +136,13 @@ operations::Frac& operations::Frac::operator*=(const operations::Frac& original_
 		numerator *= original_fraction.numerator;
 		denominator *= original_fraction.denominator;
 	}
-	(*this).Simplify();
+	Simplify();
 	return *this;
 }
 operations::Frac& operations::Frac::operator*=(double decimal){
 	operations::Frac catalyst = decimal;
 	*this *= catalyst;
-	(*this).Simplify();
+	Simplify();
 	return *this;
 }
 operations::Frac& operations::Frac::operator/=(const operations::Frac& original_fraction){
@@ -139,13 +152,13 @@ operations::Frac& operations::Frac::operator/=(const operations::Frac& original_
 		numerator *= original_fraction.denominator;
 		denominator *= original_fraction.numerator;
 	}
-	(*this).Simplify();
+	Simplify();
 	return *this;
 }
 operations::Frac& operations::Frac::operator/=(double decimal){
 	operations::Frac catalyst = decimal;
 	*this /= catalyst;
-	(*this).Simplify();
+	Simplify();
 	return *this;
 }
 operations::Frac operations::operator+(const operations::Frac& leftside, const operations::Frac& rightside){
@@ -168,10 +181,26 @@ operations::Frac operations::operator-(const operations::Frac& leftside, const o
 	catalyst -= rightside;
 	return catalyst;
 }
-operations::Frac operations::operator*(const operations::Frac& Fraction, double decimal){}
-operations::Frac operations::operator*(const operations::Frac& leftside, const operations::Frac& rightside){}
-operations::Frac operations::operator/(const operations::Frac& Fraction, double decimal){}
-operations::Frac operations::operator/(const operations::Frac& leftside, const operations::Frac& rightside){}
+operations::Frac operations::operator*(const operations::Frac& Fraction, double decimal){
+	operations::Frac catalyst = decimal;
+	catalyst *= Fraction;
+	return catalyst;
+}
+operations::Frac operations::operator*(const operations::Frac& leftside, const operations::Frac& rightside){
+	operations::Frac catalyst = rightside;
+	catalyst *= leftside;
+	return catalyst;
+}
+operations::Frac operations::operator/(const operations::Frac& Fraction, double decimal){
+	operations::Frac catalyst = decimal;
+	catalyst *= Fraction;
+	return catalyst;
+}
+operations::Frac operations::operator/(const operations::Frac& leftside, const operations::Frac& rightside){
+	operations::Frac catalyst = rightside;
+	catalyst *= leftside;
+	return catalyst;
+}
 std::ostream& operator<<(std::ostream& output,operations::Frac& Fraction){
 	return (output << Fraction.operations::Frac::String());	//Discards any qualifier
 	//Error with binding when trying to stream operation, e.g. std::cout << (Frac1 + Frac2) << std::endl;

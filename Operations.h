@@ -27,7 +27,7 @@ namespace operations
 			void Simplify();
 			int Numerator();	//Surrogate get functions
 			int Denominator();
-			double Dbl();
+			double Dec();
 			std::string String();
 			Frac& operator=(double);
 			Frac& operator=(const Frac&);
