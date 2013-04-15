@@ -22,11 +22,6 @@ namespace operations
 
 	class Frac{
 		public:
-		/*	Other functions to include:
-				-Boolean operators
-				-Conversion from Frac to char*
-		*/
-
 			int Numerator();	//Surrogate get functions
 			int Denominator();
 			double Dec();
@@ -41,7 +36,8 @@ namespace operations
 			Frac& operator*=(const Frac&);
 			Frac& operator/=(double);
 			Frac& operator/=(const Frac&);
-			Frac& operator() (int=0, int=0);
+			Frac& operator() (int=0, int=0); //Function for arbitrarily changing member vairables:
+											//	numerator, denominator or both 
 			Frac();
 			Frac(int,int);
 			Frac(double);
