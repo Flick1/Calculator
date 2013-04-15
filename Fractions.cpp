@@ -14,6 +14,9 @@ void operations::Frac::Simplify(){
 	}else if(numerator == 0){
 		denominator = 1;
 		return;
+	}else if(denominator < 0){
+		numerator *= -1;
+		denominator *= -1;
 	}
 		//Modify copies to avoid complications with the originals
 	int whole = 0, ncatalyst = numerator, dcatalyst = denominator;
@@ -61,26 +64,20 @@ operations::Frac& operations::Frac::operator=(double decimal){
 	std::stringstream ss;
 	std::string convert;
 		ss << decimal;
-		ss >> convert;
-	int pos = convert.find('.'), sign = convert.find('-'), signtoadd=1;
-	if(pos != -1){
-		for(unsigned index = pos; index < convert.length()-2; index++)
+		ss >> convert;	//String variable to find the number of digits in the parameter
+	int pos = convert.find('.'), sign = convert.find('-');
+	if(pos != -1){	//Truncate decimal; useful for cases where decimal has many digits
+		for(unsigned index = pos; index < convert.length()-1; index++)
 			convert[index] = convert[index+1];
-		convert[convert.length()-1] = '\0';
+		convert.erase(convert.length()-1,1);
 	}
 	if(sign != -1){
-		signtoadd = -1;
-		for(unsigned index = 0; index < convert.length()-2; index++)
+		for(unsigned index = 0; index < convert.length()-1; index++)
 			convert[index] = convert[index+1];
-		convert[convert.length()-1] = '\0';
+		convert.erase(convert.length()-1,1);
 	}
-		//strange glitch of subtracting 1 from the result when converting decimals
-		//Another strange glitch of subtracting 1 when last digit is a 5 but result is correct at first
 	numerator = decimal * pow(10,convert.length()-1);
 	denominator = pow(10,convert.length()-1);
-		if(numerator != decimal * pow(10,convert.length()-1))	numerator += signtoadd;
-		if(static_cast<int>(decimal* pow(10,convert.length()-1)) % 5 == 0) numerator -= signtoadd;
-		if(denominator != pow(10,convert.length()-1))	denominator ++;
 	Simplify();
 	return *this;
 }
@@ -107,9 +104,9 @@ operations::Frac& operations::Frac::operator() (int newnum, int newdenom){
 	Simplify();
 	return *this;
 }
-operations::Frac& operations::Frac::operator+=(const Frac& original_fraction){
+operations::Frac& operations::Frac::operator+=(const operations::Frac& original_fraction){
 	if(this == &original_fraction)
-		numerator <<= 1;
+		numerator *= 2;
 	else{
 		numerator = numerator*original_fraction.denominator + denominator*original_fraction.numerator;
 		denominator *= original_fraction.denominator;
@@ -205,13 +202,14 @@ operations::Frac operations::operator*(const operations::Frac& leftside, const o
 }
 operations::Frac operations::operator/(const operations::Frac& Fraction, double decimal){
 	operations::Frac catalyst = decimal;
-	catalyst *= Fraction;
-	return catalyst;
+	operations::Frac leftcopy = Fraction;
+	leftcopy /= catalyst;
+	return leftcopy;
 }
 operations::Frac operations::operator/(const operations::Frac& leftside, const operations::Frac& rightside){
-	operations::Frac catalyst = rightside;
-	catalyst *= leftside;
-	return catalyst;
+	operations::Frac leftcopy = leftside;
+	leftcopy /= rightside;
+	return leftcopy;
 }
 double& operations::operator+=(double& decimal, const operations::Frac& Fraction){
 	decimal += Fraction.Dec();
@@ -395,8 +393,4 @@ operations::Frac operations::operator%(const operations::Frac& leftside, double 
 	leftcopy %= catalyst;
 	return leftcopy;
 }
-std::ostream& operator<<(std::ostream& output, const operations::Frac& Fraction){
-	return (output << Fraction.String());
-	//Error with binding when trying to stream operation, e.g. std::cout << (Frac1 + Frac2) << std::endl;
-}
-
+std::ostream& operator<<(std::ostream& output, const operations::Frac& Fraction){return (output << Fraction.String());}

@@ -54,7 +54,7 @@ namespace operations
 			Frac(double);                     //Construct object with decimal parameter
 			Frac(const Frac&);                //Copy constructor calls overloaded assignment operator: operator=(const Frac&)
 		private:
-			int numerator, denominator;
+			double numerator, denominator;
 		protected:
 			void Simplify();
 	};
