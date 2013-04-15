@@ -12,6 +12,10 @@ double Volume::RPrism(double height, double width, double length)
     
         //This test condition may be unnecessary because you are disallowing this function to calculate a cube's volume
         //even though this function should be for general cases
+        
+        //I figure it would be better to separate them completely for an accurate menu. Would there be a way to rerun 
+        //this function if the condition fails?
+
         if (height != width || height != length) //Test if this is indeed a cuboid.
         {
             return height * width * length;
