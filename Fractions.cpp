@@ -56,6 +56,7 @@ std::string operations::Frac::String()const{
 	return toreturn;
 }
 double operations::Frac::Dec()const{return (numerator/denominator);}
+void operations::Frac::Zero(){numerator = 0; denominator = 1;}
 operations::Frac& operations::Frac::operator=(double decimal){
 	std::stringstream ss;
 	std::string convert;
