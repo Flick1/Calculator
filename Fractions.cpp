@@ -239,84 +239,72 @@ bool operations::operator==(const operations::Frac& leftside, const operations::
 	if(leftside.Dec() == rightside.Dec())	return true;
 	else return false;
 }
-bool operations::operator==(const operations::Frac& leftside, double decimal){
-	operations::Frac rightside(decimal);
-	if(leftside.Dec() == rightside.Dec())	return true;
+bool operations::operator==(const operations::Frac& leftside, double rightside){
+	if(leftside.Dec() == rightside)	return true;
 	else return false;
 }
-bool operations::operator==(double decimal, const operations::Frac& rightside){
-	operations::Frac leftside(decimal);
-	if(leftside.Dec() == rightside.Dec())	return true;
+bool operations::operator==(double leftside, const operations::Frac& rightside){
+	if(leftside == rightside.Dec())	return true;
 	else return false;
 }
 bool operations::operator!=(const operations::Frac& leftside, const operations::Frac& rightside){
 	if(leftside.Dec() != rightside.Dec())	return true;
 	else return false;
 }
-bool operations::operator!=(const operations::Frac& leftside, double decimal){
-	operations::Frac rightside(decimal);
-	if(leftside.Dec() != rightside.Dec())	return true;
+bool operations::operator!=(const operations::Frac& leftside, double rightside){
+	if(leftside.Dec() != rightside)	return true;
 	else return false;
 }
-bool operations::operator!=(double decimal, const operations::Frac& rightside){
-	operations::Frac leftside(decimal);
-	if(leftside.Dec() != rightside.Dec())	return true;
+bool operations::operator!=(double leftside, const operations::Frac& rightside){
+	if(leftside != rightside.Dec())	return true;
 	else return false;
 }
 bool operations::operator>(const operations::Frac& leftside, const operations::Frac& rightside){
 	if(leftside.Dec() > rightside.Dec())	return true;
 	else return false;
 }
-bool operations::operator>(const operations::Frac& leftside, double decimal){
-	operations::Frac rightside(decimal);
-	if(leftside.Dec() > rightside.Dec())	return true;
+bool operations::operator>(const operations::Frac& leftside, double rightside){
+	if(leftside.Dec() > rightside)	return true;
 	else return false;
 }
-bool operations::operator>(double decimal, const operations::Frac& rightside){
-	operations::Frac leftside(decimal);
-	if(leftside.Dec() > rightside.Dec())	return true;
+bool operations::operator>(double leftside, const operations::Frac& rightside){
+	if(leftside > rightside.Dec())	return true;
 	else return false;
 }
 bool operations::operator<(const operations::Frac& leftside, const operations::Frac& rightside){
 	if(leftside.Dec() < rightside.Dec())	return true;
 	else return false;
 }
-bool operations::operator<(const operations::Frac& leftside, double decimal){
-	operations::Frac rightside(decimal);
-	if(leftside.Dec() < rightside.Dec())	return true;
+bool operations::operator<(const operations::Frac& leftside, double rightside){
+	if(leftside.Dec() < rightside)	return true;
 	else return false;
 }
-bool operations::operator<(double decimal, const operations::Frac& rightside){
-	operations::Frac leftside(decimal);
-	if(leftside.Dec() < rightside.Dec())	return true;
+bool operations::operator<(double leftside, const operations::Frac& rightside){
+	if(leftside < rightside.Dec())	return true;
 	else return false;
 }
 bool operations::operator<=(const operations::Frac& leftside, const operations::Frac& rightside){
 	if(leftside.Dec() <= rightside.Dec())	return true;
 	else return false;
 }
-bool operations::operator<=(const operations::Frac& leftside, double decimal){
-	operations::Frac rightside(decimal);
-	if(leftside.Dec() <= rightside.Dec())	return true;
+bool operations::operator<=(const operations::Frac& leftside, double rightside){
+	if(leftside.Dec() <= rightside)	return true;
 	else return false;
 }
-bool operations::operator<=(double decimal, const operations::Frac& rightside){
-	operations::Frac leftside(decimal);
-	if(leftside.Dec() <= rightside.Dec())	return true;
+bool operations::operator<=(double leftside, const operations::Frac& rightside){
+	if(leftside <= rightside.Dec())	return true;
 	else return false;
 }
 bool operations::operator>=(const operations::Frac& leftside, const operations::Frac& rightside){
 	if(leftside.Dec() >= rightside.Dec())	return true;
 	else return false;
 }
-bool operations::operator>=(const operations::Frac& leftside, double decimal){
-	operations::Frac rightside(decimal);
-	if(leftside.Dec() >= rightside.Dec())	return true;
+bool operations::operator>=(const operations::Frac& leftside, double rightside){
+	if(leftside.Dec() >= rightside)	return true;
 	else return false;
 }
-bool operations::operator>=(double decimal, const operations::Frac& rightside){
-	operations::Frac leftside(decimal);
-	if(leftside.Dec() >= rightside.Dec())	return true;
+bool operations::operator>=(double leftside, const operations::Frac& rightside){
+	if(leftside >= rightside.Dec())	return true;
 	else return false;
 }
 operations::Frac& operations::Frac::operator-(){
