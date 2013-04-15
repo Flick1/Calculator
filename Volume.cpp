@@ -3,12 +3,12 @@
 #include <cmath>
 #include <iostream>
 
-double Volume::Vol_Cube(double edgelength) //Function for passing a single length
+double Volume::Cube(double edgelength) //Function for passing a single length
 {
     return edgelength*edgelength*edgelength; //Avoid pow() to efficate runtime
 }
 
-double Volume::Vol_RectC(double height, double width, double length)
+double Volume::RPrism(double height, double width, double length)
 {
     try
     {
@@ -24,13 +24,13 @@ double Volume::Vol_RectC(double height, double width, double length)
 
 }
 
-double Volume::Vol_Cylin(double radius, double height)
+double Volume::Cyl(double radius, double height)
 {
 
     return PI__ * pow(radius, 2) * height;
 }
 
-double Volume::Vol_Pyra(double height)
+double Volume::Pyra(double height)
 {
     double length, width;
 
