@@ -2,7 +2,7 @@
 1365873230 source:c:\users\depes\documents\github\calculator\add.cpp
 	"Operations.h"
 
-1365961857 c:\users\depes\documents\github\calculator\operations.h
+1366002798 c:\users\depes\documents\github\calculator\operations.h
 	<string>
 
 1365873230 source:c:\users\depes\documents\github\calculator\divide.cpp
@@ -55,5 +55,35 @@
 	"Operations.h"
 
 1365976510 source:c:\users\depes crystalline\documents\github\calculator\subtract.cpp
+	"Operations.h"
+
+1365998245 source:c:\users\depes\documents\github\calculator\fractions.cpp
+	"Operations.h"
+	<sstream>
+	<cmath>
+
+1365962076 source:c:\users\depes\documents\github\calculator\handler.cpp
+	"Handler.h"
+	"Input.h"
+	"Output.h"
+	"Operations.h"
+
+1365962055 c:\users\depes\documents\github\calculator\handler.h
+	<sstream>
+
+1365873230 c:\users\depes\documents\github\calculator\input.h
+	<iostream>
+
+1365959777 c:\users\depes\documents\github\calculator\output.h
+	<iostream>
+	<sstream>
+
+1365959777 source:c:\users\depes\documents\github\calculator\main.cpp
+	"Handler.h"
+
+1365873230 source:c:\users\depes\documents\github\calculator\multiply.cpp
+	"Operations.h"
+
+1365873230 source:c:\users\depes\documents\github\calculator\subtract.cpp
 	"Operations.h"
 

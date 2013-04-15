@@ -22,10 +22,10 @@ namespace operations
 
 	class Frac{
 		public:
-			int Numerator();	//Surrogate get functions
-			int Denominator();
-			double Dec();
-			std::string String();
+			int Numerator()const;	//Surrogate get functions
+			int Denominator()const;
+			double Dec()const;
+			std::string String()const;
 			Frac& operator=(double);
 			Frac& operator=(const Frac&);
 			Frac& operator+=(double);
@@ -36,6 +36,13 @@ namespace operations
 			Frac& operator*=(const Frac&);
 			Frac& operator/=(double);
 			Frac& operator/=(const Frac&);
+			Frac& operator%=(const Frac&);
+			Frac& operator%=(double);
+			Frac& operator-();
+			Frac& operator++();
+			Frac& operator++(int=0);
+			Frac& operator--();
+			Frac& operator--(int=0);
 			Frac& operator() (int=0, int=0); //Function for arbitrarily changing member vairables:
 											//	numerator, denominator or both 
 			Frac();
@@ -54,6 +61,37 @@ namespace operations
 	Frac operator*(const Frac&,const Frac&);
 	Frac operator/(const Frac&,double);
 	Frac operator/(const Frac&,const Frac&);
+	double& operator+=(double&, const Frac&);
+	double& operator-=(double&, const Frac&);
+	double& operator*=(double&, const Frac&);
+	double& operator/=(double&, const Frac&);
+	double operator+(double, const Frac&);
+	double operator-(double, const Frac&);
+	double operator*(double, const Frac&);
+	double operator/(double, const Frac&);
+	bool operator!(const Frac&);
+	bool operator==(const Frac&, const Frac&);
+	bool operator==(const Frac&, double);
+	bool operator==(double, const Frac&);
+	bool operator!=(const Frac&, const Frac&);
+	bool operator!=(const Frac&, double);
+	bool operator!=(double, const Frac&);
+	bool operator>(const Frac&, const Frac&);
+	bool operator>(const Frac&, double);
+	bool operator>(double, const Frac&);
+	bool operator<(const Frac&, const Frac&);
+	bool operator<(const Frac&, double);
+	bool operator<(double, const Frac&);
+	bool operator<=(const Frac&, const Frac&);
+	bool operator<=(const Frac&, double);
+	bool operator<=(double, const Frac&);
+	bool operator>=(const Frac&, const Frac&);
+	bool operator>=(const Frac&, double);
+	bool operator>=(double, const Frac&);
+	double& operator%=(double&, const Frac&);
+	Frac operator%(const Frac&, const Frac&);
+	Frac operator%(double, const Frac&);
+	Frac operator%(const Frac&, double);
 };
 
 
