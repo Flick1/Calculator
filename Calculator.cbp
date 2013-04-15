@@ -15,7 +15,6 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library="..\..\..\..\..\Program Files (x86)\CodeBlocks\PDCurses\pdcurses.dll" />
 				</Linker>
 			</Target>
 			<Target title="Release">
