@@ -54,7 +54,7 @@ double Volume::Pyra(double height)
         //Same goes for your cone function.
         //I hope this didn't sound too harsh.
     output::print("Calculating area of base. Enter length: ");
-    std::cin >> length;
+    std::cin >> length;     //Mixing curses, stdio, and/or iostream methods is bad practice.
     output::print("Enter width: ");
     std::cin >> width;
 
