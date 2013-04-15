@@ -1,5 +1,4 @@
 #include "Geometry.h"
-#include <cmath>
 
 double Area::Rect(double width, double length)
 {
@@ -18,7 +17,7 @@ double Area::Tri(double base, double height)
 
 double Area::EquiTri(double side)
 {
-    return pow(side, 2) * sqrt(3) / 4;
+    return side*side * sqrt(3) / 4; //Removed use of pow.
 }
 
 double Area::Trap(double upperLength, double bottomLength, double height)
