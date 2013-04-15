@@ -18,7 +18,9 @@ namespace Volume{
 	double Cube(double);
 	double RPrism(double,double,double);
 	double Cyl(double,double);
-	double Pyr(double,double,double);
+	double Pyra(double,double,double);
+	double Cone(double, double);
+	double Sphe(double);
 }
 
 namespace Surface_Area{
