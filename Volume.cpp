@@ -1,6 +1,5 @@
 #include "Geometry.h"
 #include "Handler.h"
-#include <cmath>
 #include <iostream>
 
 double Volume::Cube(double edgelength) //Function for passing a single length
@@ -10,8 +9,8 @@ double Volume::Cube(double edgelength) //Function for passing a single length
 
 double Volume::RPrism(double height, double width, double length)
 {
-    try
-    {   //This test condition may be unnecessary because you are disallowing this function to calculate a cube's volume
+    
+        //This test condition may be unnecessary because you are disallowing this function to calculate a cube's volume
         //even though this function should be for general cases
         if (height != width || height != length) //Test if this is indeed a cuboid.
         {
@@ -19,9 +18,9 @@ double Volume::RPrism(double height, double width, double length)
         }
         else
             throw 98;
-    } catch(int err) { } //This catches an error but does nothing to indicate that there is one.
+     //I suppose this works?
 
-    return 1;  //To let other programmers know that there was an error, return a -1 instead because logically volume cannot be negative
+    return -1;  //To let other programmers know that there was an error, return a -1 instead because logically volume cannot be negative
                //Returning a possible answer will obfuscate the error message
 
 }
@@ -29,12 +28,11 @@ double Volume::RPrism(double height, double width, double length)
 double Volume::Cyl(double radius, double height)
 {
 
-    return PI__ * pow(radius, 2) * height;
+    return radius*radius * PI__ * height;
 }
 
-double Volume::Pyra(double height)
+double Volume::Pyra(double height, double length, double width)
 {
-    double length, width;
         //Please read below:
         //   The point of Flick's I/O element is to gather all the information to be passed into these functions.
         //His portion of the program will ask the user to enter in the height, length, and width and pass these parameters
@@ -53,25 +51,19 @@ double Volume::Pyra(double height)
         //   Now, instead of revamping two or more input methods at different locations, we could fix one central input method.
         //Same goes for your cone function.
         //I hope this didn't sound too harsh.
-    output::print("Calculating area of base. Enter length: ");
-    std::cin >> length;     //Mixing curses, stdio, and/or iostream methods is bad practice.
-    output::print("Enter width: ");
-    std::cin >> width;
+        
+        //Not at all daleth. Thanks for the explanation I actually understand why there's a need for flick to make custom
+        //output and input now. Just going to leave the comment here for the time being.
 
-    return Area::Area_R(length, width) * height * 1/3;  //This is really all you need
+    return Area::Rect(length, width) * height * 1/3;
 }
 
-double Volume::Vol_Cone(double height)
+double Volume::Cone(double height, double baseRadius)
 {
-    double baseRadius;
-
-    output::print("Calculating area of base. Enter radius: ");
-    std::cin >> baseRadius;
-
-    return Area::Area_C(baseRadius) * height * 1/3;
+    return Area::Circ(baseRadius) * height * 1/3;
 }
 
-double Volume::Vol_Sphe(double radius)
+double Volume::Sphe(double radius)
 {
-    return PI__ * pow(radius, 3) * 4/3;
+    return radius*radius*radius * PI__ * 4/3;
 }
