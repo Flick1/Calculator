@@ -387,6 +387,6 @@ operations::Frac operations::operator%(const operations::Frac& leftside, double 
 #ifdef CURSES_H
 	void operations::printw(const Frac& Fraction){
 		const char* todisplay = Fraction.String().c_str();
-		output::printw(todisplay);
+		output::print(todisplay);
 	}
 #endif
