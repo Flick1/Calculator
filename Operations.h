@@ -101,6 +101,12 @@ namespace operations
 	bool operator>=(const Frac&, const Frac&);// Frac >= Frac
 	bool operator>=(const Frac&, double);     // Frac >= double
 	bool operator>=(double, const Frac&);     // double >= Frac
+	#ifdef IOSTREAM_H
+		std::ostream& operator<<(std::ostream&, const Frac&);
+	#endif
+	#ifdef CURSES_H
+		void printw(const Frac&);
+	#endif
 };
 
 

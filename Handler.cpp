@@ -12,7 +12,7 @@ bool handler::menu(void)
     {
         output::print("Main menu goes here, 1 is add, 2 is subtract for now\n");
         input::get(1, input);
-
+				//You have the option of "'using namespace operations;' and 'using operations::[functionname];'"
         switch (int(input[0]))
         {
         case 1:

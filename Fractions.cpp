@@ -381,4 +381,12 @@ operations::Frac operations::operator%(const operations::Frac& leftside, double 
 	leftcopy %= catalyst;
 	return leftcopy;
 }
-std::ostream& operator<<(std::ostream& output, const operations::Frac& Fraction){return (output << Fraction.String());}
+#ifdef IOSTREAM_H
+	std::ostream& operations::operator<<(std::ostream& output, const operations::Frac& Fraction){return (output << Fraction.String());}
+#endif
+#ifdef CURSES_H
+	void operations::printw(const Frac& Fraction){
+		const char* todisplay = Fraction.String().c_str();
+		output::printw(todisplay);
+	}
+#endif
