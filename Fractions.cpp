@@ -7,6 +7,7 @@
 template < typename T, size_t N >
 inline constexpr size_t GAL( T(&)[N] ){ return N; }
 
+operations::Frac Fract(0.0);
 void operations::Frac::Simplify(){
 	if(numerator == denominator){
 		numerator = denominator = 1;
@@ -86,6 +87,7 @@ operations::Frac& operations::Frac::operator=(const operations::Frac& original_f
 		numerator = original_fraction.Numerator();
 		denominator = original_fraction.Denominator();
 	}
+	Simplify();
 	return *this;
 }
 operations::Frac::Frac(){numerator = 0; denominator = 1;}
@@ -104,6 +106,10 @@ operations::Frac& operations::Frac::operator() (int newnum, int newdenom){
 	Simplify();
 	return *this;
 }
+operations::Frac& operations::Frac::operator() (double newdecimal){
+	(*this) = newdecimal;
+	return *this;
+}
 operations::Frac& operations::Frac::operator+=(const operations::Frac& original_fraction){
 	if(this == &original_fraction)
 		numerator *= 2;
@@ -117,7 +123,6 @@ operations::Frac& operations::Frac::operator+=(const operations::Frac& original_
 operations::Frac& operations::Frac::operator+=(double decimal){
 	Frac catalyst = decimal;
 	*this += catalyst;
-	Simplify();
 	return *this;
 }
 operations::Frac& operations::Frac::operator-=(const operations::Frac& original_fraction){
@@ -134,7 +139,6 @@ operations::Frac& operations::Frac::operator-=(const operations::Frac& original_
 operations::Frac& operations::Frac::operator-=(double decimal){
 	operations::Frac catalyst = decimal;
 	*this -= catalyst;
-	Simplify();
 	return *this;
 }
 operations::Frac& operations::Frac::operator*=(const operations::Frac& original_fraction){
@@ -151,7 +155,6 @@ operations::Frac& operations::Frac::operator*=(const operations::Frac& original_
 operations::Frac& operations::Frac::operator*=(double decimal){
 	operations::Frac catalyst = decimal;
 	*this *= catalyst;
-	Simplify();
 	return *this;
 }
 operations::Frac& operations::Frac::operator/=(const operations::Frac& original_fraction){
@@ -167,7 +170,6 @@ operations::Frac& operations::Frac::operator/=(const operations::Frac& original_
 operations::Frac& operations::Frac::operator/=(double decimal){
 	operations::Frac catalyst = decimal;
 	*this /= catalyst;
-	Simplify();
 	return *this;
 }
 operations::Frac operations::operator+(const operations::Frac& leftside, const operations::Frac& rightside){
@@ -309,27 +311,22 @@ bool operations::operator>=(double leftside, const operations::Frac& rightside){
 }
 operations::Frac& operations::Frac::operator-(){
 	numerator *= -1;
-	Simplify();
 	return *this;
 }
 operations::Frac& operations::Frac::operator++(){
 	(*this) += 1;
-	Simplify();
 	return *this;
 }
 operations::Frac& operations::Frac::operator++(int dummy){
 	(*this) += 1;
-	Simplify();
 	return *this;
 }
 operations::Frac& operations::Frac::operator--(){
 	(*this) -= 1;
-	Simplify();
 	return *this;
 }
 operations::Frac& operations::Frac::operator--(int dummy){
 	(*this) -= 1;
-	Simplify();
 	return *this;
 }
 operations::Frac& operations::Frac::operator%=(const operations::Frac& rightside){
@@ -339,7 +336,6 @@ operations::Frac& operations::Frac::operator%=(const operations::Frac& rightside
 	}else{
 		while(numerator < (denominator*-1))	numerator += denominator;
 	}
-	Simplify();
 	return *this;
 }
 operations::Frac& operations::Frac::operator%=(double decimal){
@@ -350,7 +346,6 @@ operations::Frac& operations::Frac::operator%=(double decimal){
 	}else{
 		while(numerator < (denominator*-1))	numerator += denominator;
 	}
-	Simplify();
 	return *this;
 }
 double& operations::operator%=(double& decimal, const operations::Frac& rightside){

@@ -52,16 +52,22 @@ namespace operations
 			Frac& operator() (int=0, int=0);  //Function for arbitrarily changing member variables:
 			                                  //numerator and/or denominator
 			                                  /// Syntax: Frac_Object(first_num,second_number)
+			Frac& operator() (double);        //Functor capability for inserting a new value via double
+			                                  //Used mainly in conjunction with default Frac object: Fract
 			void Zero();                      //Convert Fraction to zero
 			Frac();                           //Default constructor: set fraction equal to zero
 			Frac(int,int);                    //Construct object with integer parameters
 			Frac(double);                     //Construct object with decimal parameter
 			Frac(const Frac&);                //Copy constructor calls overloaded assignment operator: operator=(const Frac&)
 		private:
+				//Members declared as double but should only hold integers
+				//Declared as double to avoid loss of information during conversions
 			double numerator, denominator;
 		protected:
 			void Simplify();
 	};
+		//Default object for functor use, i.e. Fract();
+	extern Frac Fract;
 	Frac operator+(const Frac&,double);       // Frac + double
 	Frac operator+(const Frac&,const Frac&);  // Frac + Frac
 	Frac operator-(const Frac&,double);       // Frac - double
