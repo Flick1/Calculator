@@ -16,8 +16,9 @@
 1365976510 source:c:\users\depes crystalline\documents\github\calculator\add.cpp
 	"Operations.h"
 
-1365981351 c:\users\depes crystalline\documents\github\calculator\operations.h
+1366073875 c:\users\depes crystalline\documents\github\calculator\operations.h
 	<string>
+	<initializer_list>
 
 1365976510 source:c:\users\depes crystalline\documents\github\calculator\divide.cpp
 	<iostream>
@@ -27,7 +28,7 @@
 	"Operations.h"
 	<cmath>
 
-1365981180 source:c:\users\depes crystalline\documents\github\calculator\fractions.cpp
+1366073677 source:c:\users\depes crystalline\documents\github\calculator\fractions.cpp
 	"Operations.h"
 	<sstream>
 	<cmath>

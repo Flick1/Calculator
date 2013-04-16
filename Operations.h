@@ -2,12 +2,16 @@
 #define OPERATIONS_H_INCLUDED
 
 #include <string>
+#include <initializer_list>
 
 namespace operations
 {
    double add(double, double); //return sum
    double subtract(double,double); //return sum
    double multiply(double,double);//return product
+   	//Multiply function with variable number of double arguments
+	///Syntax: multiply_T( {variable1, variable2, variable3, ... } );
+   double multiply_T(std::initializer_list<double>);
    double divide(double, double); // Returns sum.
    int factorial_int(double);
    double factorial_dec(double); //Uses gamma function for decimal factorials; complex number implementation not updated
