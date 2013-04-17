@@ -24,6 +24,8 @@ namespace operations
 	double Tangent(double);
 	double Tangent2(double,double);
 
+		//Default object; can be assigned new values via Fract(int,int) or Fract(double)
+	extern Frac Fract;
 	class Frac{
 		public:
 				//Read-only Get functions
@@ -66,8 +68,6 @@ namespace operations
 		protected:
 			void Simplify();
 	};
-		//Default object for functor use, i.e. Fract();
-	extern Frac Fract;
 	Frac operator+(const Frac&,double);       // Frac + double
 	Frac operator+(const Frac&,const Frac&);  // Frac + Frac
 	Frac operator-(const Frac&,double);       // Frac - double

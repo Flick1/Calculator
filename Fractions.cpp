@@ -401,14 +401,28 @@ std::string operations::Frac::Mixed()const{
 	operations::Frac catalyst(num_copy,denominator);
 	return (ss.str() + catalyst.String());
 }
-double operations::pow(double base, const operations::Frac& exponent){
-	return pow(base, exponent.Dec());
+double operations::pow(double base, const operations::Frac& exponent){return pow(base, exponent.Dec());}
+double operations::pow(const operations::Frac& base, double exponent){return pow(base.Dec(), exponent);}
+double operations::pow(const operations::Frac& base, const operations::Frac& exponent){return pow(base.Dec(), exponent.Dec());}
+operations::Frac& operations::Frac::operator^=(double exponent){
+	(*this) = pow((*this).Dec(),exponent);
+	return *this;
 }
-double operations::pow(const operations::Frac& base, double exponent){
-	return pow(base.Dec(), exponent);
+operations::Frac& operations::Frac::operator^=(const operations::Frac& exponent){
+	(*this) = pow((*this).Dec(), exponent.Dec());
+	return *this;
 }
-double operations::pow(const operations::Frac& base, const operations::Frac& exponent){
-	return pow(base.Dec(), exponent.Dec());
+operations::Frac operations::operator^(double base, const operations::Frac& exponent){
+	operations::Frac catalyst(pow(base, exponent.Dec()));
+	return catalyst;
+}
+operations::Frac operations::operator^(const operations::Frac& base, double exponent){
+	operations::Frac catalyst(pow(base.Dec(), exponent));
+	return catalyst;
+}
+operations::Frac operations::operator^(const operations::Frac& base, const operations::Frac& exponent){
+	operations::Frac catalyst(pow(base.Dec(), exponent.Dec()));
+	return catalyst;
 }
 */
 #ifdef IOSTREAM_H
