@@ -1,10 +1,10 @@
 #include "Geometry.h"
 #include "Handler.h"
-#include <iostream>
+#include <iostream>   //<--Don't forget to remove this
 
-double Volume::Cube(double edgelength) //Function for passing a single length
-{
-    return edgelength*edgelength*edgelength; //Avoid pow() to efficate runtime
+double Volume::Cube(double edgelength)
+{      //Avoid pow() to efficate runtime
+    return edgelength*edgelength*edgelength;
 }
 
 double Volume::RPrism(double height, double width, double length)
@@ -15,6 +15,35 @@ double Volume::RPrism(double height, double width, double length)
         
         //I figure it would be better to separate them completely for an accurate menu. Would there be a way to rerun 
         //this function if the condition fails?
+        
+        //   I see this function like a rectangle (or a quadrilateral shape if you want to use the  correct classification)
+        //because it covers a broad range as a general case. Then the Cube function above is like a square, a special case 
+        //of a rectangle that happens to have four sides of equal length. A rectangle can be a square but the opposite 
+        //is untrue. Sometimes, letting the general case be general is better than restricting its functionality.
+        //   To answer your question, yes there is. Take the following code inside a main function into consideration:
+        //do{
+        //   try{
+        //      int x,y,z;
+        //      std::cout << "Please enter the dimensions of a rectangular prism, pressing ENTER after each one: "
+        //         << "\n\nFirst dimension: ";
+        //         std::cin >> x;
+        //         std::cout << "\n\nSecond dimension: ";
+        //         std::cin >> y;
+        //         std::cout << "\n\nThird dimension: ";
+        //         std::cin >> z;
+        //      double volume = Volume::RPrism(x,y,z);
+        //      std::cout << "\n\nVolume is: " << volume << std::endl;
+        //   }catch(int err){
+        //      std::cout << "Uh-oh, looks like you entered in a cube! Please enter in the dimensions of "
+        //         << "a rectangular prism that is NOT a cube..." << std::endl;
+        //      //return err;
+        //   }
+        //}while(true);
+        //   Here, when x, y, and z are equivalent, Volume::RPrism will throw an exception to be caught and displayed.
+        //However, because the try/catch block is within a do/while block, the code will run another iteration. The 
+        //program does not terminate even though an exception was thrown. The user can enter in another three numbers,
+        //and the function will execute as normally. On the other hand, if the "return err;" line is uncommented, 
+        //then the program will terminate.
 
         if (height != width || height != length) //Test if this is indeed a cuboid.
         {
@@ -23,10 +52,12 @@ double Volume::RPrism(double height, double width, double length)
         else
             throw 98;
      //I suppose this works?
-
+     //This calculator is going to have some kind of exception handler, so yes, it will.
     return -1;  //To let other programmers know that there was an error, return a -1 instead because logically volume cannot be negative
                //Returning a possible answer will obfuscate the error message
-
+     //Just another little note. Your function will either return the answer or throw an exception. The "return -1;"
+     //line will never execute. But keep in mind that I am not telling you to remove this line. How you want your function
+     //to... well... function is up to you.
 }
 
 double Volume::Cyl(double radius, double height)
