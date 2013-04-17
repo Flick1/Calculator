@@ -424,6 +424,7 @@ operations::Frac operations::operator^(const operations::Frac& base, const opera
 	operations::Frac catalyst(pow(base.Dec(), exponent.Dec()));
 	return catalyst;
 }
+operations::Frac operations::operator&
 */
 #ifdef IOSTREAM_H
 	std::ostream& operations::operator<<(std::ostream& output, const operations::Frac& Fraction){return (output << Fraction.String());}
