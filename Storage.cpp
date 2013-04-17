@@ -9,8 +9,9 @@
 vector<vector<double>> Storage::data (10); 
 
 //Stores results into the appropriate vector element based on menu selection.
-void Storage::store(const int selectContain, const double inNum)
-{
+void Storage::store(const int selectContain, const double inNum)	//You might want to change the type of variables this accepts.
+{                                                                   //It is expecting const types, but you tried to pass regular int and double
+                                                                    //in the Subtract.cpp file.
     data.at(selectContain).push_back(inNum);
 }
 
@@ -67,7 +68,70 @@ double Storage::getData(std::size_t row, double item)
     } catch (int err2) {
         std::cerr << "Error " << err2 << " ocurred. Please enter an existing number from the list." << std::endl;
         }
-
+	/*
+	try{
+		if(data[row-1].empty())	throw 42;
+		else if(srch == data[row-1].end())	throw 99;
+	}catch(int err){
+		switch(err){
+			case 42:
+				std::cerr << "Error " << err << ", attempted to unlock secret of life. "
+                         << "Please reenter your menu selection.";
+				break;
+			case 99:
+				std::cerr << "Error " << err << " ocurred. Please enter an existing number from the list.";
+				break;
+			default:
+				std::cerr << "Unknown error " << err;
+		}
+		 std::cout << std::endl;
+	}
+	*/
     return *(srch - 1);
 }
 
+
+	//I am going to assume from the comment on line 8 that the Storage class is a way to select different functions...
+	//What about:
+	//   handler.h
+	//enum handler::Menu_Option{
+	//   Exit_Program,
+	//   Add,
+	//   Subtract,
+	//   Multiply,
+	//   ...
+	//   Enum_Menu_End
+	//};
+	//class handler::Menu{
+	//   public:
+	//      void Execute_Choice();
+	//      void Check_List(std::string);
+	//      Menu();
+	//   private:
+	//      handler::Menu_Option User_Option;	//Value to store user's choice
+	//      static const std::string Menu_Option_String[Enum_Menu_End];	//Store strings to match against user inputs
+	//      static void (*functptr[Enum_Menu_End]);
+	//};
+	//   MenuOptions.cpp
+	//void handler::Menu::Execute_Choice(){
+	//   /*Call appropriate function pointer based on handler::Menu::User_Option...*/
+	//}
+	//void handler::Menu::Check_List(std::string parameter){
+	//   /*Run parameter against handler::Menu::Menu_Option_String[]...*/
+	//   /*Assign handler::Menu_Option value to handler::Menu::User_Option based on match
+	//}
+	//handler::Menu::Menu(){
+	//   /*Initialize handler::Menu::Menu_Option_String[] and handler::Menu::(*functptr[])...*/
+	//}
+	//   main.cpp
+	//#include <map>
+	//...
+	//int main(){
+	//   std::string input;
+	//   /*...Get user input...*/
+	//   Check_List(input);
+	//   Execute_Choice();
+	//}
+	//   This is just a suggestion as I'm not even sure how good of a solution the 
+	//above might be. It makes use of function pointers and uses regular enums in a 
+	//non-conventional way.

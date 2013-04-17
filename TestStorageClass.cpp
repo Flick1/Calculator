@@ -3,7 +3,8 @@
 //don't exist) but I can't seem to find a decent source that teaches about error handling.
 //To get data from stored menu, selection starts at one. Then input the exact number you want to get.
 
-
+#ifdef DEBUG_STORAGECLASS
+	//Encapsulate test file
 #include <vector>
 #include <string>
 #include <iostream>
@@ -17,7 +18,7 @@ using std::string;
 int main()
 {
     double input[4] = {0,0,0,0};
-    double select[1];
+    double select[1];	//See comment on line 32
     Storage test;
 
     std::cout << "You're going to subtract: " << std::endl;
@@ -29,7 +30,7 @@ int main()
 
     test.printMenu();
 
-    input::get(2, select);
+    input::get(2, select);	//select is declared as an array of size 1...
     std::cout << test.getData(select[0], select[1]) << std::endl;
 
     std::cout << "Subtracting with selected data." << std::endl;
@@ -41,3 +42,5 @@ int main()
 
 return 0;
 }
+
+#endif

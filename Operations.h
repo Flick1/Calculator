@@ -24,8 +24,6 @@ namespace operations
 	double Tangent(double);
 	double Tangent2(double,double);
 
-		//Default object; can be assigned new values via Fract(int,int) or Fract(double)
-	extern Frac Fract;
 	class Frac{
 		public:
 				//Read-only Get functions
@@ -107,6 +105,10 @@ namespace operations
 	bool operator>=(const Frac&, const Frac&);// Frac >= Frac
 	bool operator>=(const Frac&, double);     // Frac >= double
 	bool operator>=(double, const Frac&);     // double >= Frac
+	
+		//Default object; can be assigned new values via Fract(int,int) or Fract(double)
+	extern Frac Fract;
+	
 	#ifdef IOSTREAM_H
 		std::ostream& operator<<(std::ostream&, const Frac&);
 	#endif

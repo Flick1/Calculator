@@ -2,7 +2,7 @@
 1365873230 source:c:\users\depes\documents\github\calculator\add.cpp
 	"Operations.h"
 
-1366151224 c:\users\depes\documents\github\calculator\operations.h
+1366230015 c:\users\depes\documents\github\calculator\operations.h
 	<string>
 	<initializer_list>
 
@@ -59,7 +59,7 @@
 1365976510 source:c:\users\depes crystalline\documents\github\calculator\subtract.cpp
 	"Operations.h"
 
-1365998245 source:c:\users\depes\documents\github\calculator\fractions.cpp
+1366228526 source:c:\users\depes\documents\github\calculator\fractions.cpp
 	"Operations.h"
 	<sstream>
 	<cmath>
