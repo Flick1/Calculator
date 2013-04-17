@@ -376,6 +376,41 @@ operations::Frac operations::operator%(const operations::Frac& leftside, double 
 	leftcopy %= catalyst;
 	return leftcopy;
 }
+/*
+operations::Frac& operations::Frac::operator~(){
+	double num_copy = numerator;	//Save a copy of the numerator
+	numerator = denominator;
+	denominator = num_copy;
+	return *this;
+}
+std::string operations::Frac::Mixed()const{
+	int whole=0, num_copy=numerator;
+	if(numerator > 0){
+		while(num_copy > denominator){
+			num_copy -= denominator;
+			whole++;
+		}
+	}else{
+		while(num_copy < denominator*-1){
+			num_copy += denominator;
+			whole++;
+		}
+	}
+	stringstream ss;
+		ss << whole;
+	operations::Frac catalyst(num_copy,denominator);
+	return (ss.str() + catalyst.String());
+}
+double operations::pow(double base, const operations::Frac& exponent){
+	return pow(base, exponent.Dec());
+}
+double operations::pow(const operations::Frac& base, double exponent){
+	return pow(base.Dec(), exponent);
+}
+double operations::pow(const operations::Frac& base, const operations::Frac& exponent){
+	return pow(base.Dec(), exponent.Dec());
+}
+*/
 #ifdef IOSTREAM_H
 	std::ostream& operations::operator<<(std::ostream& output, const operations::Frac& Fraction){return (output << Fraction.String());}
 #endif
