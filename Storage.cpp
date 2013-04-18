@@ -3,15 +3,21 @@
 #include<string>
 #include<algorithm>
 #include "Handler.h"
-#include "Storing.h"	//<-- Might want to check the file names 
+#include "Storage.h"
 
 //Initialize data to have 10 elements of vector types. The number should be the number of functions we have in main menu.
 vector<vector<double>> Storage::data (10); 
 
 //Stores results into the appropriate vector element based on menu selection.
-void Storage::store(const int selectContain, const double inNum)	//I get this error: "undefined reference to 'Storage::store(int,double)' "
-{                                                                    //Dunno where the error is from because the compiler only spotted the problem 
-								    //in the virtual table
+void Storage::store(const std::size_t selectContain, const double inNum)	
+{                        					//I get this error: "undefined reference to 'Storage::store(int,double)' " 
+			 					//Dunno where the error is from because the compiler only spotted the problem 	
+								//in the virtual table
+								    
+								//I think it's because of wrong header naming? I mixed it up
+								//when I commit here between what I did in Codeblocks. Changed 
+								//inNum to a regular double as it won't actually be receiving
+								//const nums.
     data.at(selectContain).push_back(inNum);
 }
 
@@ -39,7 +45,7 @@ void Storage::printMenu()
 }
 
 //Request the selected container (row) and the specific number.
-double Storage::getData(std::size_t row, double item)
+double Storage::getData(const std::size_t row, const double item)
 {
     std::vector<double>::iterator srch;
 
@@ -47,46 +53,26 @@ double Storage::getData(std::size_t row, double item)
 
     try
     {
-        if (data[row - 1].empty()) //If the selected container(row) is empty, its' an invalid selection.
-        {
-            throw 42;
-        }
-    } catch (int err1) {
-            std::cerr << "Error " << err1 << ", attempted to unlock secret of life. "
-                         "Please reenter your menu selection." << std::endl;
-        }
-
-    try
-    {
-        if (srch == data[row - 1].end()) //If the selected data doesn't exist, its' an invalid selection.
-        {
-            throw 99;
-        }
-        else
-            ++srch;
-
-    } catch (int err2) {
-        std::cerr << "Error " << err2 << " ocurred. Please enter an existing number from the list." << std::endl;
-        }
-	/*
-	try{
 		if(data[row-1].empty())	throw 42;
-		else if(srch == data[row-1].end())	throw 99;
+		else if(srch == data[row-1].end()) throw 99;
+		else ++srch;
 	}catch(int err){
-		switch(err){
-			case 42:
+
+		switch(err)
+		{
+			case 42: //If selected container is empty.
 				std::cerr << "Error " << err << ", attempted to unlock secret of life. "
-                         << "Please reenter your menu selection.";
+                         		  << "Please reenter your menu selection.";
 				break;
-			case 99:
+			case 99: //If selected data within container doesn't exist.
 				std::cerr << "Error " << err << " ocurred. Please enter an existing number from the list.";
 				break;
 			default:
 				std::cerr << "Unknown error " << err;
 		}
-		 std::cout << std::endl;
+		std::cout << std::endl;
 	}
-	*/
+
     return *(srch - 1);
 }
 
