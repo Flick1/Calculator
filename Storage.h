@@ -17,9 +17,11 @@ public:	//I read somewhere that having "const" in the prototypes is not neccessa
 		//no idea why). I suppose it is like the default value quirk where the function
 		//defintion is void funct(int x, int y){...} but the prototype is void
 		//funct(int=0, int=0);
-    static void store(const int, const double);
+		
+	//Guess its' to avoid people stealing their stuff. I'll just leave it there for consistency(hurh hurh) sake.
+    static void store(const std::size_t, const double);
     void printMenu();
-    double getData(std::size_t, double);
+    double getData(const std::size_t, const double);
 };
 
 
