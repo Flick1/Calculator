@@ -12,6 +12,8 @@ namespace Area
     double EquiTri(double);
     double Trap(double, double, double);
 	double Parallelogram(double, double);
+	   //Calculate area of an equilateral shape given the length of one side and the number of sides
+	double EquilateralShape(double,long int);
 }
 
 namespace Volume{
@@ -28,6 +30,8 @@ namespace Surface_Area{
 	double RPrism(double, double, double);
 	double Cube(double);
 	double Cyl(double,double);
+	   //Calculate surface area of a prism with equilateral base faces given the length of one base side, the height, and the number of base sides
+	double GeneralPrism(double,double,long int);
 }
 
 #endif // _GEOMETRY_H_
