@@ -26,12 +26,22 @@ namespace Volume{
 }
 
 namespace Surface_Area{
+	   //Calculate surface area of a sphere given radius
 	double Sphere(double);
+	   //Calculate surface area of a rectangular prism given length, width, and height
 	double RPrism(double, double, double);
+	   //Calculate surface area of a cube given the length of one edge
 	double Cube(double);
+	   //Calculate surface area of a cylinder given radius of base and height
 	double Cyl(double,double);
-	   //Calculate surface area of a prism with equilateral base faces given the length of one base side, the height, and the number of base sides
+	   //Calculate surface area of a prism with equilateral base faces given:
+	   // the length of one base side, the height, and the number of base sides
 	double GeneralPrism(double,double,long int);
+	   //Calculate the surface area of a pyramid with an equilateral base given:
+	   // the length of one base side, the height, and the number of base sides
+	double GeneralPyramid(double, double, long int);
+	   //Calculate surface area of a capsule given radius and length of straight side, not total height
+	double Capsule(double, double);
 }
 
 #endif // _GEOMETRY_H_
