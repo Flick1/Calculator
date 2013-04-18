@@ -23,7 +23,11 @@ namespace operations
 	double Cosine(double);
 	double Tangent(double);
 	double Tangent2(double,double);
-
+	
+	class Frac;
+		//Default object; can be assigned new values via Fract(int,int) or Fract(double)
+	extern Frac Fract;
+	
 	class Frac{
 		public:
 				//Read-only Get functions
@@ -31,7 +35,10 @@ namespace operations
 			int Denominator()const;
 			double Dec()const;
 			std::string String()const;
-				//Emulate real variables by overloading most operators
+			std::string Mixed()const;
+			void Zero();                      //Convert Fraction to zero
+			    //Emulate real variables by overloading most operators
+			    //Functions will return type equivalent of left-hand side parameter
 			Frac& operator=(double);          // Frac = double
 			Frac& operator=(const Frac&);     // Frac = Frac
 			Frac& operator+=(double);         // Frac += double
@@ -54,7 +61,11 @@ namespace operations
 			                                  /// Syntax: Frac_Object(first_num,second_number)
 			Frac& operator() (double);        //Functor capability for inserting a new value via double
 			                                  //Used mainly in conjunction with default Frac object: Fract
-			void Zero();                      //Convert Fraction to zero
+			    //Special overloaded bitwise operators. These do not act like regular bitwise operators.
+			Frac& operator~();                // ~Frac           [returns the inverse of the fraction]
+			Frac& operator^=(double);         // Frac ^= double  [imitates pow() function]
+			Frac& operator^=(const Frac&);    // Frac ^= Frac
+			
 			Frac();                           //Default constructor: set fraction equal to zero
 			Frac(int,int);                    //Construct object with integer parameters
 			Frac(double);                     //Construct object with decimal parameter
@@ -74,9 +85,10 @@ namespace operations
 	Frac operator*(const Frac&,const Frac&);  // Frac * Frac
 	Frac operator/(const Frac&,double);       // Frac / double
 	Frac operator/(const Frac&,const Frac&);  // Frac / Frac
-	Frac operator%(const Frac&, const Frac&); // Frac % Frac		[will return remainder fraction]
-	Frac operator%(double, const Frac&);      // double % Frac	[converts double to Frac]
+	Frac operator%(const Frac&, const Frac&); // Frac % Frac	[will return remainder fraction]
 	Frac operator%(const Frac&, double);      // Frac % double	[also returns remainder fraction]
+	Frac operator^(const Frac&, double);      // Frac ^ double  [imitates pow() function]
+	Frac operator^(const Frac&, const Frac&); // Frac ^ Frac
 	double& operator+=(double&, const Frac&); // double += Frac
 	double& operator-=(double&, const Frac&); // double -= Frac
 	double& operator*=(double&, const Frac&); // double *= Frac
@@ -86,6 +98,8 @@ namespace operations
 	double operator-(double, const Frac&);    // double - Frac
 	double operator*(double, const Frac&);    // double * Frac
 	double operator/(double, const Frac&);    // double / Frac
+	double operator%(double, const Frac&);    // double % Frac	[converts double to Frac]
+	double operator^(double, const Frac&);    // double ^ Frac  [Imitates pow() function]
 	bool operator!(const Frac&);              // !Frac			[Returns true if Frac has a numerator of 0]
 	bool operator==(const Frac&, const Frac&);// Frac == Frac
 	bool operator==(const Frac&, double);     // Frac == double
@@ -105,9 +119,10 @@ namespace operations
 	bool operator>=(const Frac&, const Frac&);// Frac >= Frac
 	bool operator>=(const Frac&, double);     // Frac >= double
 	bool operator>=(double, const Frac&);     // double >= Frac
+	double Pow(double, const Frac&);
+	Frac Pow(const Frac&, double);
+	Frac Pow(const Frac&, const Frac&);
 	
-		//Default object; can be assigned new values via Fract(int,int) or Fract(double)
-	extern Frac Fract;
 	
 	#ifdef IOSTREAM_H
 		std::ostream& operator<<(std::ostream&, const Frac&);

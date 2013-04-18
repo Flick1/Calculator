@@ -3,7 +3,7 @@
 #include<string>
 #include<algorithm>
 #include "Handler.h"
-#include "Storing.h"
+#include "Storing.h"	//<-- Might want to check the file names 
 
 //Initialize data to have 10 elements of vector types. The number should be the number of functions we have in main menu.
 vector<vector<double>> Storage::data (10); 
