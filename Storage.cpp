@@ -10,8 +10,8 @@ vector<vector<double>> Storage::data (10);
 
 //Stores results into the appropriate vector element based on menu selection.
 void Storage::store(const int selectContain, const double inNum)	//I get this error: "undefined reference to 'Storage::store(int,double)' "
-                                                                    //Dunno where the error is from because the compiler only spotted the problem 
-																	//in the virtual table
+{                                                                    //Dunno where the error is from because the compiler only spotted the problem 
+								    //in the virtual table
     data.at(selectContain).push_back(inNum);
 }
 
