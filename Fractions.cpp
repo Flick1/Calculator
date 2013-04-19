@@ -317,7 +317,7 @@ operations::Frac& operations::Frac::operator++(){
 	(*this) += 1;
 	return *this;
 }
-operations::Frac& operations::Frac::operator++(int dummy){
+operations::Frac& operations::Frac::operator++(short int dummy){
 	(*this) += 1;
 	return *this;
 }
@@ -325,7 +325,7 @@ operations::Frac& operations::Frac::operator--(){
 	(*this) -= 1;
 	return *this;
 }
-operations::Frac& operations::Frac::operator--(int dummy){
+operations::Frac& operations::Frac::operator--(short int dummy){
 	(*this) -= 1;
 	return *this;
 }

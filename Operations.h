@@ -55,9 +55,9 @@ namespace operations
 		Frac& operator%=(double);         // Frac %= double   [a.k.a remainder]
 		Frac& operator-();                // -Frac
 		Frac& operator++();               // ++Frac
-		Frac& operator++(int=0);          // Frac++
+		Frac& operator++(short int=0);          // Frac++
 		Frac& operator--();               // --Frac
-		Frac& operator--(int=0);          // Frac--
+		Frac& operator--(short int=0);          // Frac--
 		Frac& operator() (int=0, int=0);  //Function for arbitrarily changing member variables:
 		                                  //numerator and/or denominator
 		                                  /// Syntax: Frac_Object(first_num,second_number)
