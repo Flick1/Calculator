@@ -17,6 +17,8 @@ namespace operations
    double factorial_dec(double); //Uses gamma function for decimal factorials; complex number implementation not updated
    double Logarithm_Natural(double);
    double Logarithm_Base10(double);
+      //Calculate logarithm given base and number
+   double Logarithm(double, double);
    double E_pow(double);
 
    double Sine(double);

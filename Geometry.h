@@ -11,9 +11,9 @@ namespace Area
     double Tri(double, double);
     double EquiTri(double);
     double Trap(double, double, double);
-	double Parallelogram(double, double);
-	   //Calculate area of an equilateral shape given the length of one side and the number of sides
-	double EquilateralShape(double,long int);
+    double Parallelogram(double, double);
+       //Calculate area of an equilateral shape given the length of one side and the number of sides
+    double EquilateralShape(double,long int);
 }
 
 namespace Volume{
