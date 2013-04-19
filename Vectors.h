@@ -1,4 +1,3 @@
-/*
 #ifndef VECTORS_H
 	#define VECTORS_H
 	#include <initializer_list>
@@ -10,18 +9,36 @@
 	namespace Vectors{
 		double Magnitude(initializer_list<double>);
 		double Magnitude(initializer_list<operations::Frac>);
-		double Dot(initializer_list<double>);
-		double Dot(initializer_list<operations::Frac>);
 		   //Calculate direction of a vector relative to a specific plane
 		double Direction(initalizer_list<double>, std::string="xy");
 		double Direction(initalizer_list<operations::Frac>, std::string="xy");
+		
+		double Dot(initializer_list<double>,initializer_list<double>);
+		double Dot(initializer_list<operations::Frac>,initializer_list<double>);
+		double Dot(initializer_list<double>,initializer_list<operations::Frac>);
+		double Dot(initializer_list<operations::Frac>,initializer_list<operations::Frac>);
+		double Dot(initializer_list<double>,VectorData);
+		double Dot(initializer_list<operations::Frac>,VectorData);
+		double Dot(VectorData,initializer_list<operations::Frac>);
+		double Dot(VectorData,initializer_list<double>);
+		double Dot(VectorData,VectorData);
+
+		VectorData Cross(initializer_list<double>,initializer_list<double>);
+		VectorData Cross(initializer_list<operations::Frac>,initializer_list<double>);
+		VectorData Cross(initializer_list<double>,initializer_list<operations::Frac>);
+		VectorData Cross(initializer_list<operations::Frac>,initializer_list<operations::Frac>);
+		VectorData Cross(initializer_list<double>,VectorData);
+		VectorData Cross(initializer_list<operations::Frac>,VectorData);
+		VectorData Cross(VectorData,initializer_list<operations::Frac>);
+		VectorData Cross(VectorData,initializer_list<double>);
+		VectorData Cross(VectorData,VectorData);
+		
 		   //Create vector class for storage and multiple analyses
+		   //All overloaded operators return type equivalent to left-hand value
 		class VectorData{
 			public:
 				double Magnitude();
 				double Direction(std::string="xy");
-				double Dot();
-				VectorData Cross(VectorData);
 				std::string String();
 				
 				VectorData& operator=(VectorData);
@@ -63,8 +80,26 @@
 				std::vector<double> components, directions;
 				double magnitude;
 		};
+		bool Parallel(VectorData,VectorData);
+		bool Orthogonal(VectorData,VectorData);
+		double& operator+=(double,VectorData);
+		double& operator-=(double,VectorData);
+		VectorData operator+(VectorData,VectorData);
+		VectorData operator-(VectorData,VectorData);
+		VectorData operator*(VectorData,double);
+		VectorData operator*(double,VectorData);
+		VectorData operator/(VectorData,double);
+		VectorData operator%(VectorData,double);
+		bool operator!(VectorData);
+		bool operator==(VectorData,VectorData);
+		bool operator!=(VectorData,VectorData);
 		
+	#ifdef IOSTREAM_H
+		std::ostream& operator<<(std::ostream&, const VectorData&);
+	#endif
+	#ifdef CURSES_H
+		void printw(const VectorData&);
+	#endif
 	}
 	
 #endif
-*/

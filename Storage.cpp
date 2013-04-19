@@ -11,17 +11,7 @@ using std::vector;
 vector<vector<double>> Storage::data (10); 
 
 //Stores results into the appropriate vector element based on menu selection.
-void Storage::store(const std::size_t selectContain, const double inNum)	
-{                        					//I get this error: "undefined reference to 'Storage::store(int,double)' " 
-			 					//Dunno where the error is from because the compiler only spotted the problem 	
-								//in the virtual table
-								    
-								//I think it's because of wrong header naming? I mixed it up
-								//when I commit here between what I did in Codeblocks. Changed 
-								//inNum to a regular double as it won't actually be receiving
-								//const nums.
-								
-								//I actually changed the headers to test the functions, which is when I recieved that error
+void Storage::store(const std::size_t selectContain, const double inNum){
     data.at(selectContain).push_back(inNum);
 }
 
@@ -79,49 +69,3 @@ double Storage::getData(const std::size_t row, const double item)
 
     return *(srch - 1);
 }
-
-
-	//I am going to assume from the comment on line 8 that the Storage class is a way to select different functions...
-	//What about:
-	//   handler.h
-	//enum handler::Menu_Option{
-	//   Exit_Program,
-	//   Add,
-	//   Subtract,
-	//   Multiply,
-	//   ...
-	//   Enum_Menu_End
-	//};
-	//class handler::Menu{
-	//   public:
-	//      void Execute_Choice();
-	//      void Check_List(std::string);
-	//      Menu();
-	//   private:
-	//      handler::Menu_Option User_Option;	//Value to store user's choice
-	//      static const std::string Menu_Option_String[Enum_Menu_End];	//Store strings to match against user inputs
-	//      static void (*functptr[Enum_Menu_End]);
-	//};
-	//   MenuOptions.cpp
-	//void handler::Menu::Execute_Choice(){
-	//   /*Call appropriate function pointer based on handler::Menu::User_Option...*/
-	//}
-	//void handler::Menu::Check_List(std::string parameter){
-	//   /*Run parameter against handler::Menu::Menu_Option_String[]...*/
-	//   /*Assign handler::Menu_Option value to handler::Menu::User_Option based on match
-	//}
-	//handler::Menu::Menu(){
-	//   /*Initialize handler::Menu::Menu_Option_String[] and handler::Menu::(*functptr[])...*/
-	//}
-	//   main.cpp
-	//#include <map>
-	//...
-	//int main(){
-	//   std::string input;
-	//   /*...Get user input...*/
-	//   Check_List(input);
-	//   Execute_Choice();
-	//}
-	//   This is just a suggestion as I'm not even sure how good of a solution the 
-	//above might be. It makes use of function pointers and uses regular enums in a 
-	//non-conventional way.
