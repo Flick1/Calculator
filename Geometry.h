@@ -29,9 +29,9 @@ namespace Volume{
 	   //Calculate volume of a general pyramid with equilateral bases given:
 	   // the length of one base side, the height of the pyramid, and the number of base sides
 	double GeneralPyramid(double, double, long int);
-	   //Calculate the volume of a general 3D polygon with equilateral facets and spherical form given:
-	   // the length of one facet side, the radius of the polygon, the number of facet sides, and the number of facets
-	double Polygon_3D(double, double, long int, long int);
+	   //Calculate the volume of a general platonic polyhedron with equilateral facets and spherical form given:
+	   // the length of one facet side, the radius of the polyhedron, the number of facet sides, and the number of facets
+	double PlatonicPolyhedron(double, double, long int, long int);
 }
 
 namespace Surface_Area{

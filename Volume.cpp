@@ -43,4 +43,4 @@ double Volume::Sphe(double radius)
 }
 double Volume::GeneralPrism(double side_length, double height, long int num_side){return Area::EquilateralShape(side_length,num_side) * height;}
 double Volume::GeneralPyramid(double side_length, double height, long int num_side){return Area::EquilateralShape(side_length,num_side) * height / 3;}
-double Volume::Polygon_3D(double side_length, double radius, long int num_sides, long int num_facets){return Volume::GeneralPyramid(side_length, radius, num_sides) * num_facets;}
+double Volume::PlatonicPolyhedron(double side_length, double radius, long int num_sides, long int num_facets){return Volume::GeneralPyramid(side_length, radius, num_sides) * num_facets;}
