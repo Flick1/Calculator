@@ -5,6 +5,8 @@
 #include "Handler.h"
 #include "Storage.h"
 
+using std::vector;
+
 //Initialize data to have 10 elements of vector types. The number should be the number of functions we have in main menu.
 vector<vector<double>> Storage::data (10); 
 

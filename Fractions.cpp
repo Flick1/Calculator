@@ -100,15 +100,13 @@ operations::Frac::Frac(int top, int bottom){
 }
 operations::Frac::Frac(double decimal){*this = decimal;}
 operations::Frac::Frac(const Frac& original_fraction){(*this) = original_fraction;}
-operations::Frac& operations::Frac::operator() (int newnum, int newdenom){
+void operations::Frac::operator() (int newnum, int newdenom){
 	if(newnum != 0)	numerator = newnum;
 	if(newdenom != 0)	denominator = newdenom;
 	Simplify();
-	return *this;
 }
-operations::Frac& operations::Frac::operator() (double newdecimal){
+void operations::Frac::operator() (double newdecimal){
 	(*this) = newdecimal;
-	return *this;
 }
 operations::Frac& operations::Frac::operator+=(const operations::Frac& original_fraction){
 	if(this == &original_fraction)
@@ -317,7 +315,7 @@ operations::Frac& operations::Frac::operator++(){
 	(*this) += 1;
 	return *this;
 }
-operations::Frac& operations::Frac::operator++(short int dummy){
+operations::Frac& operations::Frac::operator++(int dummy){
 	(*this) += 1;
 	return *this;
 }
@@ -325,7 +323,7 @@ operations::Frac& operations::Frac::operator--(){
 	(*this) -= 1;
 	return *this;
 }
-operations::Frac& operations::Frac::operator--(short int dummy){
+operations::Frac& operations::Frac::operator--(int dummy){
 	(*this) -= 1;
 	return *this;
 }

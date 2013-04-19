@@ -1,6 +1,6 @@
 #include "Geometry.h"
 
-#include <cmath.h>
+#include <cmath>
 
 double Surface_Area::Sphere(double radius){return 4*PI__*radius*radius;}
 double Surface_Area::RPrism(double length, double width, double height){return (2*length*width + 2*height*length + 2*height*width);}

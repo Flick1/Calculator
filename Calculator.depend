@@ -2,7 +2,7 @@
 1365873230 source:c:\users\depes\documents\github\calculator\add.cpp
 	"Operations.h"
 
-1366251154 c:\users\depes\documents\github\calculator\operations.h
+1366415842 c:\users\depes\documents\github\calculator\operations.h
 	<string>
 	<initializer_list>
 
@@ -59,7 +59,7 @@
 1365976510 source:c:\users\depes crystalline\documents\github\calculator\subtract.cpp
 	"Operations.h"
 
-1366228526 source:c:\users\depes\documents\github\calculator\fractions.cpp
+1366415571 source:c:\users\depes\documents\github\calculator\fractions.cpp
 	"Operations.h"
 	<sstream>
 	<cmath>
@@ -86,6 +86,48 @@
 1366093566 source:c:\users\depes\documents\github\calculator\multiply.cpp
 	"Operations.h"
 
-1365873230 source:c:\users\depes\documents\github\calculator\subtract.cpp
+1366410241 source:c:\users\depes\documents\github\calculator\subtract.cpp
 	"Operations.h"
+	"Storage.h"
+
+1366308497 c:\users\depes\documents\github\calculator\storage.h
+	<iostream>
+	<vector>
+	<string>
+
+1366415757 source:c:\users\depes\documents\github\calculator\area.cpp
+	"Geometry.h"
+	<cmath>
+
+1366415941 c:\users\depes\documents\github\calculator\geometry.h
+
+1365873230 source:c:\users\depes\documents\github\calculator\factorials.cpp
+	"Operations.h"
+	<cmath>
+
+1365873230 source:c:\users\depes\documents\github\calculator\input.cpp
+	"Input.h"
+
+1366336291 source:c:\users\depes\documents\github\calculator\logarithms.cpp
+	"Operations.h"
+	<cmath>
+
+1365959777 source:c:\users\depes\documents\github\calculator\output.cpp
+	"Output.h"
+
+1366415852 source:c:\users\depes\documents\github\calculator\pow & square.cpp
+	<cmath>
+	"Operations.h"
+
+1366415875 source:c:\users\depes\documents\github\calculator\surface_areafunct.cpp
+	"Geometry.h"
+	<cmath>
+
+1365961463 source:c:\users\depes\documents\github\calculator\trig_funct.cpp
+	"Operations.h"
+	"Geometry.h"
+	<cmath>
+
+1366412211 source:c:\users\depes\documents\github\calculator\volume.cpp
+	"Geometry.h"
 

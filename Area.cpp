@@ -1,5 +1,7 @@
 #include "Geometry.h"
 
+#include <cmath>
+
 double Area::Rect(double width, double length)
 {
     return width * length;

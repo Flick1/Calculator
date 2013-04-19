@@ -43,6 +43,7 @@ namespace Surface_Area{
 	double Cube(double);
 	   //Calculate surface area of a cylinder given radius of base and height
 	double Cyl(double,double);
+	double Pyramid(double, double, double);
 	   //Calculate surface area of a prism with equilateral base faces given:
 	   // the length of one base side, the height, and the number of base sides
 	double GeneralPrism(double,double,long int);
