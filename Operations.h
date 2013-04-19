@@ -20,7 +20,7 @@ namespace operations
       //Calculate logarithm given base and number
    double Logarithm(double, double);
    double E_pow(double);
-
+		//These accept degrees
    double Sine(double);
    double Cosine(double);
    double Tangent(double);
