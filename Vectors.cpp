@@ -1,3 +1,5 @@
+#ifdef DEBUG_VECTORS
+
 #include "Operations.h"
 #include "Vectors.h"
 
@@ -32,7 +34,9 @@ double Magnitude(initializer_list<operations::Frac> components){
 double Direction(initalizer_list<double>, std::string="xy");
 double Direction(initalizer_list<operations::Frac>, std::string="xy");
 
-double Dot(initializer_list<double>,initializer_list<double>);
+double Dot(initializer_list<double> first,initializer_list<double> second){
+	while(first.size() < second.size())	
+}
 double Dot(initializer_list<operations::Frac>,initializer_list<double>);
 double Dot(initializer_list<double>,initializer_list<operations::Frac>);
 double Dot(initializer_list<operations::Frac>,initializer_list<operations::Frac>);
@@ -52,9 +56,33 @@ Vectors::VectorData Cross(Vectors::VectorData,initializer_list<operations::Frac>
 Vectors::VectorData Cross(Vectors::VectorData,initializer_list<double>);
 Vectors::VectorData Cross(Vectors::VectorData,Vectors::VectorData);
 
-double Vectors::VectorData::Magnitude();
-double Vectors::VectorData::Direction(std::string="xy");
-std::string Vectors::VectorData::String();
+double Vectors::VectorData::Magnitude()const;
+double Vectors::VectorData::Direction(std::string="xy")const;
+std::string Vectors::VectorData::String()const;
+
+Vectors::VectorData Vectors::VectorData::Unit(){
+	Vectors::Vector Data catalyst(*this);
+		//List of prime numbers for simplifying the vector components
+	int divisor[] = {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,57,59};
+	
+	for(int i=0; i < GAL(divisor); i++){
+		for(size_t iter = 0; iter < components.size(); iter++){
+			if(components[iter]%divisor[i] != 0){
+				continue;
+			}else if(iter == components.size()-1){
+				for(size_t iter2 = 0; iter2 < components.size(); iter2++)
+					catalyst.components[iter2] = components[iter2] / divisor[i];
+			}
+		}
+	}
+	return catalyst;
+}
+
+double Component(unsigned)const;
+void Add(double);
+void Add(operations::Frac);
+void Replace(unsigned,double);
+void Replace(unsigned,operations::Frac);
 
 Vectors::VectorData& Vectors::VectorData::operator=(Vectors::VectorData);
 Vectors::VectorData& Vectors::VectorData::operator+=(Vectors::VectorData);
@@ -100,10 +128,14 @@ Vectors::VectorData operator%(Vectors::VectorData,double);
 bool operator!(Vectors::VectorData);
 bool operator==(Vectors::VectorData,Vectors::VectorData);
 bool operator!=(Vectors::VectorData,Vectors::VectorData);
+
+void Vectors::VectorData::Update();
 		
 #ifdef IOSTREAM_H
 	std::ostream& operator<<(std::ostream&, const Vectors::VectorData&);
 #endif
 #ifdef CURSES_H
 	void printw(const Vectors::VectorData&);
+#endif
+
 #endif

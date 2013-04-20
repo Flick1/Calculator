@@ -1,3 +1,5 @@
+#ifdef DEBUG_VECTORS
+
 #ifndef VECTORS_H
 	#define VECTORS_H
 	#include <initializer_list>
@@ -37,9 +39,16 @@
 		   //All overloaded operators return type equivalent to left-hand value
 		class VectorData{
 			public:
-				double Magnitude();
-				double Direction(std::string="xy");
-				std::string String();
+				double Magnitude()const;
+				double Direction(std::string="xy")const;
+				std::string String()const;
+				VectorData Unit()const;
+				
+				double Component(unsigned)const;
+				void Add(double);
+				void Add(operations::Frac);
+				void Replace(unsigned,double);
+				void Replace(unsigned,operations::Frac);
 				
 				VectorData& operator=(VectorData);
 				VectorData& operator+=(VectorData);
@@ -79,6 +88,8 @@
 			private:
 				std::vector<double> components, directions;
 				double magnitude;
+			protected:
+				void Update();
 		};
 		bool Parallel(VectorData,VectorData);
 		bool Orthogonal(VectorData,VectorData);
@@ -102,4 +113,6 @@
 	#endif
 	}
 	
+#endif
+
 #endif
