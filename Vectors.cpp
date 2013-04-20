@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <cmath>
+#include <list>
 	
 class operations::Frac;
 
@@ -34,12 +35,54 @@ double Magnitude(initializer_list<operations::Frac> components){
 double Direction(initalizer_list<double>, std::string="xy");
 double Direction(initalizer_list<operations::Frac>, std::string="xy");
 
-double Dot(initializer_list<double> first,initializer_list<double> second){
-	while(first.size() < second.size())	
+double Dot(initializer_list<double> f,initializer_list<double> s){
+	list<double> first(f), second(s);
+		//Ensure both vectors have the same number of components
+	while(first.size() < second.size())	first.push_back(0);
+	while(first.size() > second.size()) second.push_back(0);
+	double toreturn = 0;
+	for(auto f_iter = first.begin(), s_iter = second.begin(); f_iter != first.end(), s_iter != second.end(); f_iter++, s_iter++)
+		toreturn += (*f_iter) * (*s_iter);
+	return toreturn;
 }
-double Dot(initializer_list<operations::Frac>,initializer_list<double>);
-double Dot(initializer_list<double>,initializer_list<operations::Frac>);
-double Dot(initializer_list<operations::Frac>,initializer_list<operations::Frac>);
+double Dot(initializer_list<operations::Frac> f,initializer_list<double> s){
+	list<double> first, second(s);
+	for(auto f_iter = f.begin(); f_iter != f.end(); f_iter++)
+		first.push_back((*f_iter).Dec());
+		//Ensure both vectors have the same number of components
+	while(first.size() < second.size())	first.push_back(0);
+	while(first.size() > second.size()) second.push_back(0);
+	double toreturn = 0;
+	for(auto f_iter = first.begin(), s_iter = second.begin(); f_iter != first.end(), s_iter != second.end(); f_iter++, s_iter++)
+		toreturn += (*f_iter) * (*s_iter);
+	return toreturn;
+}
+double Dot(initializer_list<double> f,initializer_list<operations::Frac> s){
+	list<double> first(f), second;
+	for(auto s_iter = s.begin(); s_iter != s.end(); s_iter++)
+		second.push_back((*s_iter).Dec());
+		//Ensure both vectors have the same number of components
+	while(first.size() < second.size())	first.push_back(0);
+	while(first.size() > second.size()) second.push_back(0);
+	double toreturn = 0;
+	for(auto f_iter = first.begin(), s_iter = second.begin(); f_iter != first.end(), s_iter != second.end(); f_iter++, s_iter++)
+		toreturn += (*f_iter) * (*s_iter);
+	return toreturn;
+}
+double Dot(initializer_list<operations::Frac>,initializer_list<operations::Frac>){
+	list<double> first, second;
+	for(auto f_iter = f.begin(); f_iter != f.end(); f_iter++)
+		first.push_back((*f_iter).Dec());
+	for(auto s_iter = s.begin(); s_iter != s.end(); s_iter++)
+		second.push_back((*s_iter).Dec());
+		//Ensure both vectors have the same number of components
+	while(first.size() < second.size())	first.push_back(0);
+	while(first.size() > second.size()) second.push_back(0);
+	double toreturn = 0;
+	for(auto f_iter = first.begin(), s_iter = second.begin(); f_iter != first.end(), s_iter != second.end(); f_iter++, s_iter++)
+		toreturn += (*f_iter) * (*s_iter);
+	return toreturn;
+}
 double Dot(initializer_list<double>,Vectors::VectorData);
 double Dot(initializer_list<operations::Frac>,Vectors::VectorData);
 double Dot(Vectors::VectorData,initializer_list<operations::Frac>);
