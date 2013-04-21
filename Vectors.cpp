@@ -19,14 +19,14 @@
 using std::initializer_list;
 using std::list;
 
-double Magnitude(initializer_list<double> components){
+double Vectors::Magnitude(initializer_list<double> components){
 	double toreturn=0;
 	for(auto iter = components.begin(), int i=0; iter != components.end(); iter++, i++)
 		toreturn += (*iter)*(*iter);
 	return sqrt(toreturn);
 }
 
-double Direction(initalizer_list<double> v, int axis1, int axis2){
+double Vectors::Direction(initalizer_list<double> v, int axis1, int axis2){
 	if(axis1 < 1 || axis2 < 1)	throw "Error. Invalid dimension selected.";
 	else if(axis1 == axis2)	return 0;
 	vector<double> vec(v);
@@ -35,7 +35,7 @@ double Direction(initalizer_list<double> v, int axis1, int axis2){
 	return atan(vec[axis2-1]/vec[axis1-1]);
 }
 
-double Dot(initializer_list<double> f,initializer_list<double> s){
+double Vectors::Dot(initializer_list<double> f,initializer_list<double> s){
 	list<double> first(f), second(s);
 		//Ensure both vectors have the same number of components
 	while(first.size() < second.size())	first.push_back(0);
@@ -45,7 +45,7 @@ double Dot(initializer_list<double> f,initializer_list<double> s){
 		toreturn += (*f_iter) * (*s_iter);
 	return toreturn;
 }
-double Dot(initializer_list<double> f,Vectors::VectorData s){
+double Vectors::Dot(initializer_list<double> f,Vectors::VectorData s){
 	list<double> first(f), second;
 	for(unsigned s_iter = 0; s_iter < s.size(); s_iter++)
 		second.push_back(s[s_iter]);
@@ -57,7 +57,7 @@ double Dot(initializer_list<double> f,Vectors::VectorData s){
 		toreturn += (*f_iter) * (*s_iter);
 	return toreturn;
 }
-double Dot(Vectors::VectorData f,initializer_list<double> s){
+double Vectors::Dot(Vectors::VectorData f,initializer_list<double> s){
 	list<double> first, second(s);
 	for(unsigned f_iter = 0; f_iter < f.size(); f_iter++)
 		first.push_back(f[f_iter]);
@@ -69,7 +69,7 @@ double Dot(Vectors::VectorData f,initializer_list<double> s){
 		toreturn += (*f_iter) * (*s_iter);
 	return toreturn;
 }
-double Dot(Vectors::VectorData f,Vectors::VectorData s){
+double Vectors::Dot(Vectors::VectorData f,Vectors::VectorData s){
 	list<double> first, second;
 	for(unsigned f_iter = 0; f_iter < f.size(); f_iter++)
 		first.push_back(f[f_iter]);
@@ -84,13 +84,13 @@ double Dot(Vectors::VectorData f,Vectors::VectorData s){
 	return toreturn;
 }
 
-Vectors::VectorData Cross(initializer_list<double> f,initializer_list<double> s){
+Vectors::VectorData Vectors::Cross(initializer_list<double> f,initializer_list<double> s){
 	
 }
-Vectors::VectorData Cross(initializer_list<double>,Vectors::VectorData);
-Vectors::VectorData Cross(Vectors::VectorData,initializer_list<double>);
-Vectors::VectorData Cross(Vectors::VectorData,Vectors::VectorData);
-
+Vectors::VectorData Vectors::Cross(initializer_list<double>,Vectors::VectorData);
+Vectors::VectorData Vectors::Cross(Vectors::VectorData,initializer_list<double>);
+Vectors::VectorData Vectors::Cross(Vectors::VectorData,Vectors::VectorData);
+	//Member functions
 double Vectors::VectorData::Magnitude()const{return magnitude;}
 double Vectors::VectorData::Direction(int axis1, int axis2)const{
 	if(axis1 < 1 || axis2 < 1)	throw "Error. Invalid dimension selected.";
@@ -224,38 +224,48 @@ Vectors::VectorData::VectorData(double x,double y){
 }
 Vectors::VectorData::VectorData(const Vectors::VectorData& tocopy){Copy(tocopy);}
 
-bool Parallel(const Vectors::VectorData&,const Vectors::VectorData&);
-bool Orthogonal(const Vectors::VectorData&,const Vectors::VectorData&);
-double& operator+=(double,const Vectors::VectorData&);
-double& operator-=(double,const Vectors::VectorData&);
-Vectors::VectorData operator+(const Vectors::VectorData&,const Vectors::VectorData&);
-Vectors::VectorData operator-(const Vectors::VectorData&,const Vectors::VectorData&);
-Vectors::VectorData operator*(const Vectors::VectorData&,double);
-Vectors::VectorData operator*(double,const Vectors::VectorData&);
-Vectors::VectorData operator/(const Vectors::VectorData&,double);
-Vectors::VectorData operator%(const Vectors::VectorData&,double);
-bool operator!(const Vectors::VectorData& testee){
+Vectors::VectorData::~VectorData(){Empty();}
+	//End member functions
+bool Vectors::Parallel(const Vectors::VectorData& first,const Vectors::VectorData& second){
+	if(first.Unit() == second.Unit())	return true;
+	else return false;
+	/*	Alternative instructions:
+		if(Cross(first,second).Magnitude() == 0)	return true;
+		else return false;
+	*/
+}
+bool Vectors::Orthogonal(const Vectors::VectorData& first,const Vectors::VectorData& second){
+	if(Dot(first,second) == 0)	return true;
+	else return false;
+}
+double& Vectors::operator+=(double,const Vectors::VectorData&);
+double& Vectors::operator-=(double,const Vectors::VectorData&);
+Vectors::VectorData Vectors::operator+(const Vectors::VectorData&,const Vectors::VectorData&);
+Vectors::VectorData Vectors::operator-(const Vectors::VectorData&,const Vectors::VectorData&);
+Vectors::VectorData Vectors::operator*(const Vectors::VectorData&,double);
+Vectors::VectorData Vectors::operator*(double,const Vectors::VectorData&);
+Vectors::VectorData Vectors::operator/(const Vectors::VectorData&,double);
+Vectors::VectorData Vectors::operator%(const Vectors::VectorData&,double);
+bool Vectors::operator!(const Vectors::VectorData& testee){
 	for(unsigned iter = 0; iter < testee.size(); iter++){
 		if(testee[iter] != 0)	return false;
 	}
 	return true;
 }
-bool operator==(const Vectors::VectorData& leftside,const Vectors::VectorData& rightside){
+bool Vectors::operator==(const Vectors::VectorData& leftside,const Vectors::VectorData& rightside){
 	if(leftside.size() != rightside.size())	return false;
 	for(unsigned iter=0; iter < leftside.size(); iter++){
 		if(leftside[iter] != rightside[iter])	return false;
 	}
 	return true;
 }
-bool operator!=(const Vectors::VectorData&,const Vectors::VectorData&){
-	if(leftside.size() == rightside.size())	return false;
+bool Vectors::operator!=(const Vectors::VectorData&,const Vectors::VectorData&){
+	if(leftside.size() != rightside.size())	return true;
 	for(unsigned iter=0; iter < leftside.size(); iter++){
 		if(leftside[iter] == rightside[iter])	return false;
 	}
 	return true;
 }
-
-~Vectors::VectorData(){Empty();}
 
 void Vectors::VectorData::Update(){
 		//Components
@@ -295,10 +305,10 @@ void Vectors::VectorData::Copy(const Vectors::VectorData& original){
 }
 		
 #ifdef IOSTREAM_H
-	std::ostream& operator<<(std::ostream& output, const Vectors::VectorData& rightside){return (output << rightside.String());}
+	std::ostream& Vectors::operator<<(std::ostream& output, const Vectors::VectorData& rightside){return (output << rightside.String());}
 #endif
 #ifdef CURSES_H
-	void printw(const Vectors::VectorData& todisplay){printw(todisplay.String());}
+	void Vectors::printw(const Vectors::VectorData& todisplay){printw(todisplay.String());}
 #endif
 
 #endif
