@@ -5,6 +5,16 @@
 #include<vector>
 #include<string>
 
+enum MENUSELECT //Not sure if this is the right place to put, but I tried putting in handler.h and its' somehow not
+		//declared on line 34 and 35.
+{
+    DEFAULT,
+    Subtraction,
+    Addition,
+    Divide,
+    Multiply,
+};
+
 class Storage
 {
 private:
@@ -21,7 +31,8 @@ public:	//I read somewhere that having "const" in the prototypes is not neccessa
 	//Guess its' to avoid people stealing their stuff. I'll just leave it there for consistency(hurh hurh) sake.
     static void store(const std::size_t, const double);
     void printMenu();
-    double getData(const std::size_t, const double);
+    double getData(MENUSELECT&, double&);
+    MENUSELECT selectMenu(std::string&);
 };
 
 
