@@ -75,7 +75,7 @@
 			protected:
 				void Update();
 				void Empty();
-				void Copy(const VectorData&);
+				void Transer(const VectorData&);
 		};
 		bool Parallel(const VectorData&,const VectorData&);
 		bool Orthogonal(const VectorData&,const VectorData&);

@@ -189,7 +189,7 @@ void Vectors::VectorData::Empty(){
 Vectors::VectorData& Vectors::VectorData::operator=(const Vectors::VectorData& rightside){
 	if(this != &rightside){
 		Empty();
-		Copy(rightside);
+		Transfer(rightside);
 		Update();
 	}
 	return *this;
@@ -257,7 +257,7 @@ Vectors::VectorData& Vectors::VectorData::operator<<=(int multiple){
 
 void Vectors::VectorData::operator() (const Vectors::VectorData& newvec){
 	Empty();
-	Copy(newvec);
+	Transfer(newvec);
 	Update();
 }
 void Vectors::VectorData::operator() (initializer_list<double> newcomponents){
@@ -287,7 +287,7 @@ Vectors::VectorData::VectorData(double x,double y){
 	components.push_back(y);
 	Update();
 }
-Vectors::VectorData::VectorData(const Vectors::VectorData& tocopy){Copy(tocopy);}
+Vectors::VectorData::VectorData(const Vectors::VectorData& tocopy){Transfer(tocopy);}
 
 Vectors::VectorData::~VectorData(){Empty();}
 	//End member functions
@@ -416,21 +416,16 @@ void Vectors::VectorData::Update(){
 	for(auto axis = components.begin(); axis != components.end(); axis++)
 		r_directions.push_back(acos((*axis)/magnitude);
 }
-void Vectors::VectorData::Copy(const Vectors::VectorData& original){
-	while(components.size() < original.size())	components.push_back(0);
-	while(components.size() > original.size())	components.erase(original.size()+1, components.size() - original.size());
-	for(unsigned iter=0; iter < components.size(); iter++)
-		components[iter] = original[iter];
+void Vectors::VectorData::Transfer(const Vectors::VectorData& original){
+		//Transfer function assumes that container members are empty
+	for(auto iter = original.components.begin(); iter != original.components.end(); iter++)
+		components.push_back(*iter);
 		
-	while(directions.size() < original.size())	directions.push_back(0);
-	while(directions.size() > original.size())	directions.erase(original.size()+1, directions.size() - original.size());
-	for(unsigned iter=0; iter < directions.size(); iter++)
-		directions[iter] = original[iter];
+	for(auto iter = original.directions.begin(); iter != original.directions.end(); iter++)
+		directions.push_back(*iter);
 		
-	while(r_directions.size() < original.size())	r_directions.push_back(0);
-	while(r_directions.size() > original.size())	r_directions.erase(original.size()+1, r_directions.size() - original.size());
-	for(unsigned iter=0; iter < r_directions.size(); iter++)
-		r_directions[iter] = original[iter];
+	for(auto iter = original.r_directions.begin(); iter != original.r_directions.end(); iter++)
+		r_directions.push_back(*iter);
 		
 	magnitude = original.magnitude;
 }
