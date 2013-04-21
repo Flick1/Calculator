@@ -54,10 +54,6 @@
 				
 				VectorData& operator>>=(int);
 				VectorData& operator<<=(int);
-				VectorData& operator~();
-				VectorData& operator^=(int);
-				VectorData& operator&=(int);
-				VectorData& operator|=(int);
 				   //Arbitrarily assign component values
 				void operator() (const VectorData&);
 				void operator() (initializer_list<double>);
@@ -83,8 +79,6 @@
 		};
 		bool Parallel(const VectorData&,const VectorData&);
 		bool Orthogonal(const VectorData&,const VectorData&);
-		double& operator+=(double,const VectorData&);
-		double& operator-=(double,const VectorData&);
 		VectorData operator+(const VectorData&,const VectorData&);
 		VectorData operator-(const VectorData&,const VectorData&);
 		VectorData operator*(const VectorData&,double);

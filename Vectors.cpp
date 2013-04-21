@@ -18,6 +18,7 @@
 
 using std::initializer_list;
 using std::list;
+using std::vector;
 
 double Vectors::Magnitude(initializer_list<double> components){
 	double toreturn=0;
@@ -143,26 +144,39 @@ double& Vectors::VectorData::operator[](int dimension)const{
 	return components[dimension-1];
 }
 size_t Vectors::VectorData::size()const{return components.size();}
-void Vectors::VectorData::Add(double newdimension){components.push_back(newdimension);}
+void Vectors::VectorData::Add(double newdimension){
+	components.push_back(newdimension);
+	Update();
+}
 void Vectors::VectorData::Replace(unsigned index,double newvalue){
 	if(index < 0 || index > components.size())	throw "Error. Invalid dimension parameter.";
 	else if(index == components.size())	components.push_back(newvalue);
 	else components[index] = newvalue;
+	Update();
 }
 void Vectors::VectorData::Replace(int index,double newvalue){
 	if(index < 0 || index > components.size())	throw "Error. Invalid dimension parameter.";
 	else if(index == components.size())	components.push_back(newvalue);
 	else components[index] = newvalue;
+	Update();
 }
-void Vectors::VectorData::Truncate(unsigned numtoerase){components.erase(components.end()-numtoerase-1, components.end()-1);}
-void Vectors::VectorData::Truncate(int numtoerase){components.erase(components.end()-numtoerase-1, components.end()-1);}
+void Vectors::VectorData::Truncate(unsigned numtoerase){
+	components.erase(components.end()-numtoerase-1, components.end()-1);
+	Update();
+}
+void Vectors::VectorData::Truncate(int numtoerase){
+	components.erase(components.end()-numtoerase-1, components.end()-1);
+	Update();
+}
 void Vectors::VectorData::Erase(unsigned index){
 	if(index < 0 || index >= components.end())	throw "Error. Index out of bounds.";
 	components[index] = 0;
+	Update();
 }
 void Vectors::VectorData::Erase(int index){
 	if(index < 0 || index >= components.end())	throw "Error. Index out of bounds.";
 	components[index] = 0;
+	Update();
 }
 
 void Vectors::VectorData::Empty(){
@@ -187,25 +201,76 @@ Vectors::VectorData& Vectors::VectorData::operator+=(const Vectors::VectorData& 
 	Update();
 	return *this;
 }
-Vectors::VectorData& Vectors::VectorData::operator-=(const Vectors::VectorData&);
-Vectors::VectorData& Vectors::VectorData::operator*=(double);
-Vectors::VectorData& Vectors::VectorData::operator/=(double);
-Vectors::VectorData& Vectors::VectorData::operator%=(double);
-Vectors::VectorData& Vectors::VectorData::operator++();
-Vectors::VectorData& Vectors::VectorData::operator++(int=0);
-Vectors::VectorData& Vectors::VectorData::operator--();
-Vectors::VectorData& Vectors::VectorData::operator--(int=0);
+Vectors::VectorData& Vectors::VectorData::operator-=(const Vectors::VectorData& rightside){
+	while(components.size() < rightside.size())	components.push_back(0);
+	for(auto t_iter = components.begin(), unsigned s_iter = 0; t_iter != components.end(), s_iter < rightside.size(); t_iter++, s_iter++)
+		(*t_iter) -= rightside[s_iter];
+	Update();
+	return *this;
+}
+Vectors::VectorData& Vectors::VectorData::operator*=(double factor){
+	for(auto iter = components.begin(); iter != components.end(); iter++)
+		(*iter) *= factor;
+	magnitude *= factor;
+}
+Vectors::VectorData& Vectors::VectorData::operator/=(double factor){
+	for(auto iter = components.begin(); iter != components.end(); iter++)
+		(*iter) /= factor;
+	magnitude /= factor;
+}
+Vectors::VectorData& Vectors::VectorData::operator%=(double){
+	for(auto iter = components.begin(); iter != components.end(); iter++)
+		(*iter) %= factor;
+	magnitude %= factor;
+}
+Vectors::VectorData& Vectors::VectorData::operator++(){
+	for(auto iter = components.begin(); iter != components.end(); iter++)
+		(*iter) += 1;
+	Update();
+}
+Vectors::VectorData& Vectors::VectorData::operator++(int dummy){
+	for(auto iter = components.begin(); iter != components.end(); iter++)
+		(*iter) += 1;
+	Update();
+}
+Vectors::VectorData& Vectors::VectorData::operator--(){
+	for(auto iter = components.begin(); iter != components.end(); iter++)
+		(*iter) -= 1;
+	Update();
+}
+Vectors::VectorData& Vectors::VectorData::operator--(int dummy){
+	for(auto iter = components.begin(); iter != components.end(); iter++)
+		(*iter) -= 1;
+	Update();
+}
 
-Vectors::VectorData& Vectors::VectorData::operator>>=(int);
-Vectors::VectorData& Vectors::VectorData::operator<<=(int);
-Vectors::VectorData& Vectors::VectorData::operator~();
-Vectors::VectorData& Vectors::VectorData::operator^=(int);
-Vectors::VectorData& Vectors::VectorData::operator&=(int);
-Vectors::VectorData& Vectors::VectorData::operator|=(int);
+Vectors::VectorData& Vectors::VectorData::operator>>=(int multiple){
+	for(auto iter = components.begin(); iter != components.end(); iter++)
+		(*iter) *= pow(2,multiple);
+	magnitude *= pow(2,multiple);
+}
+Vectors::VectorData& Vectors::VectorData::operator<<=(int multiple){
+	for(auto iter = components.begin(); iter != components.end(); iter++)
+		(*iter) *= pow(2,multiple);
+	magnitude *= pow(2,multiple);
+}
 
-void Vectors::VectorData::operator() (const Vectors::VectorData&);
-void Vectors::VectorData::operator() (initializer_list<double>);
-void Vectors::VectorData::operator() (double,double);
+void Vectors::VectorData::operator() (const Vectors::VectorData& newvec){
+	Empty();
+	Copy(newvec);
+	Update();
+}
+void Vectors::VectorData::operator() (initializer_list<double> newcomponents){
+	Empty();
+	components = newcomponents;
+	Update();
+}
+void Vectors::VectorData::operator() (double x,double y){
+	Empty();
+	components.push_back(x);
+	components.push_back(y);
+	Update();
+}
 
 Vectors::VectorData::VectorData(){
 	components.push_back(0);
@@ -238,14 +303,80 @@ bool Vectors::Orthogonal(const Vectors::VectorData& first,const Vectors::VectorD
 	if(Dot(first,second) == 0)	return true;
 	else return false;
 }
-double& Vectors::operator+=(double,const Vectors::VectorData&);
-double& Vectors::operator-=(double,const Vectors::VectorData&);
-Vectors::VectorData Vectors::operator+(const Vectors::VectorData&,const Vectors::VectorData&);
-Vectors::VectorData Vectors::operator-(const Vectors::VectorData&,const Vectors::VectorData&);
-Vectors::VectorData Vectors::operator*(const Vectors::VectorData&,double);
-Vectors::VectorData Vectors::operator*(double,const Vectors::VectorData&);
-Vectors::VectorData Vectors::operator/(const Vectors::VectorData&,double);
-Vectors::VectorData Vectors::operator%(const Vectors::VectorData&,double);
+Vectors::VectorData Vectors::operator+(const Vectors::VectorData& left,const Vectors::VectorData& right){
+	Vectors::VectorData catalyst;
+		catalyst.Empty();
+	list<double> leftside, rightside;
+	for(unsigned l_iter = 0; l_iter < left.size(); l_iter++)
+		leftside.push_back(left[l_iter]);
+	for(unsigned r_iter = 0; r_iter < right.size(); r_iter++)
+		rightside.push_back(right[r_iter]);
+		
+	while(leftside.size() < rightside.size())	leftside.push_back(0);
+	while(leftside.size() > rightside.size())	rightside.push_back(0);
+	for(auto left_iter = leftside.begin(), auto right_iter = rightside.begin(); left_iter != leftside.end(); left_iter++, right_iter++)
+		catalyst.Add((*left_iter) + (*right_iter));
+	return catalyst;
+}
+Vectors::VectorData Vectors::operator-(const Vectors::VectorData& left,const Vectors::VectorData& right){
+	Vectors::VectorData catalyst;
+		catalyst.Empty();
+	list<double> leftside, rightside;
+	for(unsigned l_iter = 0; l_iter < left.size(); l_iter++)
+		leftside.push_back(left[l_iter]);
+	for(unsigned r_iter = 0; r_iter < right.size(); r_iter++)
+		rightside.push_back(right[r_iter]);
+		
+	while(leftside.size() < rightside.size())	leftside.push_back(0);
+	while(leftside.size() > rightside.size())	rightside.push_back(0);
+	for(auto left_iter = leftside.begin(), auto right_iter = rightside.begin(); left_iter != leftside.end(); left_iter++, right_iter++)
+		catalyst.Add((*left_iter) - (*right_iter));
+	return catalyst;
+}
+Vectors::VectorData Vectors::operator*(const Vectors::VectorData& left,double right){
+	Vectors::VectorData catalyst;
+		catalyst.Empty();
+	list<double> leftside;
+	for(unsigned l_iter = 0; l_iter < left.size(); l_iter++)
+		leftside.push_back(left[l_iter]);
+		
+	for(auto left_iter = leftside.begin(); left_iter != leftside.end(); left_iter++)
+		catalyst.Add((*left_iter) * right));
+	return catalyst;
+}
+Vectors::VectorData Vectors::operator*(double left,const Vectors::VectorData& right){
+	Vectors::VectorData catalyst;
+		catalyst.Empty();
+	list<double> rightside;
+	for(unsigned r_iter = 0; r_iter < right.size(); r_iter++)
+		rightside.push_back(right[r_iter]);
+		
+	for(auto right_iter = rightside.begin(); right_iter != rightside.end(); right_iter++)
+		catalyst.Add(left * (*right_iter));
+	return catalyst;
+}
+Vectors::VectorData Vectors::operator/(const Vectors::VectorData& left,double right){
+	Vectors::VectorData catalyst;
+		catalyst.Empty();
+	list<double> leftside;
+	for(unsigned l_iter = 0; l_iter < left.size(); l_iter++)
+		leftside.push_back(left[l_iter]);
+		
+	for(auto left_iter = leftside.begin(); left_iter != leftside.end(); left_iter++)
+		catalyst.Add((*left_iter) / right));
+	return catalyst;
+}
+Vectors::VectorData Vectors::operator%(const Vectors::VectorData& left,double right){
+	Vectors::VectorData catalyst;
+		catalyst.Empty();
+	list<double> leftside;
+	for(unsigned l_iter = 0; l_iter < left.size(); l_iter++)
+		leftside.push_back(left[l_iter]);
+		
+	for(auto left_iter = leftside.begin(); left_iter != leftside.end(); left_iter++)
+		catalyst.Add((*left_iter) % right));
+	return catalyst;
+}
 bool Vectors::operator!(const Vectors::VectorData& testee){
 	for(unsigned iter = 0; iter < testee.size(); iter++){
 		if(testee[iter] != 0)	return false;
