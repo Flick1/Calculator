@@ -18,7 +18,7 @@ using std::string;
 int main()
 {
     double input[4] = {0,0,0,0};
-    double select[2];	//See comment on line 32
+    double dataSelect[1];	//See comment on line 32
     Storage test;
 
     std::cout << "You're going to subtract: " << std::endl;
@@ -30,19 +30,20 @@ int main()
 
     test.printMenu();
 
-    input::get(2, select);	//select is declared as an array of size 1...
-    				//somehow it still worked in codeblocks =/, changed it.
-    				//   That is not surprising... This data is stored on a stack, which means 
-    				//the memory addresses and what they hold lie next to each other. You grabbed
-    				//something that you weren't supposed to grab by going out of bounds. I have done this before
-    				//and was able to see the consequences when I declared two arrays side-by-side and created a
-    				//function that was supposed to work with the first but accidently messed with the second.
-    std::cout << test.getData(select[0], select[1]) << std::endl;
+    std::string enumSelect;
+    MENUSELECT holdEnum; //Need an object in main in case a change to value is made on this object's reference(error handling)
+
+    std::cin >> enumSelect; //For the moment as there isn't a string input function.
+    holdEnum = test.selectMenu(enumSelect); //holdEnum gets the corresponding numerical value from enum input.
+
+    input::get(1, dataSelect);
+
+    std::cout << std::endl << test.getData(holdEnum, dataSelect[0]) << std::endl << std::endl;
 
     std::cout << "Subtracting with selected data." << std::endl;
 
     input::get(1, input);
-    std::cout << operations::subtract(test.getData(select[0], select[1]), input[0]) << std::endl;
+    std::cout << operations::subtract(test.getData(holdEnum, dataSelect[0]), input[0]) << std::endl;
 
     test.printMenu();
 
