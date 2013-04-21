@@ -210,16 +210,19 @@ void Vectors::VectorData::operator() (double,double);
 Vectors::VectorData::VectorData(){
 	components.push_back(0);
 	components.push_back(0);
+	Update();
 }
 Vectors::VectorData::VectorData(initializer_list<double> li){
 	components = li;
 	while(components.size() < 2)	components.push_back(0);
+	Update();
 }
 Vectors::VectorData::VectorData(double x,double y){
 	components.push_back(x);
 	components.push_back(y);
+	Update();
 }
-Vectors::VectorData::VectorData(const Vectors::VectorData& tocopy){(*this) = tocopy;}
+Vectors::VectorData::VectorData(const Vectors::VectorData& tocopy){Copy(tocopy);}
 
 bool Parallel(const Vectors::VectorData&,const Vectors::VectorData&);
 bool Orthogonal(const Vectors::VectorData&,const Vectors::VectorData&);
@@ -258,18 +261,19 @@ void Vectors::VectorData::Update(){
 		//Components
 	while(*(components.end()-1) == 0 && components.size() > 2)
 		components.erase(components.end()-1);
-		//Directions
-	double sum=0;
-	
-		//R_directions
-	sum=0;
-	while(*(r_directions.end()-1) == 0 && r_directions.size() > 2)
-		r_directions.erase(r_directions.end()-1);
 		//Magnitude
-	sum=0;
+	double sum=0;
 	for(auto iter = components.begin(); iter != components.end(); iter++)
 		sum += (*iter) * (*iter);
 	magnitude = sqrt(sum);
+		//Directions -- Find angle between vector and plane
+	directions.clear();
+	for(auto axis = components.begin(); axis != components.end(); axis++)
+		directions.push_back(asin((*axis)/magnitude));
+		//R_directions -- Find angle between vector and axis
+	r_directions.clear()
+	for(auto axis = components.begin(); axis != components.end(); axis++)
+		r_directions.push_back(acos((*axis)/magnitude);
 }
 void Vectors::VectorData::Copy(const Vectors::VectorData& original){
 	while(components.size() < original.size())	components.push_back(0);
