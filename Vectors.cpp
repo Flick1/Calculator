@@ -287,17 +287,17 @@ void Vectors::VectorData::Update(){
 }
 void Vectors::VectorData::Copy(const Vectors::VectorData& original){
 	while(components.size() < original.size())	components.push_back(0);
-	while(components.size() > original.size())	components.Truncate(components.size() - original.size());
+	while(components.size() > original.size())	components.erase(original.size()+1, components.size() - original.size());
 	for(unsigned iter=0; iter < components.size(); iter++)
 		components[iter] = original[iter];
 		
 	while(directions.size() < original.size())	directions.push_back(0);
-	while(directions.size() > original.size())	directions.Truncate(directions.size() - original.size());
+	while(directions.size() > original.size())	directions.erase(original.size()+1, directions.size() - original.size());
 	for(unsigned iter=0; iter < directions.size(); iter++)
 		directions[iter] = original[iter];
 		
 	while(r_directions.size() < original.size())	r_directions.push_back(0);
-	while(r_directions.size() > original.size())	r_directions.Truncate(r_directions.size() - original.size());
+	while(r_directions.size() > original.size())	r_directions.erase(original.size()+1, r_directions.size() - original.size());
 	for(unsigned iter=0; iter < r_directions.size(); iter++)
 		r_directions[iter] = original[iter];
 		
