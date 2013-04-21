@@ -80,11 +80,15 @@ operations::Frac& operations::Frac::operator=(double decimal){
 }
 operations::Frac& operations::Frac::operator=(const operations::Frac& original_fraction){
 	if(this != &original_fraction){
-		numerator = original_fraction.Numerator();
-		denominator = original_fraction.Denominator();
+		operations::Frac::Zero();
+		operations::Frac::Copy(original_fraction);
 	}
-	Simplify();
 	return *this;
+}
+void operations::Frac::Copy(const operations::Frac& original_fraction){
+	numerator = original_fraction.numerator;
+	denominator = original_fraction.denominator;
+	Simplify();
 }
 operations::Frac::Frac(){numerator = 0; denominator = 1;}
 operations::Frac::Frac(int top, int bottom){
@@ -95,7 +99,7 @@ operations::Frac::Frac(int top, int bottom){
 	Simplify();
 }
 operations::Frac::Frac(double decimal){*this = decimal;}
-operations::Frac::Frac(const Frac& original_fraction){(*this) = original_fraction;}
+operations::Frac::Frac(const Frac& original_fraction){operations::Frac::Copy(original_fraction);}
 void operations::Frac::operator() (int newnum, int newdenom){
 	if(newnum != 0)	numerator = newnum;
 	if(newdenom != 0)	denominator = newdenom;

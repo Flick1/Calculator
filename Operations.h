@@ -85,6 +85,7 @@ namespace operations
 		double numerator, denominator;
 	protected:
 		void Simplify();
+		void Copy(const Frac&);
    };
    Frac operator+(const Frac&,double);       // Frac + double
    Frac operator+(const Frac&,const Frac&);  // Frac + Frac

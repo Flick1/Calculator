@@ -39,6 +39,8 @@
 				void Erase(unsigned);
 				void Erase(int);
 				
+				void Empty();
+				
 				VectorData& operator=(const VectorData&);
 				VectorData& operator+=(const VectorData&);
 				VectorData& operator-=(const VectorData&);
@@ -68,11 +70,16 @@
 				VectorData(double,double);
 				   //Copy constructor
 				VectorData(const VectorData&);
+				
+				~VectorData();
 			private:
 					//Vector will always have at least two components
-				std::vector<double> components;
+				std::vector<double> components, directions, r_directions;
+				double magnitude;
 			protected:
 				void Update();
+				void Empty();
+				void Copy(const VectorData&);
 		};
 		bool Parallel(const VectorData&,const VectorData&);
 		bool Orthogonal(const VectorData&,const VectorData&);
