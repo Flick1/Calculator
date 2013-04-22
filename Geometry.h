@@ -1,9 +1,6 @@
 #ifndef _GEOMETRY_H_
 #define _GEOMETRY_H_
 
-namespace{
-	const double PI__ = 3.141593;	//Pi rounded and placed in global namespace for use in multiple modules
-}
 namespace Area
 {
     double Rect(double, double);

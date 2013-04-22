@@ -4,10 +4,6 @@
 #include <string>
 #include <initializer_list>
 
-  //GAL - Get Array Length
-template < typename T, size_t N >
-inline constexpr size_t GAL( T(&)[N] ){ return N; }
-
 namespace operations
 {
    double add(double, double); //return sum

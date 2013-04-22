@@ -1,5 +1,6 @@
 #include "Operations.h"
 #include "Geometry.h"
+#include "Constants.h"
 #include <cmath>
 
 double operations::Sine(double Number) {return (sin (Number*PI__/180));}

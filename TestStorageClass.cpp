@@ -11,6 +11,7 @@
 #include "Handler.h"
 #include "Operations.h"
 #include "Storage.h"
+#include "Constants.h"
 
 using std::vector;
 using std::string;

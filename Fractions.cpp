@@ -1,4 +1,5 @@
 #include "Operations.h"
+#include "Constants.h"
 
 #include <sstream>
 #include <cmath>
@@ -28,9 +29,6 @@ void operations::Frac::Simplify(){
 			whole--;
 		}
 	}
-		//List of prime numbers for simplifying the fraction
-	int divisor[] = {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,57,59};
-	const unsigned divisor_size = GAL(divisor);
 	for(unsigned i = 0; i < divisor_size; i++){
 		while(((ncatalyst%divisor[i]) == 0) && ((dcatalyst%divisor[i]) == 0)){
 			ncatalyst /= divisor[i];

@@ -2,6 +2,7 @@
 
 #include "Operations.h"
 #include "Geometry.h"
+#include "Constants.h"
 /***To include
 	-overloaded functions for other STL container parameters
 		-Perhaps use a templated function since most containers work the same
@@ -46,7 +47,7 @@ double Vectors::Dot(initializer_list<double> f,initializer_list<double> s){
 		toreturn += (*f_iter) * (*s_iter);
 	return toreturn;
 }
-double Vectors::Dot(initializer_list<double> f,Vectors::VectorData s){
+double Vectors::Dot(initializer_list<double> f,const Vectors::VectorData& s){
 	list<double> first(f), second;
 	for(unsigned s_iter = 0; s_iter < s.size(); s_iter++)
 		second.push_back(s[s_iter]);
@@ -58,7 +59,7 @@ double Vectors::Dot(initializer_list<double> f,Vectors::VectorData s){
 		toreturn += (*f_iter) * (*s_iter);
 	return toreturn;
 }
-double Vectors::Dot(Vectors::VectorData f,initializer_list<double> s){
+double Vectors::Dot(const Vectors::VectorData& f,initializer_list<double> s){
 	list<double> first, second(s);
 	for(unsigned f_iter = 0; f_iter < f.size(); f_iter++)
 		first.push_back(f[f_iter]);
@@ -70,7 +71,7 @@ double Vectors::Dot(Vectors::VectorData f,initializer_list<double> s){
 		toreturn += (*f_iter) * (*s_iter);
 	return toreturn;
 }
-double Vectors::Dot(Vectors::VectorData f,Vectors::VectorData s){
+double Vectors::Dot(const Vectors::VectorData& f,const Vectors::VectorData& s){
 	list<double> first, second;
 	for(unsigned f_iter = 0; f_iter < f.size(); f_iter++)
 		first.push_back(f[f_iter]);
@@ -85,12 +86,42 @@ double Vectors::Dot(Vectors::VectorData f,Vectors::VectorData s){
 	return toreturn;
 }
 
-Vectors::VectorData Vectors::Cross(initializer_list<double> f,initializer_list<double> s){
+Vectors::VectorData Vectors::Cross(initializer_list<initializer_list<double>> veclist){
+	list<list<double>> vectorlist(veclist);
+		//Ensure all vectors have the same number of components
+	for(auto vl_iter = vectorlist.begin(); vl_iter != vectorlist.end(); vl_iter++){
+		unsigned maximum_size = (*(vl_iter).begin()).size();
+		for(auto v_iter = (*vl_iter).begin(); v_iter != (*vl_iter).end()-1; v_iter++){
+			if((*v_iter).size() < (*(v_iter + 1)).size())	maximum_size = (*(v_iter+1)).size();
+		}
+		for(auto v_iter = (*vl_iter).begin(); v_iter != (*vl_iter).end(); v_iter++){
+			while((*v_iter).size() < maximum_size())	(*v_iter).push_back(0);
+		}
+	}
+		//Now check if there are enough vectors for a cross product
+	if(vectorlist.size() != (*(vectorlist.begin())).size() - 1)	throw "Wrong number of vectors for a cross product.";
+		//Perform Cross Product
+	for(auto vl_iter = vectorlist.begin(); vl_iter != vectorlist.end(); vl_iter++){
+		
+	}
+}
+Vectors::VectorData Vectors::Cross(initializer_list<Vectors::VectorData&> veclist){
+	list<list<double>> vectorlist(veclist);
+		//Ensure all vectors have the same number of components
+	for(auto vl_iter = vectorlist.begin(); vl_iter != vectorlist.end(); vl_iter++){
+		unsigned maximum_size = (*(vl_iter).begin()).size();
+		for(auto v_iter = (*vl_iter).begin(); v_iter != (*vl_iter).end()-1; v_iter++){
+			if((*v_iter).size() < *(v_iter + 1).size())	maximum_size = (*(v_iter+1)).size();
+		}
+		for(auto v_iter = (*vl_iter).begin(); v_iter != (*vl_iter).end(); v_iter++){
+			while((*v_iter).size() < maximum_size())	(*v_iter).Add(0);
+		}
+	}
+		//Now check if there are enough vectors for a cross product
+	if(vectorlist.size() != (*(vectorlist.begin())).size() - 1)	throw "Wrong number of vectors for a cross product.";
 	
 }
-Vectors::VectorData Vectors::Cross(initializer_list<double>,Vectors::VectorData);
-Vectors::VectorData Vectors::Cross(Vectors::VectorData,initializer_list<double>);
-Vectors::VectorData Vectors::Cross(Vectors::VectorData,Vectors::VectorData);
+
 	//Member functions
 double Vectors::VectorData::Magnitude()const{return magnitude;}
 double Vectors::VectorData::Direction(int axis1, int axis2)const{
@@ -112,9 +143,6 @@ std::string Vectors::VectorData::String()const{
 	return toreturn;
 }
 Vectors::VectorData Vectors::VectorData::Unit(){
-	Vectors::Vector Data catalyst(*this);
-		//List of prime numbers for simplifying the vector components
-	int divisor[] = {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,57,59};
 	
 	for(int i=0; i < GAL(divisor); i++){
 		for(size_t iter = 0; iter < components.size(); iter++){

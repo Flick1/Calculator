@@ -15,10 +15,8 @@
 		double Dot(const VectorData&,initializer_list<double>);
 		double Dot(const VectorData&,const VectorData&);
 
-		VectorData Cross(initializer_list<double>,initializer_list<double>);
-		VectorData Cross(initializer_list<double>,const VectorData&);
-		VectorData Cross(const VectorData&,initializer_list<double>);
-		VectorData Cross(const VectorData&,const VectorData&);
+		VectorData Cross(initializer_list<initializer_list<double>>);
+		VectorData Cross(initializer_list<const VectorData&>);
 		
 		   //Create vector class for storage and multiple analyses
 		   //All overloaded operators return type equivalent to left-hand value
