@@ -2,7 +2,7 @@
 1365873230 source:c:\users\depes\documents\github\calculator\add.cpp
 	"Operations.h"
 
-1366415842 c:\users\depes\documents\github\calculator\operations.h
+1366610971 c:\users\depes\documents\github\calculator\operations.h
 	<string>
 	<initializer_list>
 
@@ -59,8 +59,9 @@
 1365976510 source:c:\users\depes crystalline\documents\github\calculator\subtract.cpp
 	"Operations.h"
 
-1366415571 source:c:\users\depes\documents\github\calculator\fractions.cpp
+1366610971 source:c:\users\depes\documents\github\calculator\fractions.cpp
 	"Operations.h"
+	"Constants.h"
 	<sstream>
 	<cmath>
 
@@ -90,7 +91,7 @@
 	"Operations.h"
 	"Storage.h"
 
-1366308497 c:\users\depes\documents\github\calculator\storage.h
+1366566293 c:\users\depes\documents\github\calculator\storage.h
 	<iostream>
 	<vector>
 	<string>
@@ -130,4 +131,7 @@
 
 1366412211 source:c:\users\depes\documents\github\calculator\volume.cpp
 	"Geometry.h"
+
+1366651910 c:\users\depes\documents\github\calculator\constants.h
+	<cstddef>
 

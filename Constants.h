@@ -1,5 +1,6 @@
 #ifndef CONSTANTS_H
 	#define CONSTANTS_H
+	#include <cstddef>
 	
 	namespace{
 			//Pi rounded and placed in global namespace for use in multiple modules

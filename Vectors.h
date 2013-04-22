@@ -4,20 +4,30 @@
 	#define VECTORS_H
 	#include <initializer_list>
 	#include <vector>
+	#include <string>
+	#include <list>
+	using std::list;
+	using std::initializer_list;
+	using std::vector;
 		//To be modular, Vectors will not support other user-defined types
 	namespace Vectors{
+		class VectorData;
+		
+		void Square(list<list<double>>&, unsigned&, bool=false);
+		double Determinant(list<list<double>>&, unsigned=0);
+
 		double Magnitude(initializer_list<double>);
 		   //Calculate direction of a vector relative to a specific plane
-		double Direction(initalizer_list<double>, int=1,int=2);
+		double Direction(initializer_list<double>, int=1,int=2);
 		
 		double Dot(initializer_list<double>,initializer_list<double>);
 		double Dot(initializer_list<double>,const VectorData&);
 		double Dot(const VectorData&,initializer_list<double>);
 		double Dot(const VectorData&,const VectorData&);
-
+/*
 		VectorData Cross(initializer_list<initializer_list<double>>);
-		VectorData Cross(initializer_list<const VectorData&>);
-		
+		VectorData Cross(initializer_list<VectorData>);
+*/		
 		   //Create vector class for storage and multiple analyses
 		   //All overloaded operators return type equivalent to left-hand value
 		class VectorData{
@@ -28,6 +38,8 @@
 				VectorData Unit()const;
 				
 				double Component(unsigned)const;
+				double operator[](unsigned)const;
+				double operator[](int)const;
 				size_t size()const;
 				void Add(double);
 				void Replace(unsigned,double);
@@ -38,13 +50,13 @@
 				void Erase(int);
 				
 				void Empty();
-				
+								
 				VectorData& operator=(const VectorData&);
 				VectorData& operator+=(const VectorData&);
 				VectorData& operator-=(const VectorData&);
 				VectorData& operator*=(double);
 				VectorData& operator/=(double);
-				VectorData& operator%=(double);
+				VectorData& operator%=(int);
 				VectorData& operator++();
 				VectorData& operator++(int=0);
 				VectorData& operator--();
@@ -72,8 +84,7 @@
 				double magnitude;
 			protected:
 				void Update();
-				void Empty();
-				void Transer(const VectorData&);
+				void Transfer(const VectorData&);
 		};
 		bool Parallel(const VectorData&,const VectorData&);
 		bool Orthogonal(const VectorData&,const VectorData&);
@@ -82,7 +93,7 @@
 		VectorData operator*(const VectorData&,double);
 		VectorData operator*(double,const VectorData&);
 		VectorData operator/(const VectorData&,double);
-		VectorData operator%(const VectorData&,double);
+		VectorData operator%(const VectorData&,int);
 		bool operator!(const VectorData&);
 		bool operator==(const VectorData&,const VectorData&);
 		bool operator!=(const VectorData&,const VectorData&);
