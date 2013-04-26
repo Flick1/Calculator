@@ -39,7 +39,7 @@ size_t input::getNumerical_selection(size_t &select)
     }   catch (int err)
         {
             std::cerr << "Error " << err << ". Enter a whole number: ";
-                return isNumerical_Selection(select);
+                return input::getNumerical_selection(select);
         }
 
     return select;
@@ -59,9 +59,10 @@ double input::getOperand (double &operand)
 
     try
     {
-        if (cntNum >= (operand_str.size() - 1) && isChar == operand_str.end() && isSpace == operand_str.end())
+        int convert = operand_str.size();
+        if (cntNum >= (convert - 1) && isChar == operand_str.end() && isSpace == operand_str.end())
         {
-            for (auto x = 0; x < operand_str.size(); ++x)
+            for (auto x = 0; x < convert; ++x)
             {
                 if (ispunct(operand_str[x]))
                 {
@@ -75,7 +76,7 @@ double input::getOperand (double &operand)
     }   catch (int err)
         {
             std::cerr << "Error " << err << ". Enter a valid number: ";
-            return isOperand(operand);
+            return getOperand(operand);
         }
 
     return operand;
@@ -104,7 +105,7 @@ string input::getString_selection(string &enumSelection)
     }   catch (int err)
         {
             std::cerr << "Error " << err << ". Enter a valid word selection: ";
-                return isString_selection(enumSelection);
+                return getString_selection(enumSelection);
         }
 
     return enumSelection;

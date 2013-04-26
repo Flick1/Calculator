@@ -65,16 +65,18 @@
 	<sstream>
 	<cmath>
 
-1366093654 source:c:\users\depes\documents\github\calculator\handler.cpp
+1367023007 source:c:\users\depes\documents\github\calculator\handler.cpp
 	"Handler.h"
 	"Input.h"
 	"Output.h"
 	"Operations.h"
+	<iostream>
+	<sstream>
 
 1365962055 c:\users\depes\documents\github\calculator\handler.h
 	<sstream>
 
-1365873230 c:\users\depes\documents\github\calculator\input.h
+1367022998 c:\users\depes\documents\github\calculator\input.h
 	<iostream>
 
 1365959777 c:\users\depes\documents\github\calculator\output.h
@@ -96,11 +98,12 @@
 	<vector>
 	<string>
 
-1366415757 source:c:\users\depes\documents\github\calculator\area.cpp
+1366610971 source:c:\users\depes\documents\github\calculator\area.cpp
 	"Geometry.h"
+	"Constants.h"
 	<cmath>
 
-1366415941 c:\users\depes\documents\github\calculator\geometry.h
+1366610971 c:\users\depes\documents\github\calculator\geometry.h
 
 1365873230 source:c:\users\depes\documents\github\calculator\factorials.cpp
 	"Operations.h"
@@ -120,18 +123,29 @@
 	<cmath>
 	"Operations.h"
 
-1366415875 source:c:\users\depes\documents\github\calculator\surface_areafunct.cpp
+1366610971 source:c:\users\depes\documents\github\calculator\surface_areafunct.cpp
 	"Geometry.h"
+	"Constants.h"
 	<cmath>
 
-1365961463 source:c:\users\depes\documents\github\calculator\trig_funct.cpp
+1366610971 source:c:\users\depes\documents\github\calculator\trig_funct.cpp
 	"Operations.h"
 	"Geometry.h"
+	"Constants.h"
 	<cmath>
 
-1366412211 source:c:\users\depes\documents\github\calculator\volume.cpp
+1366610971 source:c:\users\depes\documents\github\calculator\volume.cpp
 	"Geometry.h"
+	"Constants.h"
 
 1366651910 c:\users\depes\documents\github\calculator\constants.h
 	<cstddef>
+
+1366566293 source:c:\users\depes\documents\github\calculator\storage.cpp
+	<iostream>
+	<vector>
+	<string>
+	<algorithm>
+	"Handler.h"
+	"Storage.h"
 

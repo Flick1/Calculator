@@ -31,15 +31,15 @@ bool handler::menu(void)
 	            ss<<input[0]<<" - "<<input[1]<<" = "<<operations::subtract(input[0], input[1])<<"\n";
 	            output::print(ss);
 	            break;
-	
+
 	        case 0:
 	            return false;
 	            break;
-	
+
 	        }
     	}catch(int err){
     		output::print("Caught error code: ");
-    		stringstream convert;	convert << err;
+    		std::stringstream convert;	convert << err;
     		output::print(convert);
     	}catch(const char* message){
     		std::string err(message);
