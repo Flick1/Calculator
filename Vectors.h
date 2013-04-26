@@ -1,5 +1,3 @@
-#ifdef DEBUG_VECTORS
-
 #ifndef VECTORS_H
 	#define VECTORS_H
 	#include <initializer_list>
@@ -24,32 +22,34 @@
 		double Dot(initializer_list<double>,const VectorData&);
 		double Dot(const VectorData&,initializer_list<double>);
 		double Dot(const VectorData&,const VectorData&);
-/*
+
 		VectorData Cross(initializer_list<initializer_list<double>>);
 		VectorData Cross(initializer_list<VectorData>);
-*/		
+	
 		   //Create vector class for storage and multiple analyses
 		   //All overloaded operators return type equivalent to left-hand value
 		class VectorData{
 			public:
 				double Magnitude()const;
-				double Direction(int=1,int=2)const;
-				std::string String()const;
+				double Direction(int=0)const;
+				double RDirection(int=0)const;
+				size_t NumDirection()const;
+				virtual std::string String()const;
 				VectorData Unit()const;
 				
-				double Component(unsigned)const;
-				double operator[](unsigned)const;
-				double operator[](int)const;
-				size_t size()const;
-				void Add(double);
-				void Replace(unsigned,double);
-				void Replace(int,double);
-				void Truncate(unsigned);
-				void Truncate(int);
-				void Erase(unsigned);
-				void Erase(int);
+				virtual double Component(unsigned)const;
+				double& operator[](size_t);
+				double& operator[](size_t)const;
+				virtual size_t size()const;
+				virtual void Add(double);
+				virtual void Replace(unsigned,double);
+				virtual void Replace(int,double);
+				virtual void Truncate(unsigned);
+				virtual void Truncate(int);
+				virtual void Erase(unsigned);
+				virtual void Erase(int);
 				
-				void Empty();
+				virtual void Empty();
 								
 				VectorData& operator=(const VectorData&);
 				VectorData& operator+=(const VectorData&);
@@ -74,17 +74,20 @@
 				VectorData(initializer_list<double>);
 				   //Construct VectorData with magnitude and direction (radians)
 				VectorData(double,double);
+				   //Construct VectorData with an array of components
+				VectorData(vector<double>);
 				   //Copy constructor
 				VectorData(const VectorData&);
 				
-				~VectorData();
+				virtual ~VectorData();
 			private:
 					//Vector will always have at least two components
 				std::vector<double> components, directions, r_directions;
 				double magnitude;
+				double Zero__;
 			protected:
-				void Update();
-				void Transfer(const VectorData&);
+				virtual void Update();
+				virtual void Transfer(const VectorData&);
 		};
 		bool Parallel(const VectorData&,const VectorData&);
 		bool Orthogonal(const VectorData&,const VectorData&);
@@ -106,6 +109,4 @@
 	#endif
 	}
 	
-#endif
-
 #endif
