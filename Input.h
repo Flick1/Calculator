@@ -7,7 +7,7 @@ namespace input
     void get(int operands, double* input);
     size_t getNumerical_selection(size_t&);
     double getOperand(double&);
-    string getString_selection(string&);
+    std::string getString_selection(std::string&);
 }
 
 #endif // _INPUT_H_
