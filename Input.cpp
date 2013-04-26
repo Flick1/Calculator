@@ -39,11 +39,7 @@ size_t input::getNumerical_selection(size_t &select)
     }   catch (int err)
         {
             std::cerr << "Error " << err << ". Enter a whole number: ";
-<<<<<<< HEAD
                 return input::getNumerical_selection(select);
-=======
-                return getNumerical_Selection(select);
->>>>>>> ff6f722053d1c1f1ecf556846b889f7837df8675
         }
 
     return select;

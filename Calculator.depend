@@ -65,7 +65,7 @@
 	<sstream>
 	<cmath>
 
-1367023007 source:c:\users\depes\documents\github\calculator\handler.cpp
+1367023963 source:c:\users\depes\documents\github\calculator\handler.cpp
 	"Handler.h"
 	"Input.h"
 	"Output.h"
@@ -76,7 +76,7 @@
 1365962055 c:\users\depes\documents\github\calculator\handler.h
 	<sstream>
 
-1367022998 c:\users\depes\documents\github\calculator\input.h
+1367023906 c:\users\depes\documents\github\calculator\input.h
 	<iostream>
 
 1365959777 c:\users\depes\documents\github\calculator\output.h
