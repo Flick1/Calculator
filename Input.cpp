@@ -18,7 +18,7 @@ void input::get(int operands, double* input)
 }
 
 //Whole num menu selection.
-size_t isNumerical_Selection(size_t &select)
+size_t input::isNumerical_Selection(size_t &select)
 {
     string num_select;
     getline(cin, num_select);
@@ -46,7 +46,7 @@ size_t isNumerical_Selection(size_t &select)
 }
 
 //Numerical input for operations
-double isOperand (double &operand)
+double input::isOperand (double &operand)
 {
     string operand_str;
     getline(cin, operand_str);
@@ -83,7 +83,7 @@ double isOperand (double &operand)
 
 //For enum selection. I'm aware it doesn't exactly support enum properly but just gonna post first. Might want to use
 //set<> instead of enum.
-string isString_selection(string &enumSelection)
+string input::isString_selection(string &enumSelection)
 {
     string str_selection;
     getline(cin, str_selection);
