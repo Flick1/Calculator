@@ -561,9 +561,9 @@ bool Vectors::operator==(const Vectors::VectorData& leftside,const Vectors::Vect
 bool Vectors::operator!=(const Vectors::VectorData& leftside,const Vectors::VectorData& rightside){
 	if(leftside.size() != rightside.size())	return true;
 	for(unsigned iter=0; iter < leftside.size(); iter++){
-		if(leftside[iter] == rightside[iter])	return false;
+		if(leftside[iter] != rightside[iter])	return true;
 	}
-	return true;
+	return false;
 }
 
 void Vectors::VectorData::Update(){
