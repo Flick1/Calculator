@@ -54,6 +54,8 @@
 		<Unit filename="Subtract.cpp" />
 		<Unit filename="Surface_AreaFunct.cpp" />
 		<Unit filename="Trig_Funct.cpp" />
+		<Unit filename="Vectors.cpp" />
+		<Unit filename="Vectors.h" />
 		<Unit filename="Volume.cpp" />
 		<Unit filename="main.cpp" />
 		<Extensions>

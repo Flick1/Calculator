@@ -337,23 +337,32 @@ Vectors::VectorData& Vectors::VectorData::operator=(const Vectors::VectorData& r
 	return *this;
 }
 Vectors::VectorData& Vectors::VectorData::operator+=(const Vectors::VectorData& rightside){
-	while(components.size() < rightside.size())	components.push_back(0);
-	{
-		auto t_iter = components.begin();
-		unsigned s_iter;
-		for(s_iter = 0; t_iter != components.end(), s_iter < rightside.size(); t_iter++, s_iter++)
-			(*t_iter) += rightside[s_iter];
+	if(this == &rightside){
+		for(auto iter = components.begin(); iter != components.end(); iter++)
+			(*iter) *= 2;
+	}else{
+		while(components.size() < rightside.size())	components.push_back(0);
+		{
+			auto t_iter = components.begin();
+			unsigned s_iter;
+			for(s_iter = 0; t_iter != components.end(), s_iter < rightside.size(); t_iter++, s_iter++)
+				(*t_iter) += rightside[s_iter];
+		}
 	}
 	Update();
 	return *this;
 }
 Vectors::VectorData& Vectors::VectorData::operator-=(const Vectors::VectorData& rightside){
-	while(components.size() < rightside.size())	components.push_back(0);
-	{
-		auto t_iter = components.begin();
-		unsigned s_iter;
-		for(s_iter = 0; t_iter != components.end(), s_iter < rightside.size(); t_iter++, s_iter++)
-			(*t_iter) -= rightside[s_iter];
+	if(this == &rightside){
+		*this = {0};
+	}else{
+		while(components.size() < rightside.size())	components.push_back(0);
+		{
+			auto t_iter = components.begin();
+			unsigned s_iter;
+			for(s_iter = 0; t_iter != components.end(), s_iter < rightside.size(); t_iter++, s_iter++)
+				(*t_iter) -= rightside[s_iter];
+		}
 	}
 	Update();
 	return *this;

@@ -109,7 +109,11 @@
 	"Operations.h"
 	<cmath>
 
-1365873230 source:c:\users\depes\documents\github\calculator\input.cpp
+1367024271 source:c:\users\depes\documents\github\calculator\input.cpp
+	<algorithm>
+	<string>
+	<iostream>
+	<sstream>
 	"Input.h"
 
 1366336291 source:c:\users\depes\documents\github\calculator\logarithms.cpp
