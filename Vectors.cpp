@@ -26,8 +26,7 @@ void Vectors::Square(list<list<double>> &matrix, unsigned &componentnumber, bool
 		//Check the maximum number of components in longest vector
 	componentnumber = matrix.begin()->size();
 	for(auto vl_iter = matrix.begin(); vl_iter != matrix.end(); vl_iter++){
-		if(vl_iter->size() < (vl_iter++)->size())	componentnumber = vl_iter->size();
-		vl_iter--;
+		if(componentnumber < vl_iter->size())	componentnumber = vl_iter->size();
 	}
 		//Fill vectors that are of a lower dimension
 	for(auto vl_iter = matrix.begin(); vl_iter != matrix.end(); vl_iter++){
@@ -42,7 +41,7 @@ void Vectors::Square(list<list<double>> &matrix, unsigned &componentnumber, bool
 		}
 	}else if(matrix.size() < componentnumber && !complete)
 		throw "Cannot square matrix built from vectors. Number of vector components does not match number of vectors.";
-	else{
+	else if(matrix.size() < componentnumber){
 		list<double> filler;
 		for(unsigned i = 0; i < componentnumber; i++)
 			filler.push_back(0);
