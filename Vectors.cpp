@@ -23,10 +23,12 @@ using std::vector;
 using std::stringstream;
 
 void Vectors::Square(list<list<double>> &matrix, unsigned &componentnumber, bool complete){
-		//Check the maximum number of components in longest vector
-	componentnumber = matrix.begin()->size();
-	for(auto vl_iter = matrix.begin(); vl_iter != matrix.end(); vl_iter++){
-		if(componentnumber < vl_iter->size())	componentnumber = vl_iter->size();
+	if(componentnumber == 0){
+			//Check the maximum number of components in longest vector
+		componentnumber = matrix.begin()->size();
+		for(auto vl_iter = matrix.begin(); vl_iter != matrix.end(); vl_iter++){
+			if(componentnumber < vl_iter->size())	componentnumber = vl_iter->size();
+		}
 	}
 		//Fill vectors that are of a lower dimension
 	for(auto vl_iter = matrix.begin(); vl_iter != matrix.end(); vl_iter++){
@@ -187,25 +189,32 @@ Vectors::VectorData Vectors::Cross(initializer_list<initializer_list<double>> ve
 	return toreturn;
 }
 Vectors::VectorData Vectors::Cross(initializer_list<Vectors::VectorData> veclist){
-	list<double> catalyst;
 	list<list<double>> vectorlist;
+		//Check the maximum number of components in longest vector
+	unsigned componentnumber = veclist.begin()->size();
+	for(auto vl_iter = veclist.begin(); vl_iter != veclist.end(); vl_iter++){
+		if(componentnumber < vl_iter->size())	componentnumber = vl_iter->size();
+	}
 	{	//Push back surrogate i,j,k, vectors represented by 1, -1, etc.
 		list<double> subcatalyst;
-		int sign = 1;
-		for(unsigned i = 0; i < vectorlist.size(); i++, sign *= -1)
+		int sign;
+		unsigned i;
+		for(i = 0, sign = 1; i < componentnumber; i++, sign *= -1)
 			subcatalyst.push_back(sign);
 		vectorlist.push_back(subcatalyst);
 	}
-		//Now transfer vectors from veclist to vectorlist
-	for(auto list_iter = veclist.begin(); list_iter != veclist.end(); list_iter++){
-		for(unsigned iter = 0; iter < (*list_iter).size(); iter++)
-			catalyst.push_back((*list_iter)[iter]);
-		vectorlist.push_back(catalyst);
-		catalyst.clear();
+	{	//Now transfer vectors from veclist to vectorlist
+		list<double> catalyst;
+		for(auto list_iter = veclist.begin(); list_iter != veclist.end(); list_iter++){
+			for(unsigned iter = 0; iter < list_iter->size(); iter++)
+				catalyst.push_back((*list_iter)[iter]);
+			vectorlist.push_back(catalyst);
+			catalyst.clear();
+		}
 	}
 	unsigned maximum_size = 0;
 		//Ensure all vectors have the same number of components
-	Vectors::Square(vectorlist,maximum_size);
+	Vectors::Square(vectorlist,maximum_size, componentnumber);
 		//Perform Cross Product
 	vector<double> toreturn;
 	{	//Limit scope further to encapsulate temporary variables
