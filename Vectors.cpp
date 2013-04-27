@@ -54,7 +54,7 @@ void Vectors::Square(list<list<double>> &matrix, unsigned &componentnumber, bool
 double Vectors::Determinant(list<list<double>> &matrix, unsigned total_size){
 		if(total_size== 0)		//Get size of matrix and ensure square matrix
 			Vectors::Square(matrix,total_size,false);
-		else if(total_size == 4)	//Break out of recursion
+		else if(total_size == 2)	//Break out of recursion
 			return (*(matrix.begin()->begin())) * (*((matrix.end()--)->end()--)) - (*((matrix.begin()++)->begin())) * (*((matrix.end()--)->begin()));
 	if( matrix.size() == total_size){	//Calculate determinant
 		double toreturn=0;
