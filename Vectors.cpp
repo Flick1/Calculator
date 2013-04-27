@@ -55,15 +55,13 @@ double Vectors::Determinant(list<list<double>> &matrix, unsigned total_size){
 			return (*(matrix.begin()->begin())) * (*((matrix.end()--)->end()--)) - (*((matrix.begin()++)->begin())) * (*((matrix.end()--)->begin()));
 	if( matrix.size() == total_size){	//Calculate determinant
 		double toreturn=0;
-		int sign=-1;
 		total_size--;
 		{	//Limit scope further to encapsulate for loop variables
 			list<list<double>> catalyst;
 			auto iter=matrix.begin()->begin();
-			int column;
-			for(column=0; iter != matrix.begin()->end(); iter++, column++){
+			int column, sign;
+			for(column=0, sign = 1; iter != matrix.begin()->end(); iter++, column++, sign *= -1){
 				list<double> subcatalyst;
-				sign *= -1;
 				for(auto list_iter = matrix.begin(); list_iter != matrix.end(); list_iter++){
 					for(auto component_iter = list_iter->begin(); component_iter != list_iter->end(); component_iter++){
 						auto itercatalyst = list_iter->begin();
@@ -168,7 +166,7 @@ Vectors::VectorData Vectors::Cross(initializer_list<initializer_list<double>> ve
 		list<list<double>> catalyst;
 		auto iter=vectorlist.begin()->begin();
 		int column, sign;
-		for(column=0, sign = -1; iter != vectorlist.begin()->end(); iter++, column++, sign *= -1){
+		for(column=0, sign = 1; iter != vectorlist.begin()->end(); iter++, column++, sign *= -1){
 			list<double> subcatalyst;
 			for(auto list_iter = vectorlist.begin(); list_iter != vectorlist.end(); list_iter++){
 				for(auto component_iter = list_iter->begin(); component_iter != list_iter->end(); component_iter++){
@@ -203,13 +201,14 @@ Vectors::VectorData Vectors::Cross(initializer_list<Vectors::VectorData> veclist
 		list<list<double>> catalyst;
 		{	//Push back surrogate i,j,k, vectors represented by 1, -1, etc.
 			list<double> subcatalyst;
-			for(unsigned i = 0; i < vectorlist.size(); i++)
-				subcatalyst.push_back(0);
+			int sign = 1;
+			for(unsigned i = 0; i < vectorlist.size(); i++, sign *= -1)
+				subcatalyst.push_back(sign);
 			catalyst.push_back(subcatalyst);
 		}
 		auto iter=vectorlist.begin()->begin();
 		int column, sign;
-		for(column=0, sign = -1; iter != vectorlist.begin()->end(); iter++, column++, sign *= -1){
+		for(column=0, sign = 1; iter != vectorlist.begin()->end(); iter++, column++, sign *= -1){
 			list<double> subcatalyst;
 			for(auto list_iter = vectorlist.begin(); list_iter != vectorlist.end(); list_iter++){
 				for(auto component_iter = list_iter->begin(); component_iter != list_iter->end(); component_iter++){
