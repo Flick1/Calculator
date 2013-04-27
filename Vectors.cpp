@@ -38,7 +38,7 @@ void Vectors::Square(list<list<double>> &matrix, unsigned &componentnumber, bool
 		while(matrix.size() > componentnumber){
 			for(auto iter = matrix.begin(); iter != matrix.end(); iter++)
 				iter->push_back(0);
-			toreturn++;
+			componentnumber++;
 		}
 	}else if(matrix.size() < componentnumber && !complete)
 		throw "Cannot square matrix built from vectors. Number of vector components does not match number of vectors.";
