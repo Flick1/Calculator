@@ -201,6 +201,7 @@ Vectors::VectorData Vectors::Cross(initializer_list<Vectors::VectorData> veclist
 		for(unsigned iter = 0; iter < (*list_iter).size(); iter++)
 			catalyst.push_back((*list_iter)[iter]);
 		vectorlist.push_back(catalyst);
+		catalyst.clear();
 	}
 	unsigned maximum_size = 0;
 		//Ensure all vectors have the same number of components
