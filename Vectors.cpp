@@ -190,6 +190,14 @@ Vectors::VectorData Vectors::Cross(initializer_list<initializer_list<double>> ve
 Vectors::VectorData Vectors::Cross(initializer_list<Vectors::VectorData> veclist){
 	list<double> catalyst;
 	list<list<double>> vectorlist;
+	{	//Push back surrogate i,j,k, vectors represented by 1, -1, etc.
+		list<double> subcatalyst;
+		int sign = 1;
+		for(unsigned i = 0; i < vectorlist.size(); i++, sign *= -1)
+			subcatalyst.push_back(sign);
+		vectorlist.push_back(subcatalyst);
+	}
+		//Now transfer vectors from veclist to vectorlist
 	for(auto list_iter = veclist.begin(); list_iter != veclist.end(); list_iter++){
 		for(unsigned iter = 0; iter < (*list_iter).size(); iter++)
 			catalyst.push_back((*list_iter)[iter]);
@@ -202,13 +210,6 @@ Vectors::VectorData Vectors::Cross(initializer_list<Vectors::VectorData> veclist
 	vector<double> toreturn;
 	{	//Limit scope further to encapsulate temporary variables
 		list<list<double>> catalyst;
-		{	//Push back surrogate i,j,k, vectors represented by 1, -1, etc.
-			list<double> subcatalyst;
-			int sign = 1;
-			for(unsigned i = 0; i < vectorlist.size(); i++, sign *= -1)
-				subcatalyst.push_back(sign);
-			catalyst.push_back(subcatalyst);
-		}
 		auto iter=vectorlist.begin()->begin();
 		int column, sign;
 		for(column=0, sign = 1; iter != vectorlist.begin()->end(); iter++, column++, sign *= -1){
