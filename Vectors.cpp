@@ -201,6 +201,12 @@ Vectors::VectorData Vectors::Cross(initializer_list<Vectors::VectorData> veclist
 	vector<double> toreturn;
 	{	//Limit scope further to encapsulate temporary variables
 		list<list<double>> catalyst;
+		{	//Push back surrogate i,j,k, vectors represented by 1, -1, etc.
+			list<double> subcatalyst;
+			for(unsigned i = 0; i < vectorlist.size(); i++)
+				subcatalyst.push_back(0);
+			catalyst.push_back(subcatalyst);
+		}
 		auto iter=vectorlist.begin()->begin();
 		int column, sign;
 		for(column=0, sign = -1; iter != vectorlist.begin()->end(); iter++, column++, sign *= -1){
