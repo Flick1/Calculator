@@ -22,28 +22,31 @@ using std::list;
 using std::vector;
 using std::stringstream;
 
-void Vectors::Square(list<list<double>> &matrix, unsigned &toreturn, bool complete){
-	toreturn = (*(matrix.begin())).size();
+void Vectors::Square(list<list<double>> &matrix, unsigned &componentnumber, bool complete){
+		//Check the maximum number of components in longest vector
+	componentnumber = matrix.begin()->size();
 	for(auto vl_iter = matrix.begin(); vl_iter != matrix.end(); vl_iter++){
-		if((*vl_iter).size() < (*(vl_iter++)).size())	toreturn = (*(vl_iter)).size();
+		if(vl_iter->size() < (vl_iter++)->size())	componentnumber = vl_iter->size();
 		vl_iter--;
 	}
+		//Fill vectors that are of a lower dimension
 	for(auto vl_iter = matrix.begin(); vl_iter != matrix.end(); vl_iter++){
-		while((*vl_iter).size() < toreturn)	(*vl_iter).push_back(0);
+		while(vl_iter->size() < componentnumber)	vl_iter->push_back(0);
 	}
 		//Now check if the number of components of each row match with the number of columns
-	if(matrix.size() > toreturn){
-		while(matrix.size() > toreturn){
+	if(matrix.size() > componentnumber){
+		while(matrix.size() > componentnumber){
 			for(auto iter = matrix.begin(); iter != matrix.end(); iter++)
-				(*iter).push_back(0);
+				iter->push_back(0);
 			toreturn++;
 		}
-	}else if(matrix.size() < toreturn && !complete)	throw "Cannot square matrix built from vectors. Number of vector components does not match number of vectors.";
+	}else if(matrix.size() < componentnumber && !complete)
+		throw "Cannot square matrix built from vectors. Number of vector components does not match number of vectors.";
 	else{
 		list<double> filler;
-		for(unsigned i = 0; i < toreturn; i++)
+		for(unsigned i = 0; i < componentnumber; i++)
 			filler.push_back(0);
-		while(matrix.size() < toreturn)
+		while(matrix.size() < componentnumber)
 			matrix.push_back(filler);
 	}
 }
