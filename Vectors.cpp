@@ -1,5 +1,6 @@
 #include "Constants.h"
 /***To include
+	-Need to Transfer changes from Cross(initializer_list<VectorData>) to Cross(initializer_list<initializer_list<double>>)
 	-Optimize Cross and Determinant functions
 	-overloaded functions for other STL container parameters
 		-Perhaps use a templated function since most containers work the same
@@ -171,25 +172,46 @@ double Vectors::Dot(const Vectors::VectorData& f,const Vectors::VectorData& s){
 }
 
 Vectors::VectorData Vectors::Cross(initializer_list<initializer_list<double>> veclist){
-	list<double> catalyst;
 	list<list<double>> vectorlist;
-	for(auto list_iter = veclist.begin(); list_iter != veclist.end(); list_iter++){
-		for(auto iter = list_iter->begin(); iter != list_iter->end(); iter++)
-			catalyst.push_back(*iter);
-		vectorlist.push_back(catalyst);
+		//Check the number of components in longest vector
+	unsigned componentnumber = veclist.begin()->size();
+	for(auto vl_iter = veclist.begin(); vl_iter != veclist.end(); vl_iter++){
+		if(componentnumber < vl_iter->size())	componentnumber = vl_iter->size();
 	}
-	unsigned maximum_size = 0;
+	{	//Push back surrogate i,j,k, vectors represented by 1, -1, etc.
+		list<double> subcatalyst;
+		int sign;
+		unsigned i;
+		for(i = 0, sign = 1; i < componentnumber; i++, sign *= -1)
+			subcatalyst.push_back(sign);
+		vectorlist.push_back(subcatalyst);
+	}
+	{	//Now transfer vectors from veclist to vectorlist
+		list<double> catalyst;
+		for(auto list_iter = veclist.begin(); list_iter != veclist.end(); list_iter++){
+			for(auto iter = list_iter->begin(); iter != list_iter->end(); iter++)
+				catalyst.push_back(*iter);
+			vectorlist.push_back(catalyst);
+			catalyst.clear();
+		}
+	}
 		//Ensure all vectors have the same number of components
-	Vectors::Square(vectorlist,maximum_size);
+	Vectors::Square(vectorlist, componentnumber);
 		//Perform Cross Product
 	vector<double> toreturn;
 	{	//Limit scope further to encapsulate temporary variables
 		list<list<double>> catalyst;
-		auto iter=vectorlist.begin()->begin();
-		int column, sign;
-		for(column=0, sign = 1; iter != vectorlist.begin()->end(); iter++, column++, sign *= -1){
+		unsigned column;
+		int sign;
+			//Create outside for loop according to number of components
+		for(column=0, sign = 1; column < vectorlist.begin()->size(); column++, sign *= -1){
 			list<double> subcatalyst;
-			for(auto list_iter = vectorlist.begin(); list_iter != vectorlist.end(); list_iter++){
+				//Now focusing on splicing the matrix
+				//Start by pointing iterator to second row
+			auto list_iter = vectorlist.begin();
+			for(list_iter++; list_iter != vectorlist.end(); list_iter++){
+					//Now iterate through each component of row
+					//Component will be skipped according to which column is focused on
 				for(auto component_iter = list_iter->begin(); component_iter != list_iter->end(); component_iter++){
 					auto itercatalyst = list_iter->begin();
 					advance(itercatalyst,column);
@@ -199,7 +221,11 @@ Vectors::VectorData Vectors::Cross(initializer_list<initializer_list<double>> ve
 				catalyst.push_back(subcatalyst);
 				subcatalyst.clear();
 			}
-			toreturn.push_back(sign*Vectors::Determinant(catalyst, catalyst.size()));
+				//Explicity check for a result of 0 and push back 0 to avoid the -0 architect
+				//Declare temporary variable to avoid calling Determinant twice and avoid overhead cost
+			double coefficient = Vectors::Determinant(catalyst, componentnumber-1);
+			if(coefficient == 0)	toreturn.push_back(0);
+			else	toreturn.push_back(sign*coefficient);
 			catalyst.clear();
 		}
 	}
@@ -560,43 +586,73 @@ Vectors::VectorData Vectors::operator-(const Vectors::VectorData& left,const Vec
 }
 Vectors::VectorData Vectors::operator*(const Vectors::VectorData& left,double right){
 	vector<double> catalyst;
+	for(unsigned iter = 0; iter < left.size(); iter++)
+		catalyst.push_back(left[iter] * right);
+	/*
 	list<double> leftside;
 	for(unsigned l_iter = 0; l_iter < left.size(); l_iter++)
 		leftside.push_back(left[l_iter]);
 		
 	for(auto left_iter = leftside.begin(); left_iter != leftside.end(); left_iter++)
 		catalyst.push_back((*left_iter) * right);
+	*/
 	return catalyst;
 }
 Vectors::VectorData Vectors::operator*(double left,const Vectors::VectorData& right){
 	vector<double> catalyst;
+	for(unsigned iter = 0; iter < right.size(); iter++)
+		catalyst.push_back(right[iter] * left);
+	/*
 	list<double> rightside;
 	for(unsigned r_iter = 0; r_iter < right.size(); r_iter++)
 		rightside.push_back(right[r_iter]);
 		
 	for(auto right_iter = rightside.begin(); right_iter != rightside.end(); right_iter++)
 		catalyst.push_back(left * (*right_iter));
+	*/
 	return catalyst;
 }
 Vectors::VectorData Vectors::operator/(const Vectors::VectorData& left,double right){
 	vector<double> catalyst;
+	for(unsigned l_iter = 0; l_iter < left.size(); l_iter++)
+		catalyst.push_back(left[l_iter] / right);
+	/*
 	list<double> leftside;
 	for(unsigned l_iter = 0; l_iter < left.size(); l_iter++)
 		leftside.push_back(left[l_iter]);
 		
 	for(auto left_iter = leftside.begin(); left_iter != leftside.end(); left_iter++)
 		catalyst.push_back((*left_iter) / right);
+	*/
 	return catalyst;
 }
 Vectors::VectorData Vectors::operator%(const Vectors::VectorData& left,int right){
 	vector<double> catalyst;
-	list<double> leftside;
+//	list<double> leftside;
+	
+	int convert;
+	for(unsigned l_iter = 0; l_iter < left.size(); l_iter++)
+		catalyst.push_back((convert = left[l_iter]) % right);
+	/*
 	for(unsigned l_iter = 0; l_iter < left.size(); l_iter++)
 		leftside.push_back(left[l_iter]);
 	int convert;
 	for(auto left_iter = leftside.begin(); left_iter != leftside.end(); left_iter++)
 		catalyst.push_back((convert = (*left_iter)) % right);
+	*/
 	return catalyst;
+}
+Vectors::VectorData Vectors::operator>>(const Vectors::VectorData& left, int right){
+	vector<double> toreturn;
+	for(unsigned i=0; i < left.size(); i++)
+		toreturn.push_back(left[i] * pow(2,right));
+	return toreturn;
+}
+Vectors::VectorData Vectors::operator<<(const Vectors::VectorData& left, int right){
+	vector<double> toreturn;
+	for(unsigned i=0; i < left.size(); i++)
+		toreturn.push_back(left[i] / pow(2,right));
+	return toreturn;
 }
 bool Vectors::operator!(const Vectors::VectorData& testee){
 	for(unsigned iter = 0; iter < testee.size(); iter++){

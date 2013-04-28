@@ -101,6 +101,8 @@
 		VectorData operator*(double,const VectorData&);
 		VectorData operator/(const VectorData&,double);
 		VectorData operator%(const VectorData&,int);
+		VectorData operator>>(const VectorData&, int);
+		VectorData operator<<(const VectorData&, int);
 		bool operator!(const VectorData&);
 		bool operator==(const VectorData&,const VectorData&);
 		bool operator!=(const VectorData&,const VectorData&);
