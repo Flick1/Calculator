@@ -1,5 +1,9 @@
 #ifndef VECTORS_H
+		/***Define which type of input/output being used***/
+	//	#define IOSTREAM_H
+	//	#define CURSES_H
 	#define VECTORS_H
+	
 	#include <initializer_list>
 	#include <vector>
 	#include <string>
@@ -102,10 +106,9 @@
 		bool operator!=(const VectorData&,const VectorData&);
 		
 	#ifdef IOSTREAM_H
-		std::ostream& operator<<(std::ostream&, const VectorData&);
-	#endif
-	#ifdef CURSES_H
-		void printw(const VectorData&);
+		inline std::ostream& operator<<(std::ostream& output, const Vectors::VectorData& rightside){return (output << rightside.String());}
+	#elif CURSES_H
+		inline void printw(const Vectors::VectorData& todisplay){printw(todisplay.String());}
 	#endif
 	}
 	

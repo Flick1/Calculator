@@ -1,7 +1,6 @@
 #include "Constants.h"
 /***To include
-	-Fix Cross functions
-	-Test and fix determinant function
+	-Optimize Cross and Determinant functions
 	-overloaded functions for other STL container parameters
 		-Perhaps use a templated function since most containers work the same
 		-If template is used, figure out how to handle non-container parameters
@@ -53,20 +52,38 @@ void Vectors::Square(list<list<double>> &matrix, unsigned &componentnumber, bool
 }
 
 double Vectors::Determinant(list<list<double>> &matrix, unsigned total_size){
-		if(total_size== 0)		//Get size of matrix and ensure square matrix
-			Vectors::Square(matrix,total_size,false);
-		else if(total_size == 2)	//Break out of recursion
-			return (*(matrix.begin()->begin())) * (*((matrix.end()--)->end()--)) - (*((matrix.begin()++)->begin())) * (*((matrix.end()--)->begin()));
+	if(total_size== 0)		//Get size of matrix and ensure square matrix
+		Vectors::Square(matrix,total_size,false);
+	else if(total_size == 2)	//Break out of recursion
+	{
+		double toreturn=0;
+			//Manually find sum using three iterators
+		auto iter = matrix.begin();
+		auto iter1 = iter->begin(); 
+			advance(iter, 1);
+		auto iter2 = iter->begin();
+		advance(iter2,1);
+		toreturn += (*iter1) * (*iter2);
+		advance(iter1,1);	advance(iter2,-1);
+		toreturn -= (*iter1) * (*iter2);
+		return toreturn;
+	}
 	if( matrix.size() == total_size){	//Calculate determinant
 		double toreturn=0;
-		total_size--;
-		{	//Limit scope further to encapsulate for loop variables
+		{	//Limit scope further to encapsulate temporary variables
 			list<list<double>> catalyst;
+			unsigned column;
+			int sign;
 			auto iter=matrix.begin()->begin();
-			int column, sign;
+				//Create outside for loop according to number of components
 			for(column=0, sign = 1; iter != matrix.begin()->end(); iter++, column++, sign *= -1){
 				list<double> subcatalyst;
-				for(auto list_iter = matrix.begin(); list_iter != matrix.end(); list_iter++){
+					//Now focusing on splicing the matrix
+					//Start by pointing iterator to second row
+				auto list_iter = matrix.begin();
+				for(list_iter++; list_iter != matrix.end(); list_iter++){
+						//Now iterator through each component of row
+						//Component will be skipped according to which column is focused on
 					for(auto component_iter = list_iter->begin(); component_iter != list_iter->end(); component_iter++){
 						auto itercatalyst = list_iter->begin();
 						advance(itercatalyst,column);
@@ -76,7 +93,7 @@ double Vectors::Determinant(list<list<double>> &matrix, unsigned total_size){
 					catalyst.push_back(subcatalyst);
 					subcatalyst.clear();
 				}
-				toreturn += sign*(*iter)*Vectors::Determinant(catalyst, total_size);
+				toreturn += sign*(*iter)*Vectors::Determinant(catalyst, total_size-1);
 				catalyst.clear();
 			}
 		}
@@ -190,7 +207,7 @@ Vectors::VectorData Vectors::Cross(initializer_list<initializer_list<double>> ve
 }
 Vectors::VectorData Vectors::Cross(initializer_list<Vectors::VectorData> veclist){
 	list<list<double>> vectorlist;
-		//Check the maximum number of components in longest vector
+		//Check the number of components in longest vector
 	unsigned componentnumber = veclist.begin()->size();
 	for(auto vl_iter = veclist.begin(); vl_iter != veclist.end(); vl_iter++){
 		if(componentnumber < vl_iter->size())	componentnumber = vl_iter->size();
@@ -212,18 +229,23 @@ Vectors::VectorData Vectors::Cross(initializer_list<Vectors::VectorData> veclist
 			catalyst.clear();
 		}
 	}
-	unsigned maximum_size = 0;
 		//Ensure all vectors have the same number of components
-	Vectors::Square(vectorlist,maximum_size, componentnumber);
+	Vectors::Square(vectorlist, componentnumber);
 		//Perform Cross Product
 	vector<double> toreturn;
 	{	//Limit scope further to encapsulate temporary variables
 		list<list<double>> catalyst;
-		auto iter=vectorlist.begin()->begin();
-		int column, sign;
-		for(column=0, sign = 1; iter != vectorlist.begin()->end(); iter++, column++, sign *= -1){
+		unsigned column;
+		int sign;
+			//Create outside for loop according to number of components
+		for(column=0, sign = 1; column < vectorlist.begin()->size(); column++, sign *= -1){
 			list<double> subcatalyst;
-			for(auto list_iter = vectorlist.begin(); list_iter != vectorlist.end(); list_iter++){
+				//Now focusing on splicing the matrix
+				//Start by pointing iterator to second row
+			auto list_iter = vectorlist.begin();
+			for(list_iter++; list_iter != vectorlist.end(); list_iter++){
+					//Now iterator through each component of row
+					//Component will be skipped according to which column is focused on
 				for(auto component_iter = list_iter->begin(); component_iter != list_iter->end(); component_iter++){
 					auto itercatalyst = list_iter->begin();
 					advance(itercatalyst,column);
@@ -233,7 +255,11 @@ Vectors::VectorData Vectors::Cross(initializer_list<Vectors::VectorData> veclist
 				catalyst.push_back(subcatalyst);
 				subcatalyst.clear();
 			}
-			toreturn.push_back(sign*Vectors::Determinant(catalyst, catalyst.size()));
+				//Explicity check for a result of 0 and push back 0 to avoid the -0 architect
+				//Declare temporary variable to avoid calling Determinant twice and avoid overhead cost
+			double coefficient = Vectors::Determinant(catalyst, componentnumber-1);
+			if(coefficient == 0)	toreturn.push_back(0);
+			else	toreturn.push_back(sign*coefficient);
 			catalyst.clear();
 		}
 	}
@@ -624,10 +650,3 @@ void Vectors::VectorData::Transfer(const Vectors::VectorData& original){
 		
 	magnitude = original.magnitude;
 }
-		
-#ifdef IOSTREAM_H
-	std::ostream& Vectors::operator<<(std::ostream& output, const Vectors::VectorData& rightside){return (output << rightside.String());}
-#endif
-#ifdef CURSES_H
-	void Vectors::printw(const Vectors::VectorData& todisplay){printw(todisplay.String());}
-#endif

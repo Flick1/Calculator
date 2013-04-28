@@ -1,7 +1,8 @@
 #ifdef DEBUG_VECTOR
+
 #include <iostream>
-#define IOSTREAM_H
 using namespace std;
+
 #include "Constants.h"
 #include "Vectors.h"
 
@@ -57,13 +58,23 @@ int main()
 		cout << "Assignment parallel to Comparison: ";
 		if(Parallel(Assignment,Comparison))	cout << "True" << '\n';
 		else	cout << "False" << '\n';
+		Assignment = {2,2,2};	Comparison = {-3,3,-3};
+		cout << "New Assignment and Comparison: " << Assignment << ':' << Comparison << '\n';
 		Comparison = Cross({Assignment,Comparison});
-		cout << "Comparison = Cross(Assignment,Comparison): " << Comparison << '\n';
+		cout << "Comparison = Cross({Assignment,Comparison}): " << Comparison << '\n';
 		cout << "Assignment orthogonal to Comparison: ";
 		if(Orthogonal(Assignment,Comparison))	cout << "True" << '\n';
 		else	cout << "False" << '\n';
+		Assignment = {2,2,2,2};	Comparison = {-3,3,-3,-3};
+		VectorData FourthD = {4,4,4,4};
+		cout << "New Assignment and Comparison: " << Assignment << ':' << Comparison << '\n'
+			<< "Additional vector for Cross Product: " << FourthD << '\n';
+		FourthD = Cross({Assignment,Comparison,FourthD});
+		cout << "FourthD = Cross({Assignment,Comparison,FourthD}): " << FourthD << '\n';
 	}catch(const char* msg){cout << '\n' << msg << endl;}
 	catch(...){cout << "\nCaught unknown error." << endl;}
     return 0;
 }
+
+
 #endif
