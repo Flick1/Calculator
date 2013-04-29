@@ -1,7 +1,5 @@
 #include "Constants.h"
 /***To include
-	-Need to Transfer changes from Cross(initializer_list<VectorData>) to Cross(initializer_list<initializer_list<double>>)
-	-Optimize Cross and Determinant functions
 	-overloaded functions for other STL container parameters
 		-Perhaps use a templated function since most containers work the same
 		-If template is used, figure out how to handle non-container parameters
@@ -35,7 +33,8 @@ void Vectors::Square(list<list<double>> &matrix, unsigned &componentnumber, bool
 		while(vl_iter->size() < componentnumber)	vl_iter->push_back(0);
 	}
 		//Now check if the number of components of each row match with the number of columns
-	if(matrix.size() > componentnumber){
+	if(matrix.size() == componentnumber)	return;
+	else if(matrix.size() > componentnumber){
 		while(matrix.size() > componentnumber){
 			for(auto iter = matrix.begin(); iter != matrix.end(); iter++)
 				iter->push_back(0);
@@ -43,7 +42,7 @@ void Vectors::Square(list<list<double>> &matrix, unsigned &componentnumber, bool
 		}
 	}else if(matrix.size() < componentnumber && !complete)
 		throw "Cannot square matrix built from vectors. Number of vector components does not match number of vectors.";
-	else if(matrix.size() < componentnumber){
+	else{
 		list<double> filler;
 		for(unsigned i = 0; i < componentnumber; i++)
 			filler.push_back(0);
@@ -67,11 +66,11 @@ double Vectors::Determinant(list<list<double>> &matrix, unsigned total_size){
 				//Create outside for loop according to number of components
 			for(column=0, sign = 1; iter != matrix.begin()->end(); iter++, column++, sign *= -1){
 				list<double> subcatalyst;
-					//Now focusing on splicing the matrix
+					//Now focus on splicing the matrix
 					//Start by pointing iterator to second row
 				auto list_iter = matrix.begin();
 				for(list_iter++; list_iter != matrix.end(); list_iter++){
-						//Now iterator through each component of row
+						//Now iterate through each component of row
 						//Component will be skipped according to which column is focused on
 					for(auto component_iter = list_iter->begin(); component_iter != list_iter->end(); component_iter++){
 						auto itercatalyst = list_iter->begin();
@@ -160,16 +159,13 @@ double Vectors::Dot(const Vectors::VectorData& f,const Vectors::VectorData& s){
 }
 
 Vectors::VectorData Vectors::Cross(initializer_list<initializer_list<double>> veclist){
-	list<list<double>> vectorlist;
+		//Initialize vectorlist with an empty list; this will be filled with 0's when Square is called
+		//vectorlist.front() should never be accessed
+	list<list<double>> vectorlist = {{}};
 		//Check the number of components in longest vector
 	unsigned componentnumber = veclist.begin()->size();
 	for(auto vl_iter = veclist.begin(); vl_iter != veclist.end(); vl_iter++){
 		if(componentnumber < vl_iter->size())	componentnumber = vl_iter->size();
-	}
-	{	//Push back surrogate i,j,k, vectors represented by an empty list<>.
-		//List will be filled with 0's when Square is called
-		list<double> subcatalyst;
-		vectorlist.push_back(subcatalyst);
 	}
 	{	//Now transfer vectors from veclist to vectorlist
 		list<double> catalyst;
@@ -191,7 +187,7 @@ Vectors::VectorData Vectors::Cross(initializer_list<initializer_list<double>> ve
 			//Create outside for loop according to number of components
 		for(column=0, sign = 1; column < vectorlist.begin()->size(); column++, sign *= -1){
 			list<double> subcatalyst;
-				//Now focusing on splicing the matrix
+				//Now focus on splicing the matrix
 				//Start by pointing iterator to second row
 			auto list_iter = vectorlist.begin();
 			for(list_iter++; list_iter != vectorlist.end(); list_iter++){
@@ -217,16 +213,13 @@ Vectors::VectorData Vectors::Cross(initializer_list<initializer_list<double>> ve
 	return toreturn;
 }
 Vectors::VectorData Vectors::Cross(initializer_list<Vectors::VectorData> veclist){
-	list<list<double>> vectorlist;
+		//Initialize vectorlist with an empty list; this will be filled with 0's when Square is called
+		//vectorlist.front() should never be accessed
+	list<list<double>> vectorlist = {{}};
 		//Check the number of components in longest vector
 	unsigned componentnumber = veclist.begin()->size();
 	for(auto vl_iter = veclist.begin(); vl_iter != veclist.end(); vl_iter++){
 		if(componentnumber < vl_iter->size())	componentnumber = vl_iter->size();
-	}
-	{	//Push back surrogate i,j,k, vectors represented by an empty list<>.
-		//List will be filled with 0's when Square is called
-		list<double> subcatalyst;
-		vectorlist.push_back(subcatalyst);
 	}
 	{	//Now transfer vectors from veclist to vectorlist
 		list<double> catalyst;
@@ -248,11 +241,11 @@ Vectors::VectorData Vectors::Cross(initializer_list<Vectors::VectorData> veclist
 			//Create outside for loop according to number of components
 		for(column=0, sign = 1; column < vectorlist.begin()->size(); column++, sign *= -1){
 			list<double> subcatalyst;
-				//Now focusing on splicing the matrix
+				//Now focus on splicing the matrix
 				//Start by pointing iterator to second row
 			auto list_iter = vectorlist.begin();
 			for(list_iter++; list_iter != vectorlist.end(); list_iter++){
-					//Now iterator through each component of row
+					//Now iterate through each component of row
 					//Component will be skipped according to which column is focused on
 				for(auto component_iter = list_iter->begin(); component_iter != list_iter->end(); component_iter++){
 					auto itercatalyst = list_iter->begin();
