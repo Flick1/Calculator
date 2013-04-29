@@ -56,19 +56,7 @@ double Vectors::Determinant(list<list<double>> &matrix, unsigned total_size){
 	if(total_size== 0)		//Get size of matrix and ensure square matrix
 		Vectors::Square(matrix,total_size,false);
 	else if(total_size == 2)	//Break out of recursion
-	{
-		double toreturn=0;
-			//Manually find sum using three iterators
-		auto iter = matrix.begin();
-		auto iter1 = iter->begin(); 
-			advance(iter, 1);
-		auto iter2 = iter->begin();
-		advance(iter2,1);
-		toreturn += (*iter1) * (*iter2);
-		advance(iter1,1);	advance(iter2,-1);
-		toreturn -= (*iter1) * (*iter2);
-		return toreturn;
-	}
+		return matrix.front().front() * matrix.back().back() - matrix.back().front() * matrix.front().back();
 	if( matrix.size() == total_size){	//Calculate determinant
 		double toreturn=0;
 		{	//Limit scope further to encapsulate temporary variables
@@ -178,12 +166,9 @@ Vectors::VectorData Vectors::Cross(initializer_list<initializer_list<double>> ve
 	for(auto vl_iter = veclist.begin(); vl_iter != veclist.end(); vl_iter++){
 		if(componentnumber < vl_iter->size())	componentnumber = vl_iter->size();
 	}
-	{	//Push back surrogate i,j,k, vectors represented by 1, -1, etc.
+	{	//Push back surrogate i,j,k, vectors represented by an empty list<>.
+		//List will be filled with 0's when Square is called
 		list<double> subcatalyst;
-		int sign;
-		unsigned i;
-		for(i = 0, sign = 1; i < componentnumber; i++, sign *= -1)
-			subcatalyst.push_back(sign);
 		vectorlist.push_back(subcatalyst);
 	}
 	{	//Now transfer vectors from veclist to vectorlist
@@ -238,12 +223,9 @@ Vectors::VectorData Vectors::Cross(initializer_list<Vectors::VectorData> veclist
 	for(auto vl_iter = veclist.begin(); vl_iter != veclist.end(); vl_iter++){
 		if(componentnumber < vl_iter->size())	componentnumber = vl_iter->size();
 	}
-	{	//Push back surrogate i,j,k, vectors represented by 1, -1, etc.
+	{	//Push back surrogate i,j,k, vectors represented by an empty list<>.
+		//List will be filled with 0's when Square is called
 		list<double> subcatalyst;
-		int sign;
-		unsigned i;
-		for(i = 0, sign = 1; i < componentnumber; i++, sign *= -1)
-			subcatalyst.push_back(sign);
 		vectorlist.push_back(subcatalyst);
 	}
 	{	//Now transfer vectors from veclist to vectorlist
@@ -372,11 +354,13 @@ void Vectors::VectorData::Replace(int index,double newvalue){
 	Update();
 }
 void Vectors::VectorData::Truncate(unsigned numtoerase){
-	components.erase(components.end()-numtoerase-1, components.end()-1);
+	for(;numtoerase > 0;numtoerase--)
+		components.pop_back();
 	Update();
 }
 void Vectors::VectorData::Truncate(int numtoerase){
-	components.erase(components.end()-numtoerase-1, components.end()-1);
+	for(;numtoerase > 0;numtoerase--)
+		components.pop_back();
 	Update();
 }
 void Vectors::VectorData::Erase(unsigned index){
@@ -588,58 +572,25 @@ Vectors::VectorData Vectors::operator*(const Vectors::VectorData& left,double ri
 	vector<double> catalyst;
 	for(unsigned iter = 0; iter < left.size(); iter++)
 		catalyst.push_back(left[iter] * right);
-	/*
-	list<double> leftside;
-	for(unsigned l_iter = 0; l_iter < left.size(); l_iter++)
-		leftside.push_back(left[l_iter]);
-		
-	for(auto left_iter = leftside.begin(); left_iter != leftside.end(); left_iter++)
-		catalyst.push_back((*left_iter) * right);
-	*/
 	return catalyst;
 }
 Vectors::VectorData Vectors::operator*(double left,const Vectors::VectorData& right){
 	vector<double> catalyst;
 	for(unsigned iter = 0; iter < right.size(); iter++)
 		catalyst.push_back(right[iter] * left);
-	/*
-	list<double> rightside;
-	for(unsigned r_iter = 0; r_iter < right.size(); r_iter++)
-		rightside.push_back(right[r_iter]);
-		
-	for(auto right_iter = rightside.begin(); right_iter != rightside.end(); right_iter++)
-		catalyst.push_back(left * (*right_iter));
-	*/
 	return catalyst;
 }
 Vectors::VectorData Vectors::operator/(const Vectors::VectorData& left,double right){
 	vector<double> catalyst;
 	for(unsigned l_iter = 0; l_iter < left.size(); l_iter++)
 		catalyst.push_back(left[l_iter] / right);
-	/*
-	list<double> leftside;
-	for(unsigned l_iter = 0; l_iter < left.size(); l_iter++)
-		leftside.push_back(left[l_iter]);
-		
-	for(auto left_iter = leftside.begin(); left_iter != leftside.end(); left_iter++)
-		catalyst.push_back((*left_iter) / right);
-	*/
 	return catalyst;
 }
 Vectors::VectorData Vectors::operator%(const Vectors::VectorData& left,int right){
 	vector<double> catalyst;
-//	list<double> leftside;
-	
 	int convert;
 	for(unsigned l_iter = 0; l_iter < left.size(); l_iter++)
 		catalyst.push_back((convert = left[l_iter]) % right);
-	/*
-	for(unsigned l_iter = 0; l_iter < left.size(); l_iter++)
-		leftside.push_back(left[l_iter]);
-	int convert;
-	for(auto left_iter = leftside.begin(); left_iter != leftside.end(); left_iter++)
-		catalyst.push_back((convert = (*left_iter)) % right);
-	*/
 	return catalyst;
 }
 Vectors::VectorData Vectors::operator>>(const Vectors::VectorData& left, int right){
@@ -677,8 +628,8 @@ bool Vectors::operator!=(const Vectors::VectorData& leftside,const Vectors::Vect
 
 void Vectors::VectorData::Update(){
 		//Components
-	while(*(components.end()-1) == 0 && components.size() > 2)
-		components.erase(components.end()-1);
+	while(components.back() == 0 && components.size() > 2)
+		components.pop_back();
 		//Magnitude
 	double sum=0;
 	for(auto iter = components.begin(); iter != components.end(); iter++)
