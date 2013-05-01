@@ -18,8 +18,10 @@
 		void Square(list<list<double>>&, unsigned&, bool=false);
 		double Determinant(list<list<double>>&, unsigned=0);
 
+		double Magnitude(double[]){
 		double Magnitude(initializer_list<double>);
 		   //Calculate direction of a vector relative to a specific plane
+		double Direction(double[], int=1,int=2);
 		double Direction(initializer_list<double>, int=1,int=2);
 		
 		double Dot(initializer_list<double>,initializer_list<double>);
@@ -30,6 +32,8 @@
 		VectorData Cross(initializer_list<initializer_list<double>>);
 		VectorData Cross(initializer_list<VectorData>);
 	
+		double AngleBetween(initializer_list<double>, initializer_list<double>);
+		double AngleBetween(const VectorData&, const VectorData&);
 		   //Create vector class for storage and multiple analyses
 		   //All overloaded operators return type equivalent to left-hand value
 		class VectorData{

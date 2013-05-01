@@ -89,17 +89,230 @@ double Vectors::Determinant(list<list<double>> &matrix, unsigned total_size){
 	}else	throw "Matrix is not of square size. Unable to calculate determinant.";
 }
 
+double Vectors::Magnitude(double vec[]){
+	int size = sizeof(vec)/sizeof(double);
+	double toreturn = 0;
+	for(int i = 0; i < size; i++)
+		toreturn += vec[i]*vec[i];
+	return toreturn;
+}
 double Vectors::Magnitude(initializer_list<double> components){
 	double toreturn=0;
-	{
-		auto iter = components.begin();
-		int i;
-		for(i=0; iter != components.end(); iter++, i++)
-			toreturn += (*iter)*(*iter);
-	}
+	for(auto iter = components.begin(); iter != components.end(); iter++)
+		toreturn += (*iter)*(*iter);
 	return sqrt(toreturn);
 }
-
+#ifdef EXPERIMENT_VECTORS
+	//The following function templates must be passed containers
+	//   that satify the guidelines as defined by 
+	//   the Silicon Graphics International Corporation.
+	//   http://www.sgi.com/tech/stl/Container.html
+template<class IContain>
+	template<class Contain<IContain>>
+double Vectors::Determinant(Contain &matrix, unsigned total_size){
+	if(total_size== 0)		//Get size of matrix and ensure square matrix
+		Vectors::Square(matrix,total_size,false);
+	else if(total_size == 2){	//Break out of recursion
+		double toreturn;
+			//Calculate determinant via three iterators
+		auto iter = matrix.begin();
+			//Point to top left corner
+		auto iter1 = iter->begin();
+			//Point to bottom right corner
+		advance(iter,1)
+		auto iter2 = iter->begin();	advance(iter2,1);
+		toreturn = (*iter1) * (*iter2);
+			//Point to top right corner
+		advance(iter1,1);
+			//Point to bottom left corner
+		advance(iter2,-1);
+		toreturn += (*iter1) * (*iter2);
+		return toreturn;
+	}
+	if( matrix.size() == total_size){	//Calculate determinant
+		double toreturn=0;
+		{	//Limit scope further to encapsulate temporary variables
+			list<list<double>> catalyst;
+			unsigned column;
+			int sign;
+			auto iter=matrix.begin()->begin();
+				//Create outside for loop according to number of components
+			for(column=0, sign = 1; iter != matrix.begin()->end(); advance(iter,1), column++, sign *= -1){
+				list<double> subcatalyst;
+					//Now focus on splicing the matrix
+					//Start by pointing iterator to second row
+				auto list_iter = matrix.begin();
+				for(advance(list_iter,1); list_iter != matrix.end(); advance(list_iter,1)){
+						//Now iterate through each component of row
+						//Component will be skipped according to which column is focused on
+					for(auto component_iter = list_iter->begin(); component_iter != list_iter->end(); advance(component_iter,1)){
+						auto itercatalyst = list_iter->begin();
+						advance(itercatalyst,column);
+						if(component_iter == itercatalyst)	continue;
+						subcatalyst.push_back(*component_iter);
+					}
+					catalyst.push_back(subcatalyst);
+					subcatalyst.clear();
+				}
+				toreturn += sign*(*iter)*Vectors::Determinant(catalyst, total_size-1);
+				catalyst.clear();
+			}
+		}
+		return toreturn;
+	}else	throw "Matrix is not of square size. Unable to calculate determinant.";
+}
+template<class Contain>
+double Vectors::Magnitude(Contain vec){
+	double toreturn = 0;
+	for(auto iter = vec.begin(); iter != vec.end(); advance(iter,1))
+		toreturn += (*iter) * (*iter);
+	return toreturn;
+}
+template<class Contain>
+double Vectors::Direction(Contain v, int axis1, int axis2){
+	if(axis1 < 1 || axis2 < 1)	throw "Error. Invalid dimension selected.";
+	else if(axis1 == axis2)	return 0;
+	auto index1 = v.begin(), index2 = v.begin();
+	advance(index1, axis1-1);	advance(index2, axis2-1);
+	if(*index1 == 0 && *index2 > 0)	return PI__/2;
+	else if(*index2 < 0)	return -PI__/2;
+	return atan(*index2 / *index1);
+}
+template<class Contain, class Contain2>
+double Vectors::Dot(Contain v1, Contain2 v2){
+		//Ensure both vectors have the same number of components
+	while(first.size() < second.size())	first.push_back(0);
+	while(first.size() > second.size()) second.push_back(0);
+	double toreturn = 0;
+	for(auto f_iter = first.begin(), s_iter = second.begin(); f_iter != first.end(), s_iter != second.end(); advance(f_iter,1), advance(s_iter,1))
+		toreturn += (*f_iter) * (*s_iter);
+	return toreturn;
+}
+template<class IContain>
+	template<class Contain<IContain>>
+double Vectors::Cross(Contain veclist){
+		//Initialize vectorlist with an empty list; this will be filled with 0's when Square is called
+		//vectorlist.front() should never be accessed afterward
+	list<list<double>> vectorlist = {{}};
+		//Check the number of components in longest vector
+	unsigned componentnumber = veclist.begin()->size();
+	for(auto vl_iter = veclist.begin(); vl_iter != veclist.end(); advance(vl_iter,1)){
+		if(componentnumber < vl_iter->size())	componentnumber = vl_iter->size();
+	}
+	{	//Now transfer vectors from veclist to vectorlist
+		list<double> catalyst;
+		for(auto list_iter = veclist.begin(); list_iter != veclist.end(); advance(list_iter,1)){
+			for(auto iter = list_iter->begin(); iter != list_iter->end(); advance(iter,1))
+				catalyst.push_back(*iter);
+			vectorlist.push_back(catalyst);
+			catalyst.clear();
+		}
+	}
+		//Ensure all vectors have the same number of components
+	Vectors::Square(vectorlist, componentnumber);
+		//Perform Cross Product
+	vector<double> toreturn;
+	{	//Limit scope further to encapsulate temporary variables
+		list<list<double>> catalyst;
+		unsigned column;
+		int sign;
+			//Create outside for loop according to number of components
+		for(column=0, sign = 1; column < vectorlist.begin()->size(); column++, sign *= -1){
+			list<double> subcatalyst;
+				//Now focus on splicing the matrix
+				//Start by pointing iterator to second row
+			auto list_iter = vectorlist.begin();
+			for(list_iter++; list_iter != vectorlist.end(); advance(list_iter,1)){
+					//Now iterate through each component of row
+					//Component will be skipped according to which column is focused on
+				for(auto component_iter = list_iter->begin(); component_iter != list_iter->end(); advance(component_iter,1)){
+					auto itercatalyst = list_iter->begin();
+					advance(itercatalyst,column);
+					if(component_iter == itercatalyst)	continue;
+					subcatalyst.push_back(*component_iter);
+				}
+				catalyst.push_back(subcatalyst);
+				subcatalyst.clear();
+			}
+				//Explicity check for a result of 0 and push back 0 to avoid the -0 architect
+				//Declare temporary variable to avoid calling Determinant twice and avoid overhead cost
+			double coefficient = Vectors::Determinant(catalyst, componentnumber-1);
+			if(coefficient == 0)	toreturn.push_back(0);
+			else	toreturn.push_back(sign*coefficient);
+			catalyst.clear();
+		}
+	}
+	return toreturn;
+}
+template<class Contain<Vectors::VectorData>>
+double Vectors::Cross(Contain veclist){
+		//Initialize vectorlist with an empty list; this will be filled with 0's when Square is called
+		//vectorlist.front() should never be accessed afterward
+	list<list<double>> vectorlist = {{}};
+		//Check the number of components in longest vector
+	unsigned componentnumber = veclist.begin()->size();
+	for(auto vl_iter = veclist.begin(); vl_iter != veclist.end(); advance(vl_iter,1)){
+		if(componentnumber < vl_iter->size())	componentnumber = vl_iter->size();
+	}
+	{	//Now transfer vectors from veclist to vectorlist
+		list<double> catalyst;
+		for(auto list_iter = veclist.begin(); list_iter != veclist.end(); advance(list_iter,1)){
+			for(unsigned iter = 0; iter < list_iter->size(); advance(iter,1))
+				catalyst.push_back((*list_iter)[iter]);
+			vectorlist.push_back(catalyst);
+			catalyst.clear();
+		}
+	}
+		//Ensure all vectors have the same number of components
+	Vectors::Square(vectorlist, componentnumber);
+		//Perform Cross Product
+	vector<double> toreturn;
+	{	//Limit scope further to encapsulate temporary variables
+		list<list<double>> catalyst;
+		unsigned column;
+		int sign;
+			//Create outside for loop according to number of components
+		for(column=0, sign = 1; column < vectorlist.begin()->size(); column++, sign *= -1){
+			list<double> subcatalyst;
+				//Now focus on splicing the matrix
+				//Start by pointing iterator to second row
+			auto list_iter = vectorlist.begin();
+			for(advance(list_iter,1); list_iter != vectorlist.end(); advance(list_iter,1)){
+					//Now iterate through each component of row
+					//Component will be skipped according to which column is focused on
+				for(auto component_iter = list_iter->begin(); component_iter != list_iter->end(); advance(component_iter,1)){
+					auto itercatalyst = list_iter->begin();
+					advance(itercatalyst,column);
+					if(component_iter == itercatalyst)	continue;
+					subcatalyst.push_back(*component_iter);
+				}
+				catalyst.push_back(subcatalyst);
+				subcatalyst.clear();
+			}
+				//Explicity check for a result of 0 and push back 0 to avoid the -0 architect
+				//Declare temporary variable to avoid calling Determinant twice and avoid overhead cost
+			double coefficient = Vectors::Determinant(catalyst, componentnumber-1);
+			if(coefficient == 0)	toreturn.push_back(0);
+			else	toreturn.push_back(sign*coefficient);
+			catalyst.clear();
+		}
+	}
+	return toreturn;
+}
+template<class Contain>
+double Vectors::AngleBetween(Contain f, Contain s){
+	if(Magnitude(f) == 0 || Magnitude(s) == 0)	return 0;
+	return acos(Dot(f,s)/(Magnitude(f)*Magnitude(s)));
+}
+#endif
+double Vectors::Direction(double v[], int axis1, int axis2){
+	if(axis1 < 1 || axis2 < 1)	throw "Error. Invalid dimension selected.";
+	else if(axis1 == axis2)	return 0;
+	
+	if(v[axis1-1] == 0 && v[axis2-1] > 0)	return PI__/2;
+	else if(v[axis2-1] < 0)	return -PI__/2;
+	return atan(v[axis2-1]/v[axis1-1]);
+}
 double Vectors::Direction(initializer_list<double> v, int axis1, int axis2){
 	if(axis1 < 1 || axis2 < 1)	throw "Error. Invalid dimension selected.";
 	else if(axis1 == axis2)	return 0;
@@ -265,6 +478,16 @@ Vectors::VectorData Vectors::Cross(initializer_list<Vectors::VectorData> veclist
 		}
 	}
 	return toreturn;
+}
+
+double Vectors::AngleBetween(initializer_list<double> f, initializer_list<double> s){
+	Vectors::VectorData first(f), second(s);
+	if(first.Magnitude() == 0 || second.Magnitude() == 0)	return 0;
+	return acos(Dot(first,second)/(first.Magnitude()*second.Magnitude()));
+}
+double Vectors::AngleBetween(const Vectors::VectorData& f, const Vectors::VectorData& s){
+	if(f.Magnitude() == 0 || s.Magnitude() == 0)	return 0;
+	return acos(Dot(f,s)/(f.Magnitude()*s.Magnitude()));
 }
 
 	//Member functions
