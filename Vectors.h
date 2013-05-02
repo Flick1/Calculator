@@ -19,20 +19,20 @@
 		double Determinant(list<list<double>>&, unsigned=0);
 
 		double Magnitude(double[]){
-		double Magnitude(initializer_list<double>);
+		double Magnitude(const initializer_list<double>&);
 		   //Calculate direction of a vector relative to a specific plane
 		double Direction(double[], int=1,int=2);
-		double Direction(initializer_list<double>, int=1,int=2);
+		double Direction(const initializer_list<double>&, int=1,int=2);
 		
-		double Dot(initializer_list<double>,initializer_list<double>);
-		double Dot(initializer_list<double>,const VectorData&);
-		double Dot(const VectorData&,initializer_list<double>);
+		double Dot(const initializer_list<double>&, const initializer_list<double>&);
+		double Dot(const initializer_list<double>&,const VectorData&);
+		double Dot(const VectorData&,const initializer_list<double>&);
 		double Dot(const VectorData&,const VectorData&);
 
-		VectorData Cross(initializer_list<initializer_list<double>>);
-		VectorData Cross(initializer_list<VectorData>);
+		VectorData Cross(const initializer_list<initializer_list<double>>&);
+		VectorData Cross(const initializer_list<VectorData>&);
 	
-		double AngleBetween(initializer_list<double>, initializer_list<double>);
+		double AngleBetween(const initializer_list<double>&, const initializer_list<double>&);
 		double AngleBetween(const VectorData&, const VectorData&);
 		   //Create vector class for storage and multiple analyses
 		   //All overloaded operators return type equivalent to left-hand value
@@ -74,16 +74,16 @@
 				VectorData& operator<<=(int);
 				   //Arbitrarily assign component values
 				void operator() (const VectorData&);
-				void operator() (initializer_list<double>);
+				void operator() (const initializer_list<double>&);
 				void operator() (double,double);
 				   //Construct VectorData with two components assigned 0
 				VectorData();
 				   //Construct VectorData with component parameters
-				VectorData(initializer_list<double>);
+				VectorData(const initializer_list<double>&);
 				   //Construct VectorData with magnitude and direction (radians)
 				VectorData(double,double);
 				   //Construct VectorData with an array of components
-				VectorData(vector<double>);
+				VectorData(const vector<double>&);
 				   //Copy constructor
 				VectorData(const VectorData&);
 				
