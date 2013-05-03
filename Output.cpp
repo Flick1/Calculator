@@ -1,11 +1,13 @@
 #include "Output.h"
 
+#include<curses.h>
+
 void output::print(std::string msg)
 {
-    std::cout<<msg;
+    addstr(msg);
 }
 
 void output::print(std::stringstream& msg)
 {
-    std::cout<<msg.str();
+    addstr(msg.str());
 }
