@@ -4,10 +4,10 @@
 
 void output::print(std::string msg)
 {
-    addstr(msg);
+    addstr(msg.c_str());
 }
 
 void output::print(std::stringstream& msg)
 {
-    addstr(msg.str());
+    addstr(msg.str().c_str());
 }
