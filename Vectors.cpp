@@ -669,9 +669,11 @@ bool Vectors::operator!=(const Vectors::VectorData& leftside,const Vectors::Vect
 	//In addition, container parameters must have valid
 	//   push_back() and pop_back() functions
 	//List of C++ Standard Library functions used:
+	//   -empty()                     to check if the container is empty
 	//   -begin() and end()           to access pointers to the container ends
 	//   -push_back() and pop_back()  to add or remove elemtents
 	//   -advance()                   to move iterator both forward and back
+	//   -distance()                  to calculate the index distance between two iterators
 	//   -operator* and operator->    to access values pointed by iterators
 	//   -size()                      to count the number of container elements
 */
@@ -712,23 +714,8 @@ template<class IContain<double>>
 double Vectors::Determinant(Contain &matrix, unsigned total_size){
 	if(total_size== 0)		//Get size of matrix and ensure square matrix
 		Vectors::Square(matrix,total_size,false);
-	else if(total_size == 2){	//Break out of recursion
-		double toreturn;
-			//Calculate determinant via three iterators
-		auto iter = matrix.begin();
-			//Point to top left corner
-		auto iter1 = iter->begin();
-			//Point to bottom right corner
-		advance(iter,1)
-		auto iter2 = iter->begin();	advance(iter2,1);
-		toreturn = (*iter1) * (*iter2);
-			//Point to top right corner
-		advance(iter1,1);
-			//Point to bottom left corner
-		advance(iter2,-1);
-		toreturn += (*iter1) * (*iter2);
-		return toreturn;
-	}
+	else if(total_size == 1)	//Break out of recursion
+		return *matrix.begin();
 	if( matrix.size() == total_size){	//Calculate determinant
 		double toreturn=0;
 		{	//Limit scope further to encapsulate temporary variables
@@ -1091,4 +1078,26 @@ bool Vectors::operator==(const Contain& leftside,const Contain& rightside){
 }
 template<class Contain<double>>
 bool Vectors::operator!=(const Contain& leftside,const Contain& rightside){return !(leftside == rightside);}
+/*
+template <typename T> 
+struct has_member {
+    template <typename U>  static true_type  f(decltype(declval<U>().member()) *);
+    template <typename>    static false_type f(...);
+    static const bool value =  decltype(f<T>(0))::value;
+};
+template<class Contain>
+inline bool Vectors::isContainer(const Contain& testee){
+	//   -begin() and end()           to access pointers to the container ends
+	//   -push_back() and pop_back()  to add or remove elemtents
+	//   -advance()                   to move iterator both forward and back
+	//   -operator* and operator->    to access values pointed by iterators
+	//   -size()                      to count the number of container elements
+	if(
+		!testee.empty() &&
+		distance(testee.begin(),testee.end()) > 0 &&
+		
+		
+	)	return true;
+}
+*/
 #endif
