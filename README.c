@@ -17,6 +17,11 @@ int main (int argc, char* argv[])
           search = input.find("h");
           if (search!=string::npos)
           hcount++;
+          /*
+               //Keep iterating through string, 
+               //stopping only when no more "h's" can be found
+            while(input.find('h') != string::npos)   hcount++;
+          */
           search = input.find("e");
           if (search!=string::npos)
           ecount++;
