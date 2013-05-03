@@ -1,18 +1,26 @@
 #include<algorithm>
 #include<string>
-#include<iostream>
+#include<curses.h>
 #include<sstream>
 #include "Input.h"
 
 using std::string;
-using std::cin;
 using std::istringstream;
 
 void input::get(int operands, double* input)
 {
+       //Set limit to how many digits the calculator will handle
+    const size_t digit_limit = 100;
     for (int i = 0; i < operands; i++)
     {
-        std::cin>>*input;
+        char raw_input[digit_limit];
+        getstr(raw_input);
+           //C-string --> C++ string --> stringstream --> double
+        std::string formatted_input(raw_input);
+        std::stringstream convert;
+            convert << formatted_input;
+        convert >> *input;
+           //Move to next memory address to store next operand
         input++;
     }
 }
