@@ -20,7 +20,14 @@ int main (int argc, char* argv[])
           /*
                //Keep iterating through string, 
                //stopping only when no more "h's" can be found
-            while(input.find('h') != string::npos)   hcount++;
+            search = 0;
+            while(search != string::npos){
+                    //Find next 'h' in string using the previous value of search
+                search = input.find('h', search);
+                hcount++;
+                    //Push index forward to resume search rest of string
+                search++;
+            }
           */
           search = input.find("e");
           if (search!=string::npos)
