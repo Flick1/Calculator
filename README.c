@@ -18,15 +18,12 @@ int main (int argc, char* argv[])
           if (search!=string::npos)
           hcount++;
           /*
-               //Keep iterating through string, 
-               //stopping only when no more "h's" can be found
-            search = 0;
+                //Initialize search
+             search = input.find('h');
             while(search != string::npos){
-                    //Find next 'h' in string using the previous value of search
-                search = input.find('h', search);
                 hcount++;
-                    //Push index forward to resume search rest of string
-                search++;
+                    //Find next 'h' in string starting one position after that last 'h'
+                search = input.find('h', search+1);
             }
           */
           search = input.find("e");
