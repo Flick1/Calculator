@@ -155,7 +155,7 @@ int main()
                 ++oper_count;
                 buff_pos = 0;
                 break;
-
+                 //Have you tried the ASCII | UNICODE for '\r' (carriage return/enter)?
             case 104: //makeshift "enter" key, press "h"
                 double result;
 
