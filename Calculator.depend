@@ -83,8 +83,13 @@
 	<iostream>
 	<sstream>
 
-1365959777 source:c:\users\depes\documents\github\calculator\main.cpp
-	"Handler.h"
+1367779357 source:c:\users\depes\documents\github\calculator\main.cpp
+	<curses.h>
+	<string>
+	<sstream>
+	<set>
+	"Screen.h"
+	"Operations.h"
 
 1366093566 source:c:\users\depes\documents\github\calculator\multiply.cpp
 	"Operations.h"
@@ -142,7 +147,7 @@
 	"Geometry.h"
 	"Constants.h"
 
-1366651910 c:\users\depes\documents\github\calculator\constants.h
+1367778871 c:\users\depes\documents\github\calculator\constants.h
 	<cstddef>
 
 1366566293 source:c:\users\depes\documents\github\calculator\storage.cpp
@@ -152,4 +157,34 @@
 	<algorithm>
 	"Handler.h"
 	"Storage.h"
+
+1367779397 source:c:\users\depes\documents\github\calculator\basicops.cpp
+	"Operations.h"
+
+1367778871 c:\users\depes\documents\github\calculator\screen.h
+	<curses.h>
+	<string>
+
+1367778871 source:c:\users\depes\documents\github\calculator\screen.cpp
+	<curses.h>
+	<string.h>
+	<sstream>
+	<stdlib.h>
+	"Screen.h"
+
+1367778871 source:c:\users\depes\documents\github\calculator\vectors.cpp
+	"Constants.h"
+	"Vectors.h"
+	<initializer_list>
+	<vector>
+	<cmath>
+	<list>
+	<iterator>
+	<sstream>
+
+1367778844 c:\users\depes\documents\github\calculator\vectors.h
+	<initializer_list>
+	<vector>
+	<string>
+	<list>
 

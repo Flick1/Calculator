@@ -15,6 +15,7 @@
 #include <curses.h>
 #include <string>
 #include <sstream>
+#include <set>
 
 #include "Screen.h"
 #include "Operations.h"

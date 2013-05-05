@@ -3,7 +3,7 @@
 	//	#define IOSTREAM_H
 	//	#define CURSES_H
 	#define VECTORS_H
-	
+
 	#include <initializer_list>
 	#include <vector>
 	#include <string>
@@ -14,16 +14,16 @@
 		//To be modular, Vectors will not support other user-defined types
 	namespace Vectors{
 		class VectorData;
-		
+
 		void Square(list<list<double>>&, unsigned&, bool=false);
 		double Determinant(list<list<double>>&, unsigned=0);
 
-		double Magnitude(double[]){
+		double Magnitude(double[]);
 		double Magnitude(const initializer_list<double>&);
 		   //Calculate direction of a vector relative to a specific plane
 		double Direction(double[], int=1,int=2);
 		double Direction(const initializer_list<double>&, int=1,int=2);
-		
+
 		double Dot(const initializer_list<double>&, const initializer_list<double>&);
 		double Dot(const initializer_list<double>&,const VectorData&);
 		double Dot(const VectorData&,const initializer_list<double>&);
@@ -31,7 +31,7 @@
 
 		VectorData Cross(const initializer_list<initializer_list<double>>&);
 		VectorData Cross(const initializer_list<VectorData>&);
-	
+
 		double AngleBetween(const initializer_list<double>&, const initializer_list<double>&);
 		double AngleBetween(const VectorData&, const VectorData&);
 		   //Create vector class for storage and multiple analyses
@@ -44,7 +44,7 @@
 				size_t NumDirection()const;
 				virtual std::string String()const;
 				VectorData Unit()const;
-				
+
 				virtual double Component(unsigned)const;
 				double& operator[](size_t);
 				double& operator[](size_t)const;
@@ -56,9 +56,9 @@
 				virtual void Truncate(int);
 				virtual void Erase(unsigned);
 				virtual void Erase(int);
-				
+
 				virtual void Empty();
-								
+
 				VectorData& operator=(const VectorData&);
 				VectorData& operator+=(const VectorData&);
 				VectorData& operator-=(const VectorData&);
@@ -69,7 +69,7 @@
 				VectorData& operator++(int=0);
 				VectorData& operator--();
 				VectorData& operator--(int=0);
-				
+
 				VectorData& operator>>=(int);
 				VectorData& operator<<=(int);
 				   //Arbitrarily assign component values
@@ -86,7 +86,7 @@
 				VectorData(const vector<double>&);
 				   //Copy constructor
 				VectorData(const VectorData&);
-				
+
 				virtual ~VectorData();
 			private:
 					//Vector will always have at least two components
@@ -110,12 +110,12 @@
 		bool operator!(const VectorData&);
 		bool operator==(const VectorData&,const VectorData&);
 		bool operator!=(const VectorData&,const VectorData&);
-		
+
 	#ifdef IOSTREAM_H
 		inline std::ostream& operator<<(std::ostream& output, const Vectors::VectorData& rightside){return (output << rightside.String());}
 	#elif CURSES_H
 		inline void printw(const Vectors::VectorData& todisplay){printw(todisplay.String());}
 	#endif
 	}
-	
+
 #endif

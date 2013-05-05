@@ -13,9 +13,6 @@ double operations::add(double a, double b)
     return a+b;
 }
 
-double operations::multiply(double firstnumber, double secondnumber){return firstnumber*secondnumber;}
-
-
 double operations::divide(double firstInput, double secondInput)
 {
         if(secondInput != 0)
