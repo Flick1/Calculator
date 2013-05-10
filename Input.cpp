@@ -15,7 +15,7 @@ void input::get(int operands, double* input)
         string alttext;
         std::cin>>alttext;
         stringstream ss(alttext);
-        ss>>*input;
+        ss>>*input;  // this would give 0 to *input if invalid character is entered instead of crashing the whole program
         input++;
     }
 }
