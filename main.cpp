@@ -1,219 +1,290 @@
-//Currently very limited, just testing out this format and see how it gels with everyone.
-//Only supports addition atm. All numbers will register, only the "+" key on the keypad will register and press "h" for result.
-//I can't seem to get enter to register with the prog, so yeah "h" is a makeshift.
-//Only able to support ONE operation then prog has to be closed.
-
-//To do: 1) Write functions for commonly used set of expressions/statements.
-//       2) Integrate mouse function for ease of accessing more complex operators.
-
-//This format is like a normal calc. The thing is I think its' harder to implement considering the more complex functions
-//that we have. We can always expand the width of the calc I think to fit more keys in it, but of course a list format
-//is much easier when the user just has to select the operation they want to do and give numerical input.
-
-//include Screen.cpp and BasicOps.cpp
-
 #include <curses.h>
 #include <string>
 #include <sstream>
-#include <set>
+#include <iostream>
 
 #include "Screen.h"
 #include "Operations.h"
 
 int main()
 {
-    WINDOW *win[11];
-    int height = 25, width = 25;
-    char num[] = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
+    WINDOW *win[16];
+    MEVENT mouseinput;
+    int height = 21, width = 50; //Main window size.
+    char* num[] = { "1", "2", "3", "/",
+                    "4", "5", "6", "X",
+                    "7", "8", "9", "+",
+                    "0", ".", "=", "-",};
 
     initscr();
     noecho();
     cbreak();
 
-    int startY = (LINES - height)/2;
-    int startX = (COLS - width)/2;
+    int startY = 0;
+    int startX = 3;
 
     refresh();
 
-    Screen::create_screen(startY, startX, height, width, FALSE, '0');
-    win[0] = Screen::create_screen(startY + 1, startX + 1, height - 21, width - 2, FALSE, '0');
+    win[1] = newwin(height, width, startY, startX);
+    Screen::create_screen(win[1], 0, 0, FALSE, "0", FALSE);
 
-    startY += 5;
-    startX += 2;
+    startY += 4;
+    startX += 1;
 
-    for (auto x = 0; x < 10; ++x)
+    for (auto x = 0; x < 16; x++)
     {
-        win[x + 1] = Screen::create_screen(startY, startX, height - 20, width - 18, TRUE, num[x]);
+        win[x + 2] = newwin(height = 4, width = 5, startY, startX);
+        Screen::create_screen(win[x + 2], 2, 2, TRUE, num[x], FALSE);
 
-        if (x == 2 || x == 5 || x == 8)
+        if (x == 3 || x == 7 || x == 11)
         {
-            startY += 5;
-            startX -= 14;
+            startY += 4;
+            startX -= 18;
         }
         else
-            startX += 7;
+            startX += 6;
     }
+
+    keypad(win[1], TRUE);
+    int c = 0;
+    int key = 0;
+    int select = 0;
+
+    //START HEAD OF CALCULATOR
+    win[0] = newwin(3, 48, 1, 4);
+    box(win[0], 0, 0);
+    wrefresh(win[0]);
 
     std::string buffer;
     size_t buff_pos = 0;
     std::string srch_buffer;
-    srch_buffer.reserve(2);
-    std::set<std::string> operators = { "+", "-", "%", "*" };
-
-
-    double operands[2];
-    size_t oper_count = 0;
-
-    int choice;
-    keypad(win[0], TRUE);
 
     int head_y, head_x;
     getparyx(win[0], head_y, head_x);
-    head_y += 3;
+    head_y += 2;
     head_x += 3;
+    //END HEAD OF CALCULATOR
 
     while (1)
     {
-        choice = wgetch(win[0]);
-        switch(choice)
+        height = 20; width = 50;
+        startY = 4;
+        startX = 4;
+
+        c = wgetch(win[1]);
+
+        for (int x = 0; x < 16; x++)
         {
-            case 48:
-                mvwprintw(win[0], head_y, head_x, "0");
-                buffer.insert(buff_pos, "0");
-                ++buff_pos;
-                head_x += 1;
-            case 49:
-                mvwprintw(win[0], head_y, head_x, "1");
-                buffer.insert(buff_pos, "1");
-                ++buff_pos;
-                head_x += 1;
+            win[x + 2] = newwin(height = 4, width = 5, startY, startX);
+            Screen::create_screen(win[x + 2], 2, 2, TRUE, num[x], FALSE);
+
+            if (x == 3 || x == 7 || x == 11)
+            {
+                startY += 4;
+                startX -= 18;
+            }
+            else
+                startX += 6;
+        }
+
+        switch(c)
+        {
+            case KEY_DOWN:
+                key += 4;
+                select += 4;
+                if (key >= 0 && key < 16)
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+                else
+                {
+                    key -= 4;
+                    select -= 4;
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+                }
                 break;
-            case 50:
-                mvwprintw(win[0], head_y, head_x, "2");
-                buffer.insert(buff_pos, "2");
-                ++buff_pos;
-                head_x += 1;
+            case KEY_UP:
+                key -= 4;
+                select -= 4;
+                if (key >= 0 && key <= 16)
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+                else
+                {
+                    key += 4;
+                    select += 4;
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+                }
                 break;
-            case 51:
-                mvwprintw(win[0], head_y, head_x, "3");
-                buffer.insert(buff_pos, "3");
-                ++buff_pos;
-                head_x += 1;
+            case KEY_RIGHT:
+                key += 1;
+                select += 1;
+                if (key > 0 && key < 16)
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+                else
+                {
+                    key -= 1;
+                    select -= 1;
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+                }
                 break;
-            case 52:
-                mvwprintw(win[0], head_y, head_x, "4");
-                buffer.insert(buff_pos, "4");
-                ++buff_pos;
-                head_x += 1;
+            case KEY_LEFT:
+                key -= 1;
+                select -= 1;
+                if (key >= 0 && key < 16)
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+                else
+                {
+                    key += 1;
+                    select += 1;
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+                }
                 break;
-            case 53:
-                mvwprintw(win[0], head_y, head_x, "5");
-                buffer.insert(buff_pos, "5");
-                ++buff_pos;
-                head_x += 1;
+            case 10:
+                if (key == 0)
+                {
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "1");
+                    head_x += 1;
+                    buffer.insert(buff_pos, "1");
+                    ++buff_pos;
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+                }
+                if (key == 1)
+                {
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "2");
+                    head_x += 1;
+                    buffer.insert(buff_pos, "2");
+                    ++buff_pos;
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+                }
+                if (key == 2)
+                {
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "3");
+                    head_x += 1;
+                    buffer.insert(buff_pos, "3");
+                    ++buff_pos;
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+                }
+                if (key == 4)
+                {
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "4");
+                    head_x += 1;
+                    buffer.insert(buff_pos, "4");
+                    ++buff_pos;
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+                }
+                if (key == 5)
+                {
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "5");
+                    head_x += 1;
+                    buffer.insert(buff_pos, "5");
+                    ++buff_pos;
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+                }
+                if (key == 6)
+                {
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "6");
+                    head_x += 1;
+                    buffer.insert(buff_pos, "6");
+                    ++buff_pos;
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+                }
+                if (key == 8)
+                {
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "7");
+                    head_x += 1;
+                    buffer.insert(buff_pos, "7");
+                    ++buff_pos;
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+                }
+                if (key == 9)
+                {
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "8");
+                    head_x += 1;
+                    buffer.insert(buff_pos, "8");
+                    ++buff_pos;
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+                }
+                if (key == 10)
+                {
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "9");
+                    head_x += 1;
+                    buffer.insert(buff_pos, "9");
+                    ++buff_pos;
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+                }
+                if (key == 12)
+                {
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "0");
+                    head_x += 1;
+                    buffer.insert(buff_pos, "0");
+                    ++buff_pos;
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+                }
+            //Operations
+                if (key == 3)
+                {
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "/");
+                    head_x += 1;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, "/");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+                }
+                if (key == 7)
+                {
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "x");
+                    head_x += 1;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, "*");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+                }
+                if (key == 11)
+                {
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "+");
+                    head_x += 1;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, "+");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+                }
+                if (key == 15)
+                {
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "-");
+                    head_x += 1;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, "-");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+                }
+            //Equals
+                if (key == 14)
+                {
+                    double res = String_Ops::parse(buffer);
+
+                    getparyx(win[0], head_y, head_x);
+                    head_y += 2;
+                    head_x += 3;
+
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "             ");
+                    Screen::create_screen(win[0], head_x + 30, head_y, TRUE, String_Ops::convert_print(res));
+
+                    buff_pos = 0;
+
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+                }
                 break;
-            case 54:
-                mvwprintw(win[0], head_y, head_x, "6");
-                buffer.insert(buff_pos, "6");
-                ++buff_pos;
-                head_x += 1;
-                break;
-            case 56:
-                mvwprintw(win[0], head_y, head_x, "7");
-                buffer.insert(buff_pos, "7");
-                ++buff_pos;
-                head_x += 1;
-                break;
-            case 57:
-                mvwprintw(win[0], head_y, head_x, "8");
-                buffer.insert(buff_pos, "8");
-                ++buff_pos;
-                head_x += 1;
-                break;
-            case 58:
-                mvwprintw(win[0], head_y, head_x, "9");
-                buffer.insert(buff_pos, "9");
-                ++buff_pos;
-                head_x += 1;
-                break;
 
-            case 465: //Keypad "plus" key
-                werase(win[0]);
-
-                height = 25; width = 25;
-                startY = (LINES - height)/2;
-                startX = (COLS - width)/2;
-
-                win[0] = Screen::create_screen(startY + 1, startX + 1, height - 21, width - 2, FALSE, '0');
-
-                getparyx(win[0], head_y, head_x);
-                head_y += 3;
-                head_x += 3;
-
-                srch_buffer = "+";
-                operands[oper_count] = String_Ops::convert(buffer);
-                ++oper_count;
-                buff_pos = 0;
-                break;
-                 //Have you tried the ASCII | UNICODE for '\r' (carriage return/enter)?
-            case 104: //makeshift "enter" key, press "h"
-                double result;
-
-                werase(win[0]);
-
-                height = 25; width = 25;
-                startY = (LINES - height)/2;
-                startX = (COLS - width)/2;
-
-                win[0] = Screen::create_screen(startY + 1, startX + 1, height - 21, width - 2, FALSE, '0');
-
-                getparyx(win[0], head_y, head_x);
-                head_y += 3;
-                head_x += 3;
-
-                operands[oper_count] = String_Ops::convert(buffer);
-                oper_count = 0;
-
-                    if (srch_buffer == "+")
-                    {
-                        result = operations::add(operands[0], operands[1]);
-                        mvwprintw(win[0], head_y - 1, head_x + 10, String_Ops::convert_print(result));
-                        srch_buffer.erase();
-                    }
-                    if (srch_buffer == "-")
-                    {
-                        operations::subtract(operands[0], operands[1]);
-
-                        srch_buffer.erase();
-                    }
-                    if (srch_buffer == "*")
-                    {
-                        operations::multiply(operands[0], operands[1]);
-
-                        srch_buffer.erase();
-                    }
-                    if (srch_buffer == "/")
-                    {
-                        operations::divide(operands[0], operands[1]);
-
-                        srch_buffer.erase();
-                    }
-                break;
-
-           /* case 43:
-                werase(win[0]);
-
-                height = 25; width = 25;
-                startY = (LINES - height)/2;
-                startX = (COLS - width)/2;
-
-                win[0] = Screen::create_screen(startY + 1, startX + 1, height - 21, width - 2, FALSE, '0');
-
-                getparyx(win[0], head_y, head_x);
-                head_y += 3;
-                head_x += 3;
-
-                break; */
         }
     }
 
