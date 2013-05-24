@@ -1,19 +1,31 @@
-#include <curses.h>
-#include <string.h>
-#include <sstream>
-#include <stdlib.h>
+#include<curses.h>
+#include<string.h>
+#include<sstream>
+#include<vector>
+#include<stdlib.h>
+#include<sstream>
+#include<set>
+#include<algorithm>
+
+#include<iostream>
+
 #include "Screen.h"
+#include "Operations.h"
 
-WINDOW *Screen::create_screen(int startY, int startX, int height, int width, bool flag, chtype num)
+WINDOW *Screen::create_screen(WINDOW *win, int y, int x, bool flag, char* num, bool hightlight)
 {
-    WINDOW *win;
-
-    win = newwin(height, width, startY, startX);
     box(win, 0, 0);
 
     if (flag == TRUE)
     {
-        mvwaddch(win, (height - 1)/2, (width)/2, num);
+        mvwprintw(win, x, y, num);
+    }
+
+    if (hightlight == TRUE)
+    {
+        wattron(win, A_REVERSE);
+        mvwprintw(win, y, x, num);
+        wattroff(win, A_REVERSE);
     }
 
     wrefresh(win);
@@ -26,7 +38,6 @@ double String_Ops::convert(std::string &s)
     double ret;
 
     iss >> ret;
-    s.erase();
 
     return ret;
 }
@@ -42,3 +53,68 @@ char* String_Ops::convert_print(double res)
 
     return ret;
 }
+
+
+double String_Ops::parse(std::string& s)
+{
+    std::vector<std::string> tokenize;
+    std::string token;
+
+    std::istringstream iss(s);
+
+    while (iss >> token)
+    {
+        tokenize.push_back(token);
+    }
+
+    while (tokenize.size() > 3)
+    {
+        String_Ops::calculate(tokenize, "*");
+        String_Ops::calculate(tokenize, "/");
+        String_Ops::calculate(tokenize, "-");
+        String_Ops::calculate(tokenize, "+");
+    }
+
+    auto operand = tokenize.begin();
+    double first = String_Ops::convert(*(operand));
+    double second = String_Ops::convert(*(operand + 2));
+
+    return operations::add(first, second);
+}
+
+std::vector<std::string> String_Ops::calculate(std::vector<std::string> &str_expression, const std::string str_operator)
+{
+
+    for (auto iter = str_expression.begin(); iter != str_expression.end(); ++iter)
+    {
+        if (*iter == str_operator)
+        {
+            double first = String_Ops::convert(*(iter - 1));
+            double second = String_Ops::convert(*(iter + 1));
+
+            double result;
+
+            if (str_operator == "*")
+                result = operations::multiply(first, second);
+            if (str_operator == "/")
+                result = operations::divide(first, second);
+            if (str_operator == "+")
+                result = operations::add(first, second);
+            if (str_operator == "-")
+                result = operations::subtract(first, second);
+
+            std::string restore;
+
+            std::ostringstream oss;
+
+            oss << result;
+            restore = oss.str();
+
+            str_expression.erase(iter - 1, iter + 2);
+            str_expression.insert(iter - 1, restore);
+        }
+    }
+
+    return str_expression;
+}
+
