@@ -110,8 +110,10 @@ std::vector<std::string> String_Ops::calculate(std::vector<std::string> &str_exp
             oss << result;
             restore = oss.str();
 
-            str_expression.erase(iter - 1, iter + 2);
-            str_expression.insert(iter - 1, restore);
+            auto new_pos = str_expression.erase(iter - 1, iter + 2);
+            str_expression.insert(new_pos, restore);
+
+            iter = str_expression.begin();
         }
     }
 
