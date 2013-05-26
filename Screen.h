@@ -7,7 +7,7 @@
 
 namespace Screen
 {
-    WINDOW *create_screen(WINDOW *win,  int height, int width, bool flag = FALSE, char* num = "a", bool hightlight = FALSE);
+    WINDOW *create_screen(WINDOW *win,  int height, int width, bool flag = FALSE, char* num = "", bool hightlight = FALSE);
 };
 
 namespace String_Ops
@@ -15,7 +15,10 @@ namespace String_Ops
     double convert(std::string &s);
     char* convert_print(double res);
     double parse(std::string &s);
-    std::vector<std::string> calculate(std::vector<std::string> &, const std::string);
+    void calculate(std::vector<std::string> &, const std::string);
+    void parentheses(std::vector<std::string>&);
+
+    /*void chk_string(const std::string&); */
 };
 
 #endif // SCREEN_H_INCLUDED
