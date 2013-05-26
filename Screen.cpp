@@ -1,13 +1,11 @@
 #include<curses.h>
-#include<string.h>
+#include<cstring>
 #include<sstream>
 #include<vector>
-#include<stdlib.h>
+#include<cstdlib>
 #include<sstream>
 #include<set>
 #include<algorithm>
-
-#include<iostream>
 
 #include "Screen.h"
 #include "Operations.h"
@@ -67,8 +65,9 @@ double String_Ops::parse(std::string& s)
         tokenize.push_back(token);
     }
 
-    while (tokenize.size() > 3)
+    while (tokenize.size() > 1)
     {
+        String_Ops::parentheses(tokenize);
         String_Ops::calculate(tokenize, "*");
         String_Ops::calculate(tokenize, "/");
         String_Ops::calculate(tokenize, "-");
@@ -76,15 +75,13 @@ double String_Ops::parse(std::string& s)
     }
 
     auto operand = tokenize.begin();
-    double first = String_Ops::convert(*(operand));
-    double second = String_Ops::convert(*(operand + 2));
+    double ret = String_Ops::convert(*(operand));
 
-    return operations::add(first, second);
+    return ret;
 }
 
-std::vector<std::string> String_Ops::calculate(std::vector<std::string> &str_expression, const std::string str_operator)
+void String_Ops::calculate(std::vector<std::string> &str_expression, const std::string str_operator)
 {
-
     for (auto iter = str_expression.begin(); iter != str_expression.end(); ++iter)
     {
         if (*iter == str_operator)
@@ -92,7 +89,7 @@ std::vector<std::string> String_Ops::calculate(std::vector<std::string> &str_exp
             double first = String_Ops::convert(*(iter - 1));
             double second = String_Ops::convert(*(iter + 1));
 
-            double result;
+            double result = 0;
 
             if (str_operator == "*")
                 result = operations::multiply(first, second);
@@ -116,7 +113,85 @@ std::vector<std::string> String_Ops::calculate(std::vector<std::string> &str_exp
             iter = str_expression.begin();
         }
     }
-
-    return str_expression;
 }
 
+void String_Ops::parentheses(std::vector<std::string> &str_expression)
+{
+    bool flag = false;
+    auto beginParen = str_expression.begin();
+    auto endParen = str_expression.begin();
+
+    for (auto iter = str_expression.begin(); iter != str_expression.end(); ++iter)
+    {
+        if (*iter == "(")
+        {
+            beginParen = iter;
+            flag = false;
+        }
+        if (*iter == ")")
+        {
+            endParen = iter;
+            flag = true;
+        }
+
+        if (flag == true)
+        {
+            size_t paren_size = endParen - (beginParen + 1);
+
+            std::vector<std::string> paren_simp ( paren_size );
+            copy(beginParen + 1, endParen, paren_simp.begin()); //paren_simp gets expression without brackets
+
+            do
+            {
+                std::set<std::string> operatorSet { "*", "/", "+", "-" };
+
+                String_Ops::calculate(paren_simp, "*");
+                String_Ops::calculate(paren_simp, "/");
+                String_Ops::calculate(paren_simp, "-");
+                String_Ops::calculate(paren_simp, "+");
+
+                //Processing final result of simplification
+                if (paren_simp.size() == 1)
+                {
+                    //Checking open bracket
+                    if (beginParen != str_expression.begin()) //Check that open bracket is NOT the initial element
+
+                        if (operatorSet.find(*(beginParen - 1)) == operatorSet.end() &&
+                            *(beginParen - 1) != "(" )                                  //Check element before open bracket is a number
+                        {
+                            str_expression.insert(beginParen, "*");
+                        }
+
+                    //Checking close bracket
+                    if (endParen + 1 != str_expression.end()) //Close bracket is NOT the last element.
+                    {
+                        if (operatorSet.find(*(endParen + 1)) == operatorSet.end() &&
+                            *(endParen + 1) != ")" || *(endParen + 1) == "(" )        //Check element after close bracket is a number
+                        {
+                            endParen = str_expression.insert(endParen + 1, "*") - 1;
+                        }
+                        else
+                        {
+                            /*Note to self: Special operators (cos, sin, tan, "(", etc.) needs special consideration here.*/
+                        }
+                    }
+
+                    auto newpos = str_expression.erase(beginParen, endParen + 1);
+                    str_expression.insert(newpos, *paren_simp.begin());
+                    iter = str_expression.begin();
+                    flag = false;
+                }
+                // End of process
+
+            } while (paren_simp.size() > 1);
+        }
+    }
+}
+
+
+/*
+void chk_string(const std::string &str)
+{
+    std::set<char> function_list { '+', '*', '-', '/' };
+}
+*/
