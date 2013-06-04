@@ -1,3 +1,17 @@
+//Looking for some advice on this. I distinguished the operators into 3 kinds
+
+//1) Binary operators - requires operand on both lhs and rhs
+//2) Unary operators - requires operand on only the right side
+//3) Unary number modifier - ie. Pi and percentage. Can either be rhs or lhs.
+
+//Is that all that's needed? I'm not sure what EXP, Ans, e, Inv, x! and ln mean though on the Google scientific calculator.
+//Also it seems tan, cos and sin functions are giving incorrect answers, at least when I compare to the calculator.
+
+//To do: 1) Square root(s.r), percentage(per), backspace/reset(c) has yet to be implemented.
+//       2) Previously mentioned functions pending due to lack of knowledge =(
+//       3) Previous answer capability.
+//       4) ???
+
 #include <curses.h>
 #include <string>
 #include <sstream>
@@ -7,13 +21,14 @@
 
 int main()
 {
-    WINDOW *win[20];
+    WINDOW *win[27];
     MEVENT mouseinput;
-    int height = 21, width = 50; //Main window size.
-    char* num[] = { "1", "2", "3", "/", "(",
-                    "4", "5", "6", "X", ")",
-                    "7", "8", "9", "+", "-",
-                    "0", ".", "=",};
+    int height = 25, width = 50; //Main window size.
+    char* num[] = { "c", "per", "(", ")", "log",
+                    "7", "8", "9", "/", "sin",
+                    "4", "5", "6", "x", "cos",
+                    "1", "2", "3", "-", "tan",
+                    "0", ".", "=", "+", "s.r" };
 
     initscr();
     noecho();
@@ -30,12 +45,12 @@ int main()
     startY += 4;
     startX += 1;
 
-    for (size_t x = 0; x < 18; x++)
+    for (size_t x = 0; x < 25; x++)
     {
-        win[x + 2] = newwin(height = 4, width = 5, startY, startX);
+        win[x + 2] = newwin(height = 4, width = 6, startY, startX);
         Screen::create_screen(win[x + 2], 2, 2, TRUE, num[x], FALSE);
 
-        if (x == 4 || x == 9 || x == 14)
+        if (x == 4 || x == 9 || x == 14 || x == 19)
         {
             startY += 4;
             startX -= 24;
@@ -56,6 +71,7 @@ int main()
 
     std::string buffer;
     size_t buff_pos = 0;
+    size_t c_parenCnt = 0;
 
     int head_y, head_x;
     getparyx(win[0], head_y, head_x);
@@ -65,18 +81,18 @@ int main()
 
     while (1)
     {
-        height = 20; width = 50;
+        height = 25; width = 50;
         startY = 4;
         startX = 4;
 
         c = wgetch(win[1]);
 
-        for (size_t x = 0; x < 18; x++)
+        for (size_t x = 0; x < 25; x++)
         {
-            win[x + 2] = newwin(height = 4, width = 5, startY, startX);
+            win[x + 2] = newwin(height = 4, width = 6, startY, startX);
             Screen::create_screen(win[x + 2], 2, 2, TRUE, num[x], FALSE);
 
-            if (x == 4 || x == 9 || x == 14)
+            if (x == 4 || x == 9 || x == 14 || x == 19)
             {
                 startY += 4;
                 startX -= 24;
@@ -90,7 +106,7 @@ int main()
             case KEY_DOWN:
                 key += 5;
                 select += 5;
-                if (key >= 0 && key < 18)
+                if (key >= 0 && key < 25)
                     Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
                 else
                 {
@@ -102,7 +118,7 @@ int main()
             case KEY_UP:
                 key -= 5;
                 select -= 5;
-                if (key >= 0 && key <= 18)
+                if (key >= 0 && key <= 25)
                     Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
                 else
                 {
@@ -114,7 +130,7 @@ int main()
             case KEY_RIGHT:
                 key += 1;
                 select += 1;
-                if (key > 0 && key < 18)
+                if (key > 0 && key < 25)
                     Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
                 else
                 {
@@ -126,7 +142,7 @@ int main()
             case KEY_LEFT:
                 key -= 1;
                 select -= 1;
-                if (key >= 0 && key < 18)
+                if (key >= 0 && key < 25)
                     Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
                 else
                 {
@@ -138,7 +154,8 @@ int main()
 
             //Calculator keypad
             case 10:
-                if (key == 0)
+
+                if (key == 15)
                 {
                     Screen::create_screen(win[0], head_x, head_y, TRUE, "1");
                     head_x += 1;
@@ -146,7 +163,8 @@ int main()
                     ++buff_pos;
                     Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
                 }
-                if (key == 1)
+
+                if (key == 16)
                 {
                     Screen::create_screen(win[0], head_x, head_y, TRUE, "2");
                     head_x += 1;
@@ -154,7 +172,7 @@ int main()
                     ++buff_pos;
                     Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
                 }
-                if (key == 2)
+                if (key == 17)
                 {
                     Screen::create_screen(win[0], head_x, head_y, TRUE, "3");
                     head_x += 1;
@@ -162,7 +180,7 @@ int main()
                     ++buff_pos;
                     Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
                 }
-                if (key == 5)
+                if (key == 10)
                 {
                     Screen::create_screen(win[0], head_x, head_y, TRUE, "4");
                     head_x += 1;
@@ -170,7 +188,7 @@ int main()
                     ++buff_pos;
                     Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
                 }
-                if (key == 6)
+                if (key == 11)
                 {
                     Screen::create_screen(win[0], head_x, head_y, TRUE, "5");
                     head_x += 1;
@@ -178,7 +196,7 @@ int main()
                     ++buff_pos;
                     Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
                 }
-                if (key == 7)
+                if (key == 12)
                 {
                     Screen::create_screen(win[0], head_x, head_y, TRUE, "6");
                     head_x += 1;
@@ -186,7 +204,7 @@ int main()
                     ++buff_pos;
                     Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
                 }
-                if (key == 10)
+                if (key == 5)
                 {
                     Screen::create_screen(win[0], head_x, head_y, TRUE, "7");
                     head_x += 1;
@@ -194,7 +212,7 @@ int main()
                     ++buff_pos;
                     Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
                 }
-                if (key == 11)
+                if (key == 6)
                 {
                     Screen::create_screen(win[0], head_x, head_y, TRUE, "8");
                     head_x += 1;
@@ -202,7 +220,7 @@ int main()
                     ++buff_pos;
                     Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
                 }
-                if (key == 12)
+                if (key == 7)
                 {
                     Screen::create_screen(win[0], head_x, head_y, TRUE, "9");
                     head_x += 1;
@@ -210,7 +228,7 @@ int main()
                     ++buff_pos;
                     Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
                 }
-                if (key == 15)
+                if (key == 20)
                 {
                     Screen::create_screen(win[0], head_x, head_y, TRUE, "0");
                     head_x += 1;
@@ -219,8 +237,8 @@ int main()
                     Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
                 }
 
-            //Operations
-                if (key == 3)
+            //Basic operations
+                if (key == 8)
                 {
                     Screen::create_screen(win[0], head_x, head_y, TRUE, "/");
                     head_x += 1;
@@ -232,7 +250,7 @@ int main()
                     ++buff_pos;
                     Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
                 }
-                if (key == 8)
+                if (key == 13)
                 {
                     Screen::create_screen(win[0], head_x, head_y, TRUE, "x");
                     head_x += 1;
@@ -244,7 +262,7 @@ int main()
                     ++buff_pos;
                     Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
                 }
-                if (key == 13)
+                if (key == 23)
                 {
                     Screen::create_screen(win[0], head_x, head_y, TRUE, "+");
                     head_x += 1;
@@ -256,7 +274,7 @@ int main()
                     ++buff_pos;
                     Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
                 }
-                if (key == 14)
+                if (key == 18)
                 {
                     Screen::create_screen(win[0], head_x, head_y, TRUE, "-");
                     head_x += 1;
@@ -268,7 +286,9 @@ int main()
                     ++buff_pos;
                     Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
                 }
-                if (key == 4)
+
+                //Parentheses
+                if (key == 2)
                 {
                     Screen::create_screen(win[0], head_x, head_y, TRUE, "(");
                     head_x += 1;
@@ -280,7 +300,7 @@ int main()
                     ++buff_pos;
                     Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
                 }
-                if (key == 9)
+                if (key == 3)
                 {
                     Screen::create_screen(win[0], head_x, head_y, TRUE, ")");
                     head_x += 1;
@@ -291,19 +311,149 @@ int main()
                     buffer.insert(buff_pos, " ");
                     ++buff_pos;
                     Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+
+                    if (c_parenCnt > 0)
+                    {
+                        --c_parenCnt;
+                    }
+                }
+
+                //Special operations
+                if (key == 4)
+                {
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "log");
+                    head_x += 3;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, "log");
+                    buff_pos += 3;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, "(");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+
+                    ++c_parenCnt;
+
+                }
+                if (key == 9)
+                {
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "sin");
+                    head_x += 3;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, "sin");
+                    buff_pos += 3;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, "(");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+
+                    ++c_parenCnt;
+                }
+                if (key == 14)
+                {
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "cos");
+                    head_x += 3;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, "cos");
+                    buff_pos += 3;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, "(");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+
+                    ++c_parenCnt;
+                }
+                if (key == 19)
+                {
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "tan");
+                    head_x += 3;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, "tan");
+                    buff_pos += 3;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, "(");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+
+                    ++c_parenCnt;
+                }
+                if (key == 24)
+                {
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "s.r");
+                    head_x += 3;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, "s.r");
+                    buff_pos += 3;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, "(");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
+
+                    ++c_parenCnt;
+                }
+
+            //Misc operations
+            if (key == 1)
+                {
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "per");
+                    head_x += 1;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, "per");
+                    ++buff_pos;
+                    buffer.insert(buff_pos, " ");
+                    ++buff_pos;
+                    Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
                 }
 
             //Equals
-                if (key == 17)
+                if (key == 22)
                 {
-                    double res = String_Ops::parse(buffer);
+                    while (c_parenCnt > 0)
+                    {
+                        buffer.insert(buff_pos, " ");
+                        ++buff_pos;
+                        buffer.insert(buff_pos, ")");
+                        ++buff_pos;
+                        buffer.insert(buff_pos, " ");
+                        ++buff_pos;
+                        --c_parenCnt;
+                    }
 
                     getparyx(win[0], head_y, head_x);
                     head_y += 2;
                     head_x += 3;
 
-                    Screen::create_screen(win[0], head_x, head_y, TRUE, "             ");
-                    Screen::create_screen(win[0], head_x + 30, head_y, TRUE, String_Ops::convert_print(res));
+                    if (String_Ops::chk_string(buffer))
+                    {
+                        double res = String_Ops::parse(buffer);
+                        Screen::create_screen(win[0], head_x, head_y, TRUE, "             ");
+                        Screen::create_screen(win[0], head_x + 30, head_y, TRUE, String_Ops::convert_print(res));
+                    }
+                    else
+                    {
+                        Screen::create_screen(win[0], head_x, head_y, TRUE, "             ");
+                        Screen::create_screen(win[0], head_x + 30, head_y, TRUE, "Error");
+                    }
 
                     buff_pos = 0;
                     buffer.erase();
@@ -311,6 +461,8 @@ int main()
                     Screen::create_screen(win[key + 2], 2, 2, TRUE, num[select], TRUE);
                 }
                 break;
+
+
 
         }
     }
