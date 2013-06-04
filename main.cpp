@@ -321,7 +321,7 @@ int main()
                 //Special operations
                 if (key == 4)
                 {
-                    Screen::create_screen(win[0], head_x, head_y, TRUE, "log");
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "log(");
                     head_x += 3;
                     buffer.insert(buff_pos, " ");
                     ++buff_pos;
@@ -340,7 +340,7 @@ int main()
                 }
                 if (key == 9)
                 {
-                    Screen::create_screen(win[0], head_x, head_y, TRUE, "sin");
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "sin(");
                     head_x += 3;
                     buffer.insert(buff_pos, " ");
                     ++buff_pos;
@@ -358,7 +358,7 @@ int main()
                 }
                 if (key == 14)
                 {
-                    Screen::create_screen(win[0], head_x, head_y, TRUE, "cos");
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "cos(");
                     head_x += 3;
                     buffer.insert(buff_pos, " ");
                     ++buff_pos;
@@ -376,7 +376,7 @@ int main()
                 }
                 if (key == 19)
                 {
-                    Screen::create_screen(win[0], head_x, head_y, TRUE, "tan");
+                    Screen::create_screen(win[0], head_x, head_y, TRUE, "tan(");
                     head_x += 3;
                     buffer.insert(buff_pos, " ");
                     ++buff_pos;
