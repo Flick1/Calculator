@@ -1,0 +1,60 @@
+In Delay-Time Chat
+
+//Looking for some advice on this. I distinguished the operators into 3 kinds
+
+//1) Binary operators - requires operand on both lhs and rhs
+//2) Unary operators - requires operand on only the right side
+//3) Unary number modifier - ie. Pi and percentage. Can either be rhs or lhs.
+
+//   I didn't really spot your "Pi" and "%" signs in your code. You could easily
+//   write a string literal function for these, displaying "Pi" and "%" on the
+//   interface while in the background you have _Pi or _Per (percent).
+
+//Is that all that's needed? I'm not sure what EXP, Ans, e, Inv, x! and ln mean though on the Google scientific calculator.
+//Also it seems tan, cos and sin functions are giving incorrect answers, at least when I compare to the calculator.
+
+//   How inaccurate? Give some example numbers. I know that some calculators may be more precise than compiler
+//   implementation for the console.
+//Explanations:
+//   -EXP: Probably means exponent as in the next number you punch in will become the prior's exponent. Don't
+//      really know how accurate this is as I always use the carat symbol in my calculator.
+//   -Ans: This brings up the previously calculated answer as a variable to use in the next expression.
+//      For example:
+//              Input   |   Output
+//               3+2    |     5
+//              Ans+3   |     8
+//   -e is the natural number, or Euler's constant. It is about 2.718, but search up the constant to be sure.
+//      The natural number is used in many applications like the natural logarithm (ln) which in the C++ cmath
+//      library is represented by the function log(double).
+//   -Inv: will invert the number, like Inv(x) = 1/x and so forth. Just use an inverse symbol if you have one
+//      that looks like the -1 exponent.
+//   -x!: This will return the factorial of x, which is defined to be the multiplicative sum of x and all integers
+//      below x until 1. For example: 5! = 5*4*3*2*1 = 120
+//      In expanded form, x! = x*(x-1)*(x-2)*(x-3)*...*1
+//      There is a factorial for decimals, but it is really complicated.
+//      Look in my factorial files for those functions. Dunno if cmath provides one for regular factoial.
+//   -ln: This is the logarithm with base e, the natural logarithm. ln(x) = log(x)/log(e). In C++, ln is represented
+//      in the cmath library as log(double). Why the people of ISO decided to use log instead of ln, (which really
+//      denotes logarithm with base 10) is beyond me. In case you also do not know what a logarithm is: the logarithm
+//      of a number is basically the reverse process of an exponentiation. If 2^6 = 64, then log(2)(64) = 6. Thanks
+//      to the relations of exponents, log(2)(64) = log(64)/log(2) = log(3)(64)/log(3)(2) = ... = 6
+//      The form of a logarithm is log(b)(a) where b is the base and a is the input. b is usually written as a
+//      subscript. As you can tell, I was unable to do that here.
+//This is basic stuff you really should have learned as early as 9th grade, maybe even earlier.
+
+//To do: 1) Square root(s.r), percentage(per), backspace/reset(c) has yet to be implemented.
+//       2) Previously mentioned functions pending due to lack of knowledge =(
+//       3) Previous answer capability.
+//       4) ???
+
+//You should denote square root by something else like "sqrt" as in the cmath library. I kept looking at "s.r"
+//   in your code wondering if s was an object.
+
+//Note about your Screen.cpp file: You have a lot of local variables that are the same thing and should be constant.
+//  Why not declare them as global constants, so you don't have to copy/paste all of them? If you are really against
+//   any kind of global variable, you can wrap them in a separate namespace or something. You can also put them
+//   in the Constants.h header file if you want (but wrap them in a namespace if you do put them there.)
+
+
+Also, sorry about lagging behind. I'll try to clean up my implementations and help you wherever I can.
+~Daleth~
