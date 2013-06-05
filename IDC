@@ -40,7 +40,6 @@ In Delay-Time Chat
 //      to the relations of exponents, log(2)(64) = log(64)/log(2) = log(3)(64)/log(3)(2) = ... = 6
 //      The form of a logarithm is log(b)(a) where b is the base and a is the input. b is usually written as a
 //      subscript. As you can tell, I was unable to do that here.
-//This is basic stuff you really should have learned as early as 9th grade, maybe even earlier.
 
 //To do: 1) Square root(s.r), percentage(per), backspace/reset(c) has yet to be implemented.
 //       2) Previously mentioned functions pending due to lack of knowledge =(
