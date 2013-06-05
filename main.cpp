@@ -1,17 +1,3 @@
-//Looking for some advice on this. I distinguished the operators into 3 kinds
-
-//1) Binary operators - requires operand on both lhs and rhs
-//2) Unary operators - requires operand on only the right side
-//3) Unary number modifier - ie. Pi and percentage. Can either be rhs or lhs.
-
-//Is that all that's needed? I'm not sure what EXP, Ans, e, Inv, x! and ln mean though on the Google scientific calculator.
-//Also it seems tan, cos and sin functions are giving incorrect answers, at least when I compare to the calculator.
-
-//To do: 1) Square root(s.r), percentage(per), backspace/reset(c) has yet to be implemented.
-//       2) Previously mentioned functions pending due to lack of knowledge =(
-//       3) Previous answer capability.
-//       4) ???
-
 #include <curses.h>
 #include <string>
 #include <sstream>
