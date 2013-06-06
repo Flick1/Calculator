@@ -28,6 +28,7 @@
 		double Dot(const initializer_list<double>&,const VectorData&);
 		double Dot(const VectorData&,const initializer_list<double>&);
 		double Dot(const VectorData&,const VectorData&);
+		double Dot(const double[],const double[]);
 
 		VectorData Cross(const initializer_list<initializer_list<double>>&);
 		VectorData Cross(const initializer_list<VectorData>&);
@@ -51,11 +52,8 @@
 				virtual size_t size()const;
 				virtual void Add(double);
 				virtual void Replace(unsigned,double);
-				virtual void Replace(int,double);
 				virtual void Truncate(unsigned);
-				virtual void Truncate(int);
 				virtual void Erase(unsigned);
-				virtual void Erase(int);
 
 				virtual void Empty();
 
@@ -92,6 +90,7 @@
 					//Vector will always have at least two components
 				std::vector<double> components, directions, r_directions;
 				double magnitude;
+				//Garbage collector
 				double Zero__;
 			protected:
 				virtual void Update();

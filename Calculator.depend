@@ -17,7 +17,7 @@
 1365976510 source:c:\users\depes crystalline\documents\github\calculator\add.cpp
 	"Operations.h"
 
-1366073875 c:\users\depes crystalline\documents\github\calculator\operations.h
+1366597684 c:\users\depes crystalline\documents\github\calculator\operations.h
 	<string>
 	<initializer_list>
 
@@ -29,35 +29,43 @@
 	"Operations.h"
 	<cmath>
 
-1366073677 source:c:\users\depes crystalline\documents\github\calculator\fractions.cpp
+1366597778 source:c:\users\depes crystalline\documents\github\calculator\fractions.cpp
 	"Operations.h"
+	"Constants.h"
 	<sstream>
 	<cmath>
 
-1365981167 source:c:\users\depes crystalline\documents\github\calculator\handler.cpp
+1367191882 source:c:\users\depes crystalline\documents\github\calculator\handler.cpp
 	"Handler.h"
 	"Input.h"
 	"Output.h"
 	"Operations.h"
+	<iostream>
+	<sstream>
 
 1365976510 c:\users\depes crystalline\documents\github\calculator\handler.h
 	<sstream>
 
-1365976510 c:\users\depes crystalline\documents\github\calculator\input.h
+1367191882 c:\users\depes crystalline\documents\github\calculator\input.h
 	<iostream>
 
 1365976510 c:\users\depes crystalline\documents\github\calculator\output.h
 	<iostream>
 	<sstream>
 
-1365976510 source:c:\users\depes crystalline\documents\github\calculator\main.cpp
-	"Handler.h"
-
-1365976510 source:c:\users\depes crystalline\documents\github\calculator\multiply.cpp
+1370478408 source:c:\users\depes crystalline\documents\github\calculator\main.cpp
+	<curses.h>
+	<string>
+	<sstream>
+	"Screen.h"
 	"Operations.h"
 
-1365976510 source:c:\users\depes crystalline\documents\github\calculator\subtract.cpp
+1366073758 source:c:\users\depes crystalline\documents\github\calculator\multiply.cpp
 	"Operations.h"
+
+1366431046 source:c:\users\depes crystalline\documents\github\calculator\subtract.cpp
+	"Operations.h"
+	"Storage.h"
 
 1366610971 source:c:\users\depes\documents\github\calculator\fractions.cpp
 	"Operations.h"
@@ -187,4 +195,59 @@
 	<vector>
 	<string>
 	<list>
+
+1366597850 source:c:\users\depes crystalline\documents\github\calculator\area.cpp
+	"Geometry.h"
+	"Constants.h"
+	<cmath>
+
+1366597694 c:\users\depes crystalline\documents\github\calculator\geometry.h
+
+1370485891 c:\users\depes crystalline\documents\github\calculator\constants.h
+	<cstddef>
+
+1365976510 source:c:\users\depes crystalline\documents\github\calculator\factorials.cpp
+	"Operations.h"
+	<cmath>
+
+1366431046 source:c:\users\depes crystalline\documents\github\calculator\logarithms.cpp
+	"Operations.h"
+	<cmath>
+
+1370478408 c:\users\depes crystalline\documents\github\calculator\screen.h
+	<curses.h>
+	<string>
+	<vector>
+
+1366431046 source:c:\users\depes crystalline\documents\github\calculator\pow & square.cpp
+	<cmath>
+	"Operations.h"
+
+1366597346 source:c:\users\depes crystalline\documents\github\calculator\storage.cpp
+	<iostream>
+	<vector>
+	<string>
+	<algorithm>
+	"Handler.h"
+	"Storage.h"
+
+1366597346 c:\users\depes crystalline\documents\github\calculator\storage.h
+	<iostream>
+	<vector>
+	<string>
+
+1366597797 source:c:\users\depes crystalline\documents\github\calculator\surface_areafunct.cpp
+	"Geometry.h"
+	"Constants.h"
+	<cmath>
+
+1366597789 source:c:\users\depes crystalline\documents\github\calculator\trig_funct.cpp
+	"Operations.h"
+	"Geometry.h"
+	"Constants.h"
+	<cmath>
+
+1366597785 source:c:\users\depes crystalline\documents\github\calculator\volume.cpp
+	"Geometry.h"
+	"Constants.h"
 
