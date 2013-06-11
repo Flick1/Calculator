@@ -2,20 +2,38 @@
 
 double operations::subtract(double first,double second)
 {
-    double sum = first - second;
-
-    return sum;
-
+    return (first - second);
 }
 
-double operations::add(double a, double b)
+double operations::add(double first, double second)
 {
-    return a+b;
+    return (first + second);
 }
 
-double operations::divide(double firstInput, double secondInput)
+double operations::multiply(double first, double second)
 {
-        if(secondInput != 0)
-                return firstInput/secondInput;
+    return (first * second);
+}
+
+double operations::divide(double first, double second)
+{
+        if(second != 0)
+                return first/second;
         else    throw 0x0BAD00;
+}
+
+double operations::Percentage(double number)
+{
+    return number / 100;
+}
+
+int operations::Exponent(double first, double second)
+{
+    while (second != 0)
+    {
+        first *= 10;
+        --second;
+    }
+
+    return first;
 }
