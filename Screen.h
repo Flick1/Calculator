@@ -4,6 +4,7 @@
 #include<curses.h>
 #include<string>
 #include<vector>
+#include<set>
 
 namespace Screen
 {
@@ -21,14 +22,15 @@ namespace String_Ops
     double parse(std::string &s);
     void binary_calculate(std::vector<std::string>&, const std::string);
     void unary_calculate(std::vector<std::string>&, const std::string);
+    void misc_calculate(std::vector<std::string>&);
 
-    //Simplifying and editting string for final operations
+    //Simplifying and editting input for final operations
     void parentheses(std::vector<std::string>&);
-    void spec_ops(std::vector<std::string>&);
 
-    //Check validity of input
+    //Input management
     bool chk_string(const std::string&);
     bool is_num(const std::vector<std::string>::iterator&);
+    void eraser(std::string&, std::string&, size_t&, bool&);
 
 };
 
