@@ -57,3 +57,50 @@ In Delay-Time Chat
 
 Also, sorry about lagging behind. I'll try to clean up my implementations and help you wherever I can.
 ~Daleth~
+
+______________________________________________________________________________
+
+//For the tan, cos, sin, eg. tan(3) is 0.052408 whereas the Google calc displays -0.1425. Cos and sin are the same, 
+//please compare the calc result here and Google's version to see the difference.
+
+//Only things left that hasn't been added is:
+//1) Inverse
+//2) Power
+//3) rad/degree
+//4) Ans
+
+//I'll look at finishing up ans, but I'm not keen on bothering with inverse, rad/degree and power(display issues). Can
+//we just stop at that and call it a partially completed calc made for consoles (lack of keystrokes and mouse)?
+
+//There's still the list version of the calc to incorporate all the specific matrix/trigo calculations if you want to 
+//continue with this. I think it'll be more tedious than educational though, but maybe the list version is different
+//in your mind.
+
+
+//      You've selected geometry, calculating surface area of circle.
+//      
+//                     Input first operand.
+//               _______________________________                         
+//              |_______________________________| 
+//              
+//                      1     2     3  
+//
+//                      4     5     6
+//
+//                      7     8     9
+//          
+//                      .     ENTER
+//
+//
+//After the user selects the function they will enter this screen where the prog specifically asks for an int/float
+//input. Upon entering the number, the result screen wipes and request the second number. After that it spits out the
+//result.
+
+//It will be the same for every single function depending on the number of operands they require. That's what I think
+//the list version will look like, not sure what you think though.
+
+//And it's fine, sorry I didn't reply on Friday I was already asleep. This is just for practice afterall and nothing
+//serious. Olysold.
+
+
+
