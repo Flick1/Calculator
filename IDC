@@ -171,3 +171,30 @@ experience (more on groupwork). I'll be on Friday and we can discuss. I was thin
 people in but let's talk about it first.
 
 Olysold
+
+--------------------------------------------------------------------------------------
+
+I already got over my files not being used, over a month ago. I still use them 
+personally, and if you want to use them too, I can send you the reusable version of 
+the code. It includes fixes to some bugs that I was unable to figure out before. So 
+far, though, only my Fractions class and Geometry functions are reusuable. I have yet 
+to tackle my Vectors class.
+Anyway, I was at fault for writing thoses pieces of code that we didn't really need.
+
+Glad to hear that you are interested in another project.
+I think everyone knew this would be a mess. Personally, I was hoping that we would at
+least get through this one project and improve from there.
+Go ahead and bring in those people you are talking about. I tried to bring in around 
+three new people a few weeks ago, including cyberdude who messaged on the original
+thread that he was interested, but no luck.
+Even if we start the serious discussion on Friday, we can still take the opportunity
+to throw out some ideas, or brainstorming if you will.
+
+I'll start.
+Because I am currently focusing on design patterns and C++11 features, some of my 
+ideas are:
+-A project involving polymorphism and/or class hierarchy
+-Or a project that uses the Bridge, Composite, or Module pattern.
+-Or a project that makes use of smart pointers in the proper way
+
+~Daleth~
