@@ -156,6 +156,13 @@ int main()
 
             //Numerical and dot
             case 10:
+                /********************
+                 * Have you considered moving the following to a helper function
+                 *    and/or using a switch-case?
+                 * Also, you could write an enumeration whose values represent
+                 *    these number literals. It will help you quickly understand
+                 *    what these cases are related to.
+                ********************/
                 if (key == 18)
                 {
                     Screen::create_screen(win[0], head_x, head_y, TRUE, "1");
