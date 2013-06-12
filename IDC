@@ -147,5 +147,7 @@ C++ by Marc Gregoire et. al. gives a couple neat tips on how
 to effectively plan out what one is going to do before diving
 into the actual programming.
 
+Oh, also I left you some comments in other files.
+
 ~Daleth~
 
