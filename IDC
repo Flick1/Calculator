@@ -63,6 +63,13 @@ ______________________________________________________________________________
 //For the tan, cos, sin, eg. tan(3) is 0.052408 whereas the Google calc displays -0.1425. Cos and sin are the same, 
 //please compare the calc result here and Google's version to see the difference.
 
+Check your settings. You did not calculate the same values. 
+   tan(3 [degrees]) = 0.052408 | tan(3 [radians]) = -0.1425
+   PI [radians] = 180 [degrees]
+   By default all C++ functions in the cmath and math.h libraries use radians.
+      And I think our custom functions convert the parameters from degrees to 
+      radians before passing them to the standard functions.
+
 //Only things left that hasn't been added is:
 //1) Inverse
 //2) Power
@@ -75,6 +82,12 @@ ______________________________________________________________________________
 //There's still the list version of the calc to incorporate all the specific matrix/trigo calculations if you want to 
 //continue with this. I think it'll be more tedious than educational though, but maybe the list version is different
 //in your mind.
+
+Considering how dead the group is, it'll probably be best to just finish your list and call it there.
+You may want to copy/paste some of the code we wrote to use as part of a personal library. I'm in the
+process of converting my Fraction and Vector files to portable and reusuable code. Of course, if you
+incorporate code that you didn't write yourself, please give credit to where it is due. I would do
+the same for you guys.
 
 
 //      You've selected geometry, calculating surface area of circle.
@@ -102,5 +115,37 @@ ______________________________________________________________________________
 //And it's fine, sorry I didn't reply on Friday I was already asleep. This is just for practice afterall and nothing
 //serious. Olysold.
 
+Why not:
 
+------------------------------
+|       Geometry Menu        |
+|                            |
+| Area                       |
+| Volume                     |
+| Back                       |
+|                            |
+------------------------------
+And you can have submenus for the categories?
+
+I have the ASCII code of a decent pointer that
+I used in a previous project for menus. If you
+want, you can use it.
+
+By the way, what do you mean by list version? Do you mean
+something similar to the Geometry Menu above?
+
+-------------------------------------------------------------------------------
+
+See embedded replies above.
+
+After this experimental project, would you be interested in 
+working on another project together? We can try formulating
+a simple project that's building on which subject each of us 
+is currently studying. We can also--if you agree to another
+project--practice planning out our program. Professional
+C++ by Marc Gregoire et. al. gives a couple neat tips on how
+to effectively plan out what one is going to do before diving
+into the actual programming.
+
+~Daleth~
 
