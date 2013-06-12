@@ -151,3 +151,23 @@ Oh, also I left you some comments in other files.
 
 ~Daleth~
 
+----------------------------------------------------------------------------------
+
+I think I'm just gonna say screw it to the list version. But just to clarify:
+
+"By the way, what do you mean by list version? Do you mean
+something similar to the Geometry Menu above?"
+
+Yeah I mean that. I apologize though, without the list version your class/functions aren't being used. I mean me spending
+more time that doesn't benefit the both of us isn't really that great right? I figure it's best to just call it
+and move on the the next project.
+
+Thanks for the comments, the enum and switch suggestion is great never thought of that. Definitely would make things
+clearer. I'll try to be more attentive to your work and provide some kind of decent feedback as my skills
+get better (hopefully).
+
+I'm all up for another project. Pretty much figured from the get go this project would be a mess but a learning
+experience (more on groupwork). I'll be on Friday and we can discuss. I was thinking of getting 1 or 2 more 
+people in but let's talk about it first.
+
+Olysold
